@@ -1,29 +1,37 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
-import modelInstance from "./data/DinnerModel";
-import SelectDish from "./SelectDish/SelectDish";
+import modelInstance from "./data/LyricModel";
+import SearchLyric from "./SearchLyric/SearchLyric";
 import "./App.css";
+import LyricDetail from "./LyricDetail/LyricDetail";
+import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: "What's the lyric?"
-    };
+
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">{this.state.title}</h1>
+
 
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome} />
           <Route
             path="/search"
-            render={() => <SelectDish model={modelInstance} />}
+            render={() => <SearchLyric model={modelInstance} />}
+          />
+          <Route
+            path="/detail"
+            render={() => <LyricDetail model={modelInstance} />}
+          />
+          <Route
+            path="/favorite"
+            render={() => <FavoriteDetail model={modelInstance} />}
           />
         </header>
       </div>
