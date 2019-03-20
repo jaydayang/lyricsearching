@@ -6,6 +6,17 @@ import SearchLyric from "./SearchLyric/SearchLyric";
 import "./App.css";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
+//import * as firebase from 'firebase'
+
+/*const config = {
+  apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
+  authDomain: "whats-the-lyric.firebaseapp.com",
+  databaseURL: "https://whats-the-lyric.firebaseio.com",
+  projectId: "whats-the-lyric",
+  storageBucket: "whats-the-lyric.appspot.com",
+  messagingSenderId: "24922569831"
+}
+firebase.initializeApp(config)*/
 
 class App extends Component {
   constructor(props) {
