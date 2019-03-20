@@ -1,11 +1,12 @@
 {
   "name": "dinnerplanner-html-react",
   "version": "0.1.0",
-  "homepage": "https://github.com/Elenaegr/whatsthelyric.git",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "boostrap": "^2.0.0",
     "bootstrap": "^4.3.1",
+    "firebase": "^5.9.0",
     "react": "^16.8.1",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.1",
