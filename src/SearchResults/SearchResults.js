@@ -12,19 +12,16 @@ class SearchResults extends Component {
     };
   }
 
-
   componentDidMount() {
-
     modelInstance
-      .getLyrics()
+      .searchTrack("love")
 
       .then(tracks => {
-        console.log(tracks)
-
+        const lyricsResults = tracks.message.body.track_list;
+        console.log(lyricsResults);
         this.setState({
-
           status: "LOADED",
-          tracks: tracks.results
+          searchResult: lyricsResults
         });
       })
 
@@ -37,17 +34,27 @@ class SearchResults extends Component {
 
   render() {
     let lyricList = null;
-
+    const { searchResult } = this.state;
 
     switch (this.state.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = this.state.tracks.map(track => (
-
-          <li key={track.body.track.track_id}>{track.body.track.track_id}</li>
-        ));
+        lyricList = searchResult.map(
+          track => (
+            <div
+              key={track.track.commontrack_id}
+              id={track.track.commontrack_id}
+              className="col-md-4 track-result"
+            >
+              <h3>{track.track.track_name}</h3>
+              <span>{track.track.artist_name}</span>
+              <span>{track.track.album_name}</span>
+            </div>
+          )
+          //<li key={track.body.track.track_id}>{track.body.track.track_id}</li>
+        );
         break;
       default:
         lyricList = <b>Failed to load data, please try again</b>;
@@ -55,12 +62,9 @@ class SearchResults extends Component {
     }
 
     return (
-      <div className="Searching Results">
-        <h2>This is the search results component</h2>
-        <h3>Searching Results</h3>
-        <ul>{lyricList}</ul>
+      <div className="Searching-Results">
+        <div className="row">{lyricList}</div>
         <Link to="/detail">
-
           <button>Suppose this is a lyric result</button>
         </Link>
       </div>

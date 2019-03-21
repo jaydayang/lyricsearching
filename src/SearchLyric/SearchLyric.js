@@ -6,7 +6,6 @@ import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SearchLyric.css";
 
-
 class SearchLyric extends Component {
   handleClick() {
     this.props.action();
@@ -16,20 +15,11 @@ class SearchLyric extends Component {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-
-
-
-
-
-
   render() {
     return (
       <div className="SearchLyric">
-
-        <h1>Search Lyric View</h1>
-
-
         <Container>
+          <h1>Search for lyrics</h1>
           <Row>
             <Col md="8" xs="12">
               <SearchResults />
@@ -40,13 +30,9 @@ class SearchLyric extends Component {
             </Col>
           </Row>
         </Container>
-
       </div>
     );
   }
 }
 
 export default SearchLyric;
-
-
-
