@@ -1,0 +1,14 @@
+.banner {
+  width: 100%;
+}
+.bgimage {
+  width: 100%;
+  background-image: url("../Images/bg.jpeg") no-repeat;
+}
+
+.centeredtext {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

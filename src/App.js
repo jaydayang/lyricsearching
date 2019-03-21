@@ -30,6 +30,7 @@ class App extends Component {
         <NavBar />
         {/* We rended diffrent component based on the path */}
         <Route exact path="/" component={Welcome} />
+        <Route path="/Login" component={LoginAndRegister} />
         <Route
           path="/search"
           render={() => <SearchLyric model={modelInstance} />}
