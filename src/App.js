@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
+import LoginAndRegister from "./Login/Login";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
 import "./App.css";
