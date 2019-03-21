@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./LyricDetail.css";
+import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
+import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
@@ -49,8 +51,13 @@ class LyricDetail extends Component {
             case "LOADED":
                 console.log(this.state.lyric);
 
+                let originalLyrics = this.state.lyric.lyrics_body;
 
-                lyricList = <p>{this.state.lyric.lyrics_body}</p>
+                lyricList = <div>
+                    {originalLyrics.split("\n").map(i => {
+                        return <div>{i}</div>;
+                    })}
+                </div>
 
                 break;
             case "ERROR":
@@ -61,31 +68,32 @@ class LyricDetail extends Component {
         return (
             <div className="LyricDetail">
 
-                <h1>Lyric Detail View</h1>
+
                 <Container>
                     <Row>
-
-                        <Col md="6" xs="12">
-                            <AlbumInfo />
+                        <Col lg="12" md="12" xs="12">
+                            <h1>Lyric Detail</h1>
                         </Col>
 
-                    </Row>
-                </Container>
-                <Container>
-                    <Row>
+                        <Col lg="8" md="8" xs="12">
+                            <AlbumInfo parentState={this.state} />
 
-                        <Col md="6" xs="12">
-                            <h2>2.Lyrics</h2>
+                            <span className="h2">Lyrics</span>
+                            <span className="right">
+                                <Button className="margin">Add to Favorite</Button>
+
+                                <Button className="margin">Translate</Button>
+                            </span>
                             <div>{lyricList}</div>
 
 
-                        </Col>
-                        <Col md="6" xs="12">
-                            <p><Button>Add to Favorite</Button></p>
-                            <p>
-                                <Button>Translate</Button></p>
 
                         </Col>
+                        <Col lg="4" md="4" xs="12">
+                            <SimpleFavorite />
+                            <SuggestionSidebar />
+                        </Col>
+
 
                     </Row>
                 </Container>

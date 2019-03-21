@@ -23,8 +23,17 @@ class LyricModel extends ObservableModel {
   }
   getOneLyric(id) {
     return fetch(
-      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
-      { 'Origin': `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd` }
+      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
+      { 'Origin': `http://api.musixmatch.com/ws/1.1/track.lyrics.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd` }
+
+    )
+  }
+  getOneTrack(id) {
+    return fetch(
+      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
+      {
+        'Origin': `http://api.musixmatch.com/ws/1.1/track.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`
+      }
 
     )
   }
