@@ -1,9 +1,6 @@
-import React, { Component } from "react";
-import reactDOM from "react-dom";
+import React from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
-import TransitionGroup from "react-transition-group";
+import { Form, FormGroup, Label, Input } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
 
 class LoginAndRegister extends React.Component {
@@ -126,7 +123,7 @@ class Register extends React.Component {
     this.setState(prevState => {
       let newArr = [];
       for (let error of prevState.errors) {
-        if (element != error.element) {
+        if (element !== error.element) {
           newArr.push(error);
         }
       }
@@ -150,15 +147,15 @@ class Register extends React.Component {
   }
 
   sumbitRegister(e) {
-    if (this.state.username == "") {
+    if (this.state.username === "") {
       this.showErrorInformation("username", "Username cannot be empty!");
       console.log("username cannot be empty");
     }
-    if (this.state.email == "") {
+    if (this.state.email === "") {
       this.showErrorInformation("email", "Email cannot be empty!");
       console.log("username cannot be empty");
     }
-    if (this.state.password == "") {
+    if (this.state.password === "") {
       this.showErrorInformation("password", "Password cannot be empty!");
       console.log("username cannot be empty");
     }
@@ -170,13 +167,13 @@ class Register extends React.Component {
     var passwordError = null;
 
     for (let error of this.state.errors) {
-      if (error.element == "username") {
+      if (error.element === "username") {
         usernameError = error.msg;
       }
-      if (error.element == "password") {
+      if (error.element === "password") {
         passwordError = error.msg;
       }
-      if (error.element == "email") {
+      if (error.element === "email") {
         emailError = error.msg;
       }
     }
