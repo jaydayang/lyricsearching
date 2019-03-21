@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
+import LoginAndRegister from "./Login/Login";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
 import "./App.css";
@@ -30,6 +31,7 @@ class App extends Component {
         <NavBar />
         {/* We rended diffrent component based on the path */}
         <Route exact path="/" component={Welcome} />
+        <Route path="/Login" component={LoginAndRegister} />
         <Route
           path="/search"
           render={() => <SearchLyric model={modelInstance} />}

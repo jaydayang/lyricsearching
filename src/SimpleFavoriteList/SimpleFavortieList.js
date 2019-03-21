@@ -17,7 +17,7 @@ class Sidebar extends Component {
     render() {
         return (
             <div className="SimpleFavorite List">
-                <h3>This is the Favorite List Component</h3>
+                <h3>This is the Simple Favorite List Component</h3>
                 <ul>
                     <li>Song1</li>
                     <li>Song2</li>
