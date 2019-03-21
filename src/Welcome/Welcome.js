@@ -4,15 +4,7 @@ import "./Welcome.css";
 import { Container, Row, Col } from "reactstrap";
 import Login from "../Login/Login";
 import banner from "../Images/bg.jpeg";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 
 class Welcome extends Component {
   render() {
@@ -29,7 +21,7 @@ class Welcome extends Component {
               </Nav>
             </Navbar>
             <div className="bgimage">
-              <img src={banner} className="banner" />
+              <img src={banner} className="banner" alt="" />
               <div className="centeredtext">
                 <Link to="/search">Start to Explore!</Link>
               </div>

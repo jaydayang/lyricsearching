@@ -5,9 +5,9 @@ const BASE_URL = "http://api.musixmatch.com/ws/1.1/";
 const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
 
 class LyricModel extends ObservableModel {
-  constructor() {
-    super();
-  }
+  //constructor() {
+  // super();
+  //}
 
 
 
@@ -33,6 +33,29 @@ class LyricModel extends ObservableModel {
 
 
 
+<<<<<<< HEAD
+  getLyrics() {
+    return fetch(
+      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.search?q_artist=justin bieber&apikey=75a3689308a4c098e37def64c71c62dd`,
+      { 'Origin': 'http://api.musixmatch.com/ws/1.1/track.search?q_artist=justin bieber&apikey=75a3689308a4c098e37def64c71c62dd' }
+
+    )
+
+  }
+  getOneLyric(id) {
+    return fetch(
+      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
+      { 'Origin': `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd` }
+
+    )
+  }
+
+
+
+
+
+=======
+>>>>>>> 3c2a264553c534d9f0f3fa4d9da86ecdb34e9c21
 
 
   //SEARCH FOR TRACK WITH LYRIC
