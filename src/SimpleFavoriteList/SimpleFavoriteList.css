@@ -1,0 +1,27 @@
+.SimpleFavoriteList{
+    padding-bottom: 30px
+}
+.favorLi{
+  list-style-type: none;
+  margin-left:0;
+  padding:0;
+  font-size: 14px;
+  line-height: 24px;
+  
+}
+.favorUl{
+   
+    padding:0;
+}
+.viewallButton{
+    color: #f46859;
+    border-radius: 5px;
+    width: auto;
+    height:auto;
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left:10px;
+    padding-right:10px;
+    background: transparent;
+    border: 2px solid #f46859;
+}

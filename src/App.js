@@ -25,13 +25,14 @@ class App extends Component {
             path="/search"
             render={() => <SearchLyric model={modelInstance} />}
           />
-          <Route
-            path="/detail"
-            render={() => <LyricDetail model={modelInstance} />}
-          />
+
           <Route
             path="/favorite"
             render={() => <FavoriteDetail model={modelInstance} />}
+          />
+          <Route
+            path="/lyric/:id"
+            render={props => <LyricDetail id={props} model={modelInstance} />}
           />
         </header>
       </div>
