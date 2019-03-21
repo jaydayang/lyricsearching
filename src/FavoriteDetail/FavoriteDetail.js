@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./FavoriteDetail.css";
-import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar"
+import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import { Container, Row, Col } from "reactstrap";
 
 class FavoriteDetail extends Component {
@@ -18,7 +18,7 @@ class FavoriteDetail extends Component {
     render() {
         return (
             <div className="FavortieDetail">
-                <h1>FavortieDetail View</h1>
+                <h1>My favorite list</h1>
                 <Container>
                     <Row>
 
