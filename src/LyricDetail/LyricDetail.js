@@ -53,11 +53,11 @@ class LyricDetail extends Component {
 
                 let originalLyrics = this.state.lyric.lyrics_body;
 
-                lyricList = <div>
-                    {originalLyrics.split("\n").map(i => {
-                        return <div>{i}</div>;
-                    })}
-                </div>
+                lyricList =
+                    originalLyrics.split("\n").map((i, index) => {
+                        return <div key={index}>{i}</div>;
+                    })
+
 
                 break;
             case "ERROR":

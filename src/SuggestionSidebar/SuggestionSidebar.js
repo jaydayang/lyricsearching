@@ -45,7 +45,7 @@ class Sidebar extends Component {
             id={track.track.commontrack_id}
             className="col-md-12 top-track-result"
           >
-            <Link to="/detail">
+            <Link to={"/lyric/" + track.track.commontrack_id}>
               <span>{track.track.track_name}</span>
               <span> Artist: {track.track.artist_name}</span>
             </Link>
