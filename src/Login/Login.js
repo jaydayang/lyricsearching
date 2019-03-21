@@ -61,7 +61,7 @@ class Login extends React.Component {
     this.state = {};
   }
 
-  submitLogin(e) {}
+  submitLogin(e) { }
 
   render() {
     return (

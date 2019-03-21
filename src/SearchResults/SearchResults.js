@@ -24,7 +24,6 @@ class SearchResults extends Component {
           searchResult: lyricsResults
         });
       })
-
       .catch(() => {
         this.setState({
           status: "ERROR"
@@ -48,20 +47,19 @@ class SearchResults extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = searchResult.map(
+        lyricList = this.state.tracks.map(
           track => (
-            <Link
-              to="/detail"
-              key={track.track.track_id}
-              id={track.track.track_id}
+            <div
+              key={track.track.commontrack_id}
+              id={track.track.commontrack_id}
               className="col-md-4 track-result"
-              onClick={() => this.handleClick({ track })}
             >
-              <h3>{track.track.track_name}</h3>
-              <span>{track.track.artist_name}</span>
-              <br />
-              <span>{track.track.album_name}</span>
-            </Link>
+              <Link to={"/lyric/" + track.track.track_id}>
+                <h3>{track.track.track_name}</h3>
+                <span>{track.track.artist_name}</span>
+                <span>{track.track.album_name}</span>
+              </Link>
+            </div>
           )
           //<li key={track.body.track.track_id}>{track.body.track.track_id}</li>
         );
