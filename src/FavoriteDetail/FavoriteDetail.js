@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./FavoriteDetail.css";
-import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar"
+import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import { Container, Row, Col } from "reactstrap";
+import Tabs from './Tabs/Tabs';
 
 class FavoriteDetail extends Component {
     constructor(props) {
@@ -18,18 +19,21 @@ class FavoriteDetail extends Component {
     render() {
         return (
             <div className="FavortieDetail">
-                <h1>FavortieDetail View</h1>
+                <h1>My favorite list</h1>
                 <Container>
                     <Row>
 
                         <Col md="7" xs="12">
 
 
-                            <ul>
-                                <li>Song1</li>
-                                <li>Song2</li>
-                                <li>Song3</li>
-                            </ul>
+                        <Tabs>
+                            <div label="Artist">
+                            On this tab, a list of the favorite artists will be displayed
+                            </div>
+                            <div label="Track">
+                            On this tab, a list of the favorite tracks will be displayed
+                            </div>
+                        </Tabs>
                         </Col>
                         <Col md="5" xs="12">
                             <SuggestionSidebar />
@@ -42,3 +46,36 @@ class FavoriteDetail extends Component {
 }
 
 export default FavoriteDetail;
+
+
+/*
+import React from 'react';
+import { render } from "react-dom";
+
+import Tabs from './Tabs';
+
+require('./styles.css');
+
+function App() {
+  return (
+    <div>
+      <h1>Tabs Demo</h1>
+      <Tabs>
+        <div label="Gator">
+          See ya later, <em>Alligator</em>!
+        </div>
+        <div label="Croc">
+          After &apos;while, <em>Crocodile</em>!
+        </div>
+        <div label="Sarcosuchus">
+          Nothing to see here, this tab is <em>extinct</em>!
+        </div>
+      </Tabs>
+    </div>
+  );
+}
+
+const container = document.createElement('div');
+document.body.appendChild(container);
+render(<App />, container);
+*/

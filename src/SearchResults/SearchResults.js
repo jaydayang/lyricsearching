@@ -8,26 +8,34 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {
-      status: "LOADING"
+      status: "LOADING",
+      searchWord: "happy"
     };
   }
 
   componentDidMount() {
     modelInstance
-      .getLyrics()
+      .searchTrack(this.props.searchWord)
 
-      .then(response => response.json())
-      .then(data => {
+      .then(tracks => {
+        const lyricsResults = tracks.message.body.track_list;
         this.setState({
           status: "LOADED",
-          tracks: data.message.body.track_list
-        })
+          searchResult: lyricsResults
+        });
       })
       .catch(() => {
         this.setState({
           status: "ERROR"
         });
       });
+  }
+
+  //HANDLE CLICK
+  //@param trackID, ID of a track
+  //calls the rounter, hands the ID
+  handleClick(trackID) {
+    console.log("click on track", trackID.track.track.track_id);
   }
 
   render() {
@@ -64,7 +72,6 @@ class SearchResults extends Component {
     return (
       <div className="Searching-Results">
         <div className="row">{lyricList}</div>
-
       </div>
     );
   }

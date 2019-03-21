@@ -1,8 +1,19 @@
+<<<<<<< HEAD
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+=======
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/dist-server
+/tmp
+/out-tsc
+>>>>>>> 3de8c83673aa239ad7e10300f61cb79f350058eb
 
 # dependencies
 /node_modules
 
+<<<<<<< HEAD
 # testing
 /coverage
 
@@ -19,3 +30,37 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+=======
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+>>>>>>> 3de8c83673aa239ad7e10300f61cb79f350058eb
