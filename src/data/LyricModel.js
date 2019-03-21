@@ -2,7 +2,7 @@ import ObservableModel from "./ObservableModel";
 
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 const BASE_URL = "http://api.musixmatch.com/ws/1.1/";
-const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
+const API_KEY = "";
 
 class LyricModel extends ObservableModel {
   constructor() {
@@ -16,8 +16,7 @@ class LyricModel extends ObservableModel {
     const wordToSearch = lyricQuery;
     const query = `track.search?q_lyrics=${wordToSearch}&page_size=9&page=1&s_track_rating=desc&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
-    console.log(url);
-    http: return fetch(url, {
+    return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
     }).then(response => response.json());
   }
