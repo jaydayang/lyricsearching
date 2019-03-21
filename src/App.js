@@ -28,22 +28,25 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar />
-        {/* We rended diffrent component based on the path */}
-        <Route exact path="/" component={Welcome} />
-        <Route path="/Login" component={LoginAndRegister} />
-        <Route
-          path="/search"
-          render={() => <SearchLyric model={modelInstance} />}
-        />
-        <Route
-          path="/detail"
-          render={() => <LyricDetail model={modelInstance} />}
-        />
-        <Route
-          path="/favorite"
-          render={() => <FavoriteDetail model={modelInstance} />}
-        />
+        <header className="App-header">
+          <NavBar />
+
+          {/* We rended diffrent component based on the path */}
+          <Route exact path="/" component={Welcome} />
+          <Route
+            path="/search"
+            render={() => <SearchLyric model={modelInstance} />}
+          />
+
+          <Route
+            path="/favorite"
+            render={() => <FavoriteDetail model={modelInstance} />}
+          />
+          <Route
+            path="/lyric/:id"
+            render={props => <LyricDetail id={props} model={modelInstance} />}
+          />
+        </header>
       </div>
     );
   }

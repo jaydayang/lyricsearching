@@ -8,28 +8,34 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {
-      status: "LOADING"
+      status: "LOADING",
+      searchWord: "happy"
     };
   }
 
   componentDidMount() {
     modelInstance
-      .searchTrack("love")
+      .searchTrack(this.props.searchWord)
 
       .then(tracks => {
         const lyricsResults = tracks.message.body.track_list;
-        console.log(lyricsResults);
         this.setState({
           status: "LOADED",
           searchResult: lyricsResults
         });
       })
-
       .catch(() => {
         this.setState({
           status: "ERROR"
         });
       });
+  }
+
+  //HANDLE CLICK
+  //@param trackID, ID of a track
+  //calls the rounter, hands the ID
+  handleClick(trackID) {
+    console.log("click on track", trackID.track.track.track_id);
   }
 
   render() {
@@ -41,16 +47,18 @@ class SearchResults extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = searchResult.map(
+        lyricList = this.state.tracks.map(
           track => (
             <div
               key={track.track.commontrack_id}
               id={track.track.commontrack_id}
               className="col-md-4 track-result"
             >
-              <h3>{track.track.track_name}</h3>
-              <span>{track.track.artist_name}</span>
-              <span>{track.track.album_name}</span>
+              <Link to={"/lyric/" + track.track.track_id}>
+                <h3>{track.track.track_name}</h3>
+                <span>{track.track.artist_name}</span>
+                <span>{track.track.album_name}</span>
+              </Link>
             </div>
           )
           //<li key={track.body.track.track_id}>{track.body.track.track_id}</li>
@@ -64,9 +72,6 @@ class SearchResults extends Component {
     return (
       <div className="Searching-Results">
         <div className="row">{lyricList}</div>
-        <Link to="/detail">
-          <button>Suppose this is a lyric result</button>
-        </Link>
       </div>
     );
   }
