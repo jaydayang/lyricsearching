@@ -4,16 +4,6 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
-    "cors": "^2.8.5",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "react-strap": "0.0.1",
-=======
     "boostrap": "^2.0.0",
     "bootstrap": "^4.3.1",
     "firebase": "^5.9.0",
@@ -22,7 +12,6 @@
     "react-dom": "^16.8.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
->>>>>>> 3de8c83673aa239ad7e10300f61cb79f350058eb
     "reactstrap": "^7.1.0"
   },
   "scripts": {

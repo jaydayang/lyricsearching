@@ -45,7 +45,6 @@ class SearchLyric extends Component {
               <SearchResults />
             </Col>
             <Col md="4" xs="12">
-              <SimpleFavorite />
               <SuggestionSidebar />
             </Col>
           </Row>

@@ -47,7 +47,7 @@ class SearchResults extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = this.state.tracks.map(
+        lyricList = this.state.searchResult.map(
           track => (
             <div
               key={track.track.commontrack_id}
