@@ -75,6 +75,39 @@ class LyricModel extends ObservableModel {
       Origin: `${BASE_URL}${query}${API_KEY}`
     }).then(response => response.json());
   }
+
+  //SEARCH FOR AN ARTIST
+  //@param name : string with the name of the artist to search
+  //return artists with same or similar name
+  searchArtist(name) {
+    const query = `artist.search?q_artist=${name}&page_size=12&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    }).then(response => response.json());
+  }
+
+  //get all albums from an artist
+  //@artistId : int musix match ID from the artist
+  //return object with all albums from artist
+  getArtistAlbums(artistId) {
+    const query = `artist.albums.get?artist_id=${artistId}&s_release_date=desc&g_album_name=1&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    console.log("getartsitalbums");
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    }).then(response => response.json());
+  }
+  //Get all tracks from a specific album
+  //@id :int  of the album in NUM
+  // return object with all the tracks from the album
+  getAlbumTracks(id) {
+    const query = `album.tracks.get?album_id=${id}&page=1&page_size=20&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    }).then(response => response.json());
+  }
 }
 
 // Export an instance of DinnerModel

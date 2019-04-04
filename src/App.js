@@ -4,9 +4,13 @@ import Welcome from "./Welcome/Welcome";
 import LoginAndRegister from "./Login/Login";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
-import "./App.css";
+import SearchArtist from "./views/SearchArtist/SearchArtist";
+import ArtistDetailView from "./views/ArtistDetailView/ArtistDetailView";
+import AlbumDetailView from "./views/AlbumDetailView/AlbumDetailView";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
+
+import "./App.css";
 import NavBar from "./NavBar/navBar";
 import * as firebase from "firebase";
 
@@ -34,10 +38,21 @@ class App extends Component {
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome} />
           <Route
-            path="/search"
+            path="/search/"
             render={() => <SearchLyric model={modelInstance} />}
           />
-
+          <Route
+            path="/searchArtist/"
+            render={() => <SearchArtist model={modelInstance} />}
+          />
+          <Route
+            path="/artist/:id"
+            render={() => <ArtistDetailView model={modelInstance} />}
+          />
+          <Route
+            path="/album/:id"
+            render={() => <AlbumDetailView model={modelInstance} />}
+          />
           <Route
             path="/favorite"
             render={() => <FavoriteDetail model={modelInstance} />}

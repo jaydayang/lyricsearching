@@ -37,8 +37,6 @@ class SimpleFavoriteList extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.tracks[1].track);
-
         lyricList = this.state.tracks.map(song => (
           <li className="favorLi" key={song.track.track_id}>
             {song.track.track_name}
