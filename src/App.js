@@ -14,17 +14,6 @@ import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
-//import * as firebase from "firebase";
-
-// const config = {
-//   apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
-//   authDomain: "whats-the-lyric.firebaseapp.com",
-//   databaseURL: "https://whats-the-lyric.firebaseio.com",
-//   projectId: "whats-the-lyric",
-//   storageBucket: "whats-the-lyric.appspot.com",
-//   messagingSenderId: "24922569831"
-// };
-// firebase.initializeApp(config);
 
 class App extends Component {
   constructor(props) {
