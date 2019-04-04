@@ -5,8 +5,13 @@ import { Container, Row, Col } from "reactstrap";
 import Login from "../Login/Login";
 import banner from "../Images/bg.jpeg";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import fire from "../Config/Fire";
 
 class Welcome extends Component {
+  logout() {
+    fire.auth().signOut();
+  }
+
   render() {
     return (
       <Container>
@@ -18,6 +23,7 @@ class Welcome extends Component {
                 <NavItem>
                   <NavLink href="/Login">Login/Resigter</NavLink>
                 </NavItem>
+                <button onClick={this.logout}>Logout</button>
               </Nav>
             </Navbar>
             <div className="bgimage">

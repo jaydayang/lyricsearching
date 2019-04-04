@@ -11,26 +11,39 @@ import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
 
 import "./App.css";
 import NavBar from "./NavBar/navBar";
-import * as firebase from "firebase";
-
-const config = {
-  apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
-  authDomain: "whats-the-lyric.firebaseapp.com",
-  databaseURL: "https://whats-the-lyric.firebaseio.com",
-  projectId: "whats-the-lyric",
-  storageBucket: "whats-the-lyric.appspot.com",
-  messagingSenderId: "24922569831"
-};
-firebase.initializeApp(config);
+import fire from "./Config/Fire";
+import Login from "./Login/Login";
 
 class App extends Component {
-  //constructor(props) {
-  //   super(props);
-  //}
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  }
 
   render() {
     return (
       <div className="App">
+        {this.state.user
+          ? console.log(this.state.user.email + " already login")
+          : console.log("not yet login")}
+
         <header className="App-header">
           <NavBar />
 
