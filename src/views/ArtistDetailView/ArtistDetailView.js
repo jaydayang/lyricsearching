@@ -7,6 +7,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./ArtistDetailView.css";
 
 class ArtistDetailView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      artistId: this.props.match.params.id
+    };
+  }
   handleClick() {
     this.props.action();
   }
@@ -21,7 +28,7 @@ class ArtistDetailView extends Component {
         <Container>
           <Row>
             <Col md="8" xs="12">
-              <ArtistDetail />
+              <ArtistDetail artistId={this.state.artistId} />
             </Col>
             <Col md="4" xs="12">
               <SimpleFavorite />
