@@ -8,26 +8,50 @@ import "./App.css";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
 import NavBar from "./NavBar/navBar";
-import * as firebase from "firebase";
+import fire from "./Config/Fire";
+import Login from "./Login/Login";
+//import * as firebase from "firebase";
 
-const config = {
-  apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
-  authDomain: "whats-the-lyric.firebaseapp.com",
-  databaseURL: "https://whats-the-lyric.firebaseio.com",
-  projectId: "whats-the-lyric",
-  storageBucket: "whats-the-lyric.appspot.com",
-  messagingSenderId: "24922569831"
-};
-firebase.initializeApp(config);
+// const config = {
+//   apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
+//   authDomain: "whats-the-lyric.firebaseapp.com",
+//   databaseURL: "https://whats-the-lyric.firebaseio.com",
+//   projectId: "whats-the-lyric",
+//   storageBucket: "whats-the-lyric.appspot.com",
+//   messagingSenderId: "24922569831"
+// };
+// firebase.initializeApp(config);
 
 class App extends Component {
-  //constructor(props) {
-  //   super(props);
-  //}
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  }
 
   render() {
     return (
       <div className="App">
+        {this.state.user
+          ? console.log(this.state.user.email + " already login")
+          : console.log("not yet login")}
+
         <header className="App-header">
           <NavBar />
 

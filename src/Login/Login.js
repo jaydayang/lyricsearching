@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
+import fire from "../Config/Fire";
 
 class LoginAndRegister extends React.Component {
   constructor(props) {
@@ -58,20 +59,43 @@ class Login extends React.Component {
     super(props);
 
     // we put on state the properties we want to use and modify in the component
-    this.state = {};
+    this.state = {
+      email: "",
+      password: ""
+    };
+
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  submitLogin(e) { }
+  login(e) {
+    console.log("dadf" + this.state.email);
+    e.preventDefault();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(u => {})
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state.email);
+  }
 
   render() {
     return (
       <Form>
         <FormGroup>
-          <Label>Username</Label>
+          <Label>Email</Label>
           <Input
-            name="username"
-            id="username"
-            placeholder="Input your username"
+            name="email"
+            id="email"
+            placeholder="Input your Email"
+            value={this.state.email}
+            onChange={this.handleChange}
           />
         </FormGroup>
         <FormGroup>
@@ -80,14 +104,12 @@ class Login extends React.Component {
             name="password"
             id="password"
             placeholder="Input your password"
+            value={this.state.password}
+            onChange={this.handleChange}
           />
         </FormGroup>
         <FormGroup>
-          <button
-            type="button"
-            className="login-btn"
-            onClick={this.submitLogin.bind(this)}
-          >
+          <button type="button" className="login-btn" onClick={this.login}>
             Login
           </button>
         </FormGroup>
@@ -105,6 +127,27 @@ class Register extends React.Component {
       password: "",
       errors: []
     };
+    this.register = this.register.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  register(e) {
+    console.log("dadf" + this.state.email);
+    e.preventDefault();
+    fire
+      .auth()
+      .createUserAndRetrieveDataWithEmailAndPassword(
+        this.state.email,
+        this.state.password
+      )
+      .then(u => {})
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state.email);
   }
 
   showErrorInformation(element, msg) {
@@ -182,7 +225,13 @@ class Register extends React.Component {
       <Form>
         <FormGroup>
           <Label>Email</Label>
-          <Input name="email" id="email" placeholder="Input your Email" />
+          <Input
+            name="email"
+            id="email"
+            placeholder="Input your Email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
           <small>{emailError ? emailError : ""}</small>
         </FormGroup>
         <FormGroup>
@@ -200,6 +249,8 @@ class Register extends React.Component {
             name="password"
             id="password"
             placeholder="Input your password"
+            value={this.state.password}
+            onChange={this.handleChange}
           />
           <small>{passwordError ? passwordError : ""}</small>
         </FormGroup>
@@ -207,7 +258,7 @@ class Register extends React.Component {
           <button
             type="button"
             className="register-btn"
-            onClick={this.sumbitRegister.bind(this)}
+            onClick={this.register}
           >
             Register
           </button>
