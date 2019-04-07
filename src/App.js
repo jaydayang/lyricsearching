@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
-import LoginAndRegister from "./Login/Login";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
 import SearchArtist from "./views/SearchArtist/SearchArtist";
@@ -14,17 +13,6 @@ import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
-//import * as firebase from "firebase";
-
-// const config = {
-//   apiKey: "AIzaSyDvPAPkBkMNwv1tsLFxdsQBFfeWVVTSQr4",
-//   authDomain: "whats-the-lyric.firebaseapp.com",
-//   databaseURL: "https://whats-the-lyric.firebaseio.com",
-//   projectId: "whats-the-lyric",
-//   storageBucket: "whats-the-lyric.appspot.com",
-//   messagingSenderId: "24922569831"
-// };
-// firebase.initializeApp(config);
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +31,8 @@ class App extends Component {
       console.log(user);
       if (user) {
         this.setState({ user });
+        //get user' uid ////////////////
+        console.log("get user's uid" + fire.auth().currentUser.uid);
       } else {
         this.setState({ user: null });
       }
@@ -69,10 +59,7 @@ class App extends Component {
             path="/searchArtist/"
             render={() => <SearchArtist model={modelInstance} />}
           />
-          <Route
-            path="/artist/:id"
-            render={() => <ArtistDetailView model={modelInstance} />}
-          />
+          <Route path="/artist/:id" component={ArtistDetailView} />
           <Route
             path="/album/:id"
             render={() => <AlbumDetailView model={modelInstance} />}
