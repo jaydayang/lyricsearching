@@ -51,8 +51,8 @@ class LyricDetail extends Component {
 
     renderFavoriteHeart = () => {
         //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
-        if (fire.auth().currentUser = null)
-           return '';
+        /*if (fire.auth().currentUser = null)
+           return '';*/
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
           return <i className="favorite fa fa-heart" onClick={() => this.unfavoriteLyric()} />;
