@@ -6,7 +6,6 @@ import "./AlbumDetail.css";
 class AlbumDetail extends Component {
   constructor(props) {
     super(props);
-    console.log("ID", this.props);
     this.state = {
       status: "LOADING",
       //artistId: this.props.id.match.params.id
@@ -40,7 +39,7 @@ class AlbumDetail extends Component {
         trackList = <em>Loading...</em>;
         break;
       case "LOADED":
-        trackList = this.state.searchResult.map(track => (
+        trackList = searchResult.map(track => (
           <div
             key={track.track.lyrics_id}
             id={track.track.lyrics_id}

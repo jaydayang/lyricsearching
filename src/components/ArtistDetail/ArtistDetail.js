@@ -6,17 +6,15 @@ import "./ArtistDetail.css";
 class ArtistDetail extends Component {
   constructor(props) {
     super(props);
-    console.log("ID", this.props);
+
     this.state = {
-      status: "LOADING",
-      //artistId: this.props.id.match.params.id
-      artistId: "431"
+      status: "LOADING"
     };
   }
 
   componentDidMount() {
     modelInstance
-      .getArtistAlbums("431")
+      .getArtistAlbums(this.props.artistId)
 
       .then(albums => {
         const albumsResults = albums.message.body.album_list;
@@ -40,7 +38,7 @@ class ArtistDetail extends Component {
         albumList = <em>Loading...</em>;
         break;
       case "LOADED":
-        albumList = this.state.searchResult.map(album => (
+        albumList = searchResult.map(album => (
           <div
             key={album.album.album_id}
             id={album.album.album_id}

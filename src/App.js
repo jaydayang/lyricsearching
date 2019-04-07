@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
-import LoginAndRegister from "./Login/Login";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
 import SearchArtist from "./views/SearchArtist/SearchArtist";
@@ -58,10 +57,7 @@ class App extends Component {
             path="/searchArtist/"
             render={() => <SearchArtist model={modelInstance} />}
           />
-          <Route
-            path="/artist/:id"
-            render={() => <ArtistDetailView model={modelInstance} />}
-          />
+          <Route path="/artist/:id" component={ArtistDetailView} />
           <Route
             path="/album/:id"
             render={() => <AlbumDetailView model={modelInstance} />}

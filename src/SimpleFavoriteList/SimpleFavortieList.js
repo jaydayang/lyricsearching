@@ -47,6 +47,9 @@ class SimpleFavoriteList extends Component {
       case "ERROR":
         lyricList = <b>Failed to load data, please try again</b>;
         break;
+      default:
+        lyricList = <em>Loading...</em>;
+        break;
     }
 
     return (

@@ -6,8 +6,6 @@ import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 
-
-
 class LyricDetail extends Component {
 
     constructor(props) {
@@ -53,9 +51,8 @@ class LyricDetail extends Component {
 
     renderFavoriteHeart = () => {
         //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
-        /*if (! this.props.isAuthenticated) {
-          return '';
-        }*/
+        if (fire.auth().currentUser = null)
+           return '';
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
           return <i className="favorite fa fa-heart" onClick={() => this.unfavoriteLyric()} />;
@@ -87,6 +84,9 @@ class LyricDetail extends Component {
             case "ERROR":
                 lyricList = <b>Failed to load data, please try again</b>;
                 break;
+            default:
+                lyricList = <em>Loading...</em>;
+                break;
         }
 
         return (
@@ -112,8 +112,6 @@ class LyricDetail extends Component {
                             </span>
                             <div>{lyricList}</div>
 
-
-
                         </Col>
                         <Col lg="4" md="4" xs="12">
                             <SimpleFavorite />
@@ -126,7 +124,6 @@ class LyricDetail extends Component {
             </div>
         );
     }
-
 }
 
 export default LyricDetail;
