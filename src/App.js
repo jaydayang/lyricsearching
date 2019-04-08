@@ -13,6 +13,10 @@ import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faHeart);
 
 class App extends Component {
   constructor(props) {
