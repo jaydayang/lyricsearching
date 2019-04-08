@@ -6,6 +6,7 @@ import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 import fire from "../Config/Fire";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class LyricDetail extends Component {
 
@@ -56,10 +57,11 @@ class LyricDetail extends Component {
            return '';
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
-          return <i className="favorite fa fa-heart" onClick={() => this.unfavoriteLyric()} />;
+          return <FontAwesomeIcon icon={['far', 'heart']} size="2x" onClick={() => this.unfavoriteLyric()} />;
+        // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
         }
         //if the sond is the song is saved as fav the heart is colored
-        return <i className="favorite fa fa-heart-o" onClick={() => this.favoriteLyric()} />;
+        return <FontAwesomeIcon icon={['fas', 'heart']} size="2x" onClick={() => this.favoriteLyric()} />;
       };
     
     render() {
@@ -105,10 +107,12 @@ class LyricDetail extends Component {
 
                             <span className="h2">Lyrics</span>
                             <span className="right">
-                            { this.renderFavoriteHeart() }
+                            
         {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
                                 {/* <Button className="margin">Add to Favorite</Button> */}
-
+                                <span> 
+                                    { this.renderFavoriteHeart() }
+                                </span>
                                 <Button className="margin">Translate</Button>
                             </span>
                             <div>{lyricList}</div>

@@ -15,8 +15,11 @@ import fire from "./Config/Fire";
 import Login from "./Login/Login";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 
-library.add(faHeart);
+library.add(faHeart, fab, fas, far);
 
 class App extends Component {
   constructor(props) {
