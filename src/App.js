@@ -31,6 +31,8 @@ class App extends Component {
       console.log(user);
       if (user) {
         this.setState({ user });
+        //get user' uid ////////////////
+        console.log("get user's uid" + fire.auth().currentUser.uid);
       } else {
         this.setState({ user: null });
       }
