@@ -13,6 +13,7 @@ import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
+import { Redirect } from "react-router";
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
       console.log(user);
       if (user) {
         this.setState({ user });
+
         //get user' uid ////////////////
         console.log("get user's uid" + fire.auth().currentUser.uid);
       } else {
@@ -40,17 +42,16 @@ class App extends Component {
   }
 
   render() {
+    //console.log(this.state.user.email + " already login")
     return (
       <div className="App">
-        {this.state.user
-          ? console.log(this.state.user.email + " already login")
-          : console.log("not yet login")}
+        {this.state.user ? console.log(" login") : console.log("not yet login")}
 
         <header className="App-header">
           <NavBar />
-
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome} />
+          <Route path="/login/" render={() => <Login />} />
           <Route
             path="/search/"
             render={() => <SearchLyric model={modelInstance} />}

@@ -6,26 +6,55 @@ import Login from "../Login/Login";
 import banner from "../Images/bg.jpeg";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import fire from "../Config/Fire";
+import SearchBar from "../SearchBar/SearchBar";
+import FadeTransition from "../Login/Transitions/fadeTransitions";
 
 class Welcome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogin: false,
+      isLogout: true
+    };
+  }
+
   logout() {
     fire.auth().signOut();
   }
 
   render() {
+    var loginRegisterCont = null;
+    if (fire.auth().currentUser == null) {
+      this.setState = {
+        isLogin: false,
+        isLogout: true
+      };
+
+      loginRegisterCont = <Link to="/login">Login|Register</Link>;
+    } else {
+      this.setState = {
+        isLogin: true,
+        isLogout: false
+      };
+      var user = fire.auth().currentUser.email;
+      console.log("asasa");
+      loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
+    }
+
     return (
       <Container>
         <Row>
           <Col md="12" xs="12">
-            <Navbar color="light" light expand="md">
+            {/* <Navbar color="light" light expand="md">
               <NavbarBrand href="/">Find Your Lyrics</NavbarBrand>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/Login">Login/Resigter</NavLink>
+                  <SearchBar />
                 </NavItem>
-                <button onClick={this.logout}>Logout</button>
+
+                <NavItem>{loginRegisterCont}</NavItem>
               </Nav>
-            </Navbar>
+            </Navbar> */}
             <div className="bgimage">
               <img src={banner} className="banner" alt="" />
               <div className="centeredtext">
@@ -33,9 +62,6 @@ class Welcome extends Component {
               </div>
             </div>
           </Col>
-        </Row>
-        <Row>
-          <Login />
         </Row>
       </Container>
     );
