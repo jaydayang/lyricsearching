@@ -23,6 +23,27 @@ class LyricDetail extends Component {
     componentDidMount() {
         console.log(this.state.lyricId)
 
+        const script1 = document.createElement("script");
+
+        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script1.async = true;
+
+        document.body.appendChild(script1);
+
+        // const script2 = document.createElement("script");
+
+        // script2.src = "./contorl.js";
+        // script2.async = true;
+
+        // document.body.appendChild(script2);
+
+
+
+
+
+
+
+
         modelInstance
             .getOneLyric(this.state.lyricId)
             .then(response => response.json())
@@ -39,6 +60,12 @@ class LyricDetail extends Component {
                     status: "ERROR"
                 });
             });
+
+
+
+
+
+
     }
 
     onFavoriteSelect(selectedLyric)  {
@@ -62,7 +89,7 @@ class LyricDetail extends Component {
     renderFavoriteHeart = () => {
         //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
         if (fire.auth().currentUser == null)
-           return '';
+            return '';
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
           return <FontAwesomeIcon icon={['fas', 'heart']} onClick={() => this.unfavoriteLyric()} />;
@@ -115,13 +142,13 @@ class LyricDetail extends Component {
 
                             <span className="h2">Lyrics</span>
                             <span className="right">
-                            
-        {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+
+                                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
                                 {/* <Button className="margin">Add to Favorite</Button> */}
                                 <Button > { this.renderFavoriteHeart() } </Button>
                                 <Button className="margin">Translate</Button>
                             </span>
-                            <div>{lyricList}</div>
+                            <div id="google_translate_element" className="translate" >{lyricList}</div>
 
                         </Col>
                         <Col lg="4" md="4" xs="12">

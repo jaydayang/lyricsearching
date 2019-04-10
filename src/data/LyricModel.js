@@ -4,11 +4,35 @@ import fire from "../Config/Fire";
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 const BASE_URL = "http://api.musixmatch.com/ws/1.1/";
 const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
+const GOOGLE_API_KEY = "AIzaSyASsF4YkpgdBuTQNFw9e7643XjXJfo-rQc";
+
 
 class LyricModel extends ObservableModel {
   //constructor() {
   // super();
   //}
+  ArtistId = ["13774235", "56", "13774235"];
+
+
+
+  mode(artistarray) {
+    if (artistarray.length == 0)
+      return null;
+    var modeMap = {};
+    var maxEl = artistarray[0], maxCount = 1;
+    for (var i = 0; i < artistarray.length; i++) {
+      var el = artistarray[i];
+      if (modeMap[el] == null)
+        modeMap[el] = 1;
+      else
+        modeMap[el]++;
+      if (modeMap[el] > maxCount) {
+        maxEl = el;
+        maxCount = modeMap[el];
+      }
+    }
+    return maxEl;
+  }
 
   getLyrics() {
     return fetch(
@@ -22,19 +46,50 @@ class LyricModel extends ObservableModel {
   getOneLyric(id) {
     return fetch(
       `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
-      {
-        Origin: `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`
-      }
-    );
+      { Origin: `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd` }
+
+    )
   }
   getOneTrack(id) {
     return fetch(
-      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
+      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
       {
         Origin: `http://api.musixmatch.com/ws/1.1/track.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`
       }
     );
   }
+
+  // getArtistID(artistName) {
+  //   const query = `artist.search?q_artist=${artistName}&page_size=5&apikey=`;
+  //   const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+  //   return fetch(url, {
+  //     Origin: `${BASE_URL}${query}${API_KEY}`
+  //   })
+
+  // }
+
+  getRelatedArtists(artistId) {
+    const query = `artist.related.get?artist_id=${artistId}&page_size=10&page=1&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    })
+
+  }
+  getPopularSuggest(artistId) {
+    const query = `track.search?f_artist_id=${artistId}&page_size=1&s_track_rating=desc&page=1&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    })
+
+  }
+
+
+
+
+
+
 
   //SEARCH FOR TRACK WITH LYRIC
   //@param lyricQuery: words within they lyrics to search
@@ -59,6 +114,40 @@ class LyricModel extends ObservableModel {
     }).then(response => response.json());
   }
 
+  // translate() {
+
+
+
+
+  //   // Your Google Cloud Platform project ID
+  //   const projectId = '87c3c2ac44372e66acd2b14a05ceb60e4324cdc3	';
+
+  //   // Instantiates a client
+
+  //   var Translate = require('@google-cloud/translate');
+
+  //   var translate = new Translate.Translate({ projectId: projectId, });
+
+  //   // The text to translate
+  //   const text = 'Hello, world!';
+  //   // The target language
+  //   const target = 'ru';
+
+  //   // Translates some text into Russian
+  //   translate
+  //     .translate(text, target)
+  //     .then(results => {
+  //       const translation = results[0];
+
+  //       console.log(`Text: ${text}`);
+  //       console.log(`Translation: ${translation}`);
+  //     })
+  //     .catch(err => {
+  //       console.error('ERROR:', err);
+  //     });
+  // }
+
+  // translate() { require('google-translate-api'); }
   //SEARCH FOR AN ARTIST
   //@param name : string with the name of the artist to search
   //return artists with same or similar name
