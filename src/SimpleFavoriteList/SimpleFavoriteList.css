@@ -28,7 +28,7 @@
 .fa-heart {
     color: #a94442;
     font-size: 12px;
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     top: 0;
 }
@@ -37,7 +37,7 @@
 }
 .fa-heart-o {
     font-size: 12px;
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     top: 0;
 }

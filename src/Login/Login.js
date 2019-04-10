@@ -84,8 +84,6 @@ class Login extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    //let path = `/`;
-    //browserHistory.push("/");
 
     //If user login, we can get user's uid //////////////////////
     if (fire.auth().currentUser != null) {

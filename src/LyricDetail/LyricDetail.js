@@ -5,6 +5,8 @@ import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
+import fire from "../Config/Fire";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class LyricDetail extends Component {
 
@@ -20,6 +22,27 @@ class LyricDetail extends Component {
 
     componentDidMount() {
         console.log(this.state.lyricId)
+
+        const script1 = document.createElement("script");
+
+        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script1.async = true;
+
+        document.body.appendChild(script1);
+
+        // const script2 = document.createElement("script");
+
+        // script2.src = "./contorl.js";
+        // script2.async = true;
+
+        // document.body.appendChild(script2);
+
+
+
+
+
+
+
 
         modelInstance
             .getOneLyric(this.state.lyricId)
@@ -37,12 +60,18 @@ class LyricDetail extends Component {
                     status: "ERROR"
                 });
             });
+
+
+
+
+
+
     }
 
     favoriteLyric() {
         this.setState({ favorited: true });
         this.props.onFavoriteSelect(this.props.lyric);
-      }
+    }
 
     unfavoriteLyric() {
         this.setState({ favorited: false });
@@ -51,16 +80,17 @@ class LyricDetail extends Component {
 
     renderFavoriteHeart = () => {
         //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
-        /*if (fire.auth().currentUser = null)
-           return '';*/
+        if (fire.auth().currentUser == null)
+            return '';
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
-          return <i className="favorite fa fa-heart" onClick={() => this.unfavoriteLyric()} />;
+            return <FontAwesomeIcon icon={['far', 'heart']} size="2x" onClick={() => this.unfavoriteLyric()} />;
+            // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
         }
         //if the sond is the song is saved as fav the heart is colored
-        return <i className="favorite fa fa-heart-o" onClick={() => this.favoriteLyric()} />;
-      };
-    
+        return <FontAwesomeIcon icon={['fas', 'heart']} size="2x" onClick={() => this.favoriteLyric()} />;
+    };
+
     render() {
         let lyricList = null;
 
@@ -104,13 +134,15 @@ class LyricDetail extends Component {
 
                             <span className="h2">Lyrics</span>
                             <span className="right">
-                            { this.renderFavoriteHeart() }
-        {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
-                                {/* <Button className="margin">Add to Favorite</Button> */}
 
+                                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+                                {/* <Button className="margin">Add to Favorite</Button> */}
+                                <span>
+                                    {this.renderFavoriteHeart()}
+                                </span>
                                 <Button className="margin">Translate</Button>
                             </span>
-                            <div>{lyricList}</div>
+                            <div id="google_translate_element" className="translate" >{lyricList}</div>
 
                         </Col>
                         <Col lg="4" md="4" xs="12">
