@@ -1,4 +1,5 @@
 import ObservableModel from "./ObservableModel";
+import fire from "../Config/Fire";
 
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 const BASE_URL = "http://api.musixmatch.com/ws/1.1/";
@@ -102,6 +103,23 @@ class LyricModel extends ObservableModel {
       Origin: `${BASE_URL}${query}${API_KEY}`
     }).then(response => response.json());
   }
+
+  addFavoriteLyric({selectedLyric}) {
+    const userUid = fire.auth().currentUser.uid;
+    const lyricId = selectedLyric.lyrics_id;
+  
+    return fire.database().ref(userUid).update({
+      [lyricId]: selectedLyric
+    });
+  }
+  
+  removeFavoriteLyric({selectedLyric}) {
+    const userUid = fire.auth().currentUser.uid;
+    const lyricId = selectedLyric.lyrics_id;
+  
+    return fire.database().ref(userUid).child(lyricId).remove();
+  }
+
 }
 
 // Export an instance of DinnerModel

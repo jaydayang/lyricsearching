@@ -12,7 +12,6 @@ import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
 import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
-import Login from "./Login/Login";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";

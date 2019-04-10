@@ -41,14 +41,22 @@ class LyricDetail extends Component {
             });
     }
 
+    onFavoriteSelect(selectedLyric)  {
+       modelInstance.addFavoriteLyric({selectedLyric}) 
+    }
+
+    onFavoriteDeselect(selectedLyric) {
+        modelInstance.removeFavoriteLyric({selectedLyric}) 
+    }
+
     favoriteLyric() {
         this.setState({ favorited: true });
-        this.props.onFavoriteSelect(this.props.lyric);
+        this.onFavoriteSelect(this.state.lyric);
       }
 
     unfavoriteLyric() {
         this.setState({ favorited: false });
-        this.props.onFavoriteDeselect(this.props.lyric);
+        this.onFavoriteDeselect(this.state.lyric);
     }
 
     renderFavoriteHeart = () => {
@@ -57,11 +65,11 @@ class LyricDetail extends Component {
            return '';
         //if the song is not saved as fav the heart is not colored
         if (this.state.favorited) {
-          return <FontAwesomeIcon icon={['far', 'heart']} size="2x" onClick={() => this.unfavoriteLyric()} />;
+          return <FontAwesomeIcon icon={['fas', 'heart']} onClick={() => this.unfavoriteLyric()} />;
         // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
         }
         //if the sond is the song is saved as fav the heart is colored
-        return <FontAwesomeIcon icon={['fas', 'heart']} size="2x" onClick={() => this.favoriteLyric()} />;
+        return <FontAwesomeIcon icon={['far', 'heart']} onClick={() => this.favoriteLyric()} />;
       };
     
     render() {
@@ -110,9 +118,7 @@ class LyricDetail extends Component {
                             
         {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
                                 {/* <Button className="margin">Add to Favorite</Button> */}
-                                <span> 
-                                    { this.renderFavoriteHeart() }
-                                </span>
+                                <Button > { this.renderFavoriteHeart() } </Button>
                                 <Button className="margin">Translate</Button>
                             </span>
                             <div>{lyricList}</div>
