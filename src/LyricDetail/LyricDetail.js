@@ -3,10 +3,8 @@ import "./LyricDetail.css";
 import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import modelInstance from "../data/LyricModel";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
-import fire from "../Config/Fire";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class LyricDetail extends Component {
 
@@ -38,12 +36,6 @@ class LyricDetail extends Component {
         // document.body.appendChild(script2);
 
 
-
-
-
-
-
-
         modelInstance
             .getOneLyric(this.state.lyricId)
             .then(response => response.json())
@@ -61,43 +53,7 @@ class LyricDetail extends Component {
                 });
             });
 
-
-
-
-
-
     }
-
-    onFavoriteSelect(selectedLyric)  {
-       modelInstance.addFavoriteLyric({selectedLyric}) 
-    }
-
-    onFavoriteDeselect(selectedLyric) {
-        modelInstance.removeFavoriteLyric({selectedLyric}) 
-    }
-
-    favoriteLyric() {
-        this.setState({ favorited: true });
-        this.onFavoriteSelect(this.state.lyric);
-      }
-
-    unfavoriteLyric() {
-        this.setState({ favorited: false });
-        this.onFavoriteDeselect(this.state.lyric);
-    }
-
-    renderFavoriteHeart = () => {
-        //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
-        if (fire.auth().currentUser == null)
-            return '';
-        //if the song is not saved as fav the heart is not colored
-        if (this.state.favorited) {
-          return <FontAwesomeIcon icon={['fas', 'heart']} onClick={() => this.unfavoriteLyric()} />;
-        // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
-        }
-        //if the sond is the song is saved as fav the heart is colored
-        return <FontAwesomeIcon icon={['far', 'heart']} onClick={() => this.favoriteLyric()} />;
-      };
     
     render() {
         let lyricList = null;
@@ -141,13 +97,6 @@ class LyricDetail extends Component {
                             <AlbumInfo parentState={this.state} />
 
                             <span className="h2">Lyrics</span>
-                            <span className="right">
-
-                                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
-                                {/* <Button className="margin">Add to Favorite</Button> */}
-                                <Button > { this.renderFavoriteHeart() } </Button>
-                                <Button className="margin">Translate</Button>
-                            </span>
                             <div id="google_translate_element" className="translate" >{lyricList}</div>
 
                         </Col>

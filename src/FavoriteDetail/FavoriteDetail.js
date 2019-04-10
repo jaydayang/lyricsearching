@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./FavoriteDetail.css";
 import SuggestionSidebar from "../SuggestByFavorite/SuggestByFavorite";
 import { Container, Row, Col } from "reactstrap";
-import Tabs from './Tabs/Tabs';
+import Tabs from "./Tabs/Tabs";
 import { Link } from "react-router-dom";
+import fire from "../Config/Fire";
 
 class FavoriteDetail extends Component {
   constructor(props) {
@@ -18,6 +19,10 @@ class FavoriteDetail extends Component {
 
 
   render() {
+
+    var userId = fire.auth().currentUser.uid;
+    fire.database().ref(userId).on("child_added", snapshot=>console.log(snapshot.val().album_name));
+
     return (
       <div className="FavortieDetail">
         <h1>My favorite list</h1>
@@ -26,7 +31,7 @@ class FavoriteDetail extends Component {
             <Col md="7" xs="12">
               <Tabs>
                 <div label="Artist">
-                  On this tab, a list of the favorite artists will be displayed
+                  {/* On this tab, a list of the favorite artists will be displayed */}
                             </div>
                 <div label="Track">
                   On this tab, a list of the favorite tracks will be displayed
