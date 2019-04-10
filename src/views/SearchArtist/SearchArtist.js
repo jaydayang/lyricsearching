@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import SuggestionSidebar from "../../SuggestionSidebar/SuggestionSidebar";
-import SearchResults from "../../SearchResults/SearchResults";
 import ArtistsResults from "../../components/ArtistsResults/ArtistsResults";
 import SimpleFavorite from "../../SimpleFavoriteList/SimpleFavortieList";
+import TopChartArtists from "../../components/TopChartArtists/TopChartArtists";
 import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SearchArtist.css";
@@ -47,7 +46,7 @@ class SearchArtist extends Component {
             </Col>
             <Col md="4" xs="12">
               <SimpleFavorite />
-              <SuggestionSidebar />
+              <TopChartArtists />
             </Col>
           </Row>
         </Container>

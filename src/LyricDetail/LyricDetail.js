@@ -6,8 +6,6 @@ import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 
-
-
 class LyricDetail extends Component {
 
     constructor(props) {
@@ -15,7 +13,8 @@ class LyricDetail extends Component {
 
         this.state = {
             status: "LOADING",
-            lyricId: this.props.id.match.params.id
+            lyricId: this.props.id.match.params.id,
+            favorited: this.props.isFavorite
         };
     }
 
@@ -40,6 +39,28 @@ class LyricDetail extends Component {
             });
     }
 
+    favoriteLyric() {
+        this.setState({ favorited: true });
+        this.props.onFavoriteSelect(this.props.lyric);
+      }
+
+    unfavoriteLyric() {
+        this.setState({ favorited: false });
+        this.props.onFavoriteDeselect(this.props.lyric);
+    }
+
+    renderFavoriteHeart = () => {
+        //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
+        /*if (fire.auth().currentUser = null)
+           return '';*/
+        //if the song is not saved as fav the heart is not colored
+        if (this.state.favorited) {
+          return <i className="favorite fa fa-heart" onClick={() => this.unfavoriteLyric()} />;
+        }
+        //if the sond is the song is saved as fav the heart is colored
+        return <i className="favorite fa fa-heart-o" onClick={() => this.favoriteLyric()} />;
+      };
+    
     render() {
         let lyricList = null;
 
@@ -63,6 +84,9 @@ class LyricDetail extends Component {
             case "ERROR":
                 lyricList = <b>Failed to load data, please try again</b>;
                 break;
+            default:
+                lyricList = <em>Loading...</em>;
+                break;
         }
 
         return (
@@ -80,13 +104,13 @@ class LyricDetail extends Component {
 
                             <span className="h2">Lyrics</span>
                             <span className="right">
-                                <Button className="margin">Add to Favorite</Button>
+                            { this.renderFavoriteHeart() }
+        {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+                                {/* <Button className="margin">Add to Favorite</Button> */}
 
                                 <Button className="margin">Translate</Button>
                             </span>
                             <div>{lyricList}</div>
-
-
 
                         </Col>
                         <Col lg="4" md="4" xs="12">
@@ -100,7 +124,6 @@ class LyricDetail extends Component {
             </div>
         );
     }
-
 }
 
 export default LyricDetail;

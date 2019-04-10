@@ -3,6 +3,7 @@ import "./FavoriteDetail.css";
 import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import { Container, Row, Col } from "reactstrap";
 import Tabs from './Tabs/Tabs';
+import { Link } from "react-router-dom";
 
 class FavoriteDetail extends Component {
     constructor(props) {
@@ -22,10 +23,7 @@ class FavoriteDetail extends Component {
                 <h1>My favorite list</h1>
                 <Container>
                     <Row>
-
-                        <Col md="7" xs="12">
-
-
+                      <Col md="7" xs="12">
                         <Tabs>
                             <div label="Artist">
                             On this tab, a list of the favorite artists will be displayed
@@ -34,9 +32,12 @@ class FavoriteDetail extends Component {
                             On this tab, a list of the favorite tracks will be displayed
                             </div>
                         </Tabs>
-                        </Col>
+                      </Col>
                         <Col md="5" xs="12">
                             <SuggestionSidebar />
+                            <Link to="/search">
+                             <button className="viewallButton">Back to search</button>
+                            </Link>
                         </Col>
                     </Row>
                 </Container>
@@ -46,36 +47,3 @@ class FavoriteDetail extends Component {
 }
 
 export default FavoriteDetail;
-
-
-/*
-import React from 'react';
-import { render } from "react-dom";
-
-import Tabs from './Tabs';
-
-require('./styles.css');
-
-function App() {
-  return (
-    <div>
-      <h1>Tabs Demo</h1>
-      <Tabs>
-        <div label="Gator">
-          See ya later, <em>Alligator</em>!
-        </div>
-        <div label="Croc">
-          After &apos;while, <em>Crocodile</em>!
-        </div>
-        <div label="Sarcosuchus">
-          Nothing to see here, this tab is <em>extinct</em>!
-        </div>
-      </Tabs>
-    </div>
-  );
-}
-
-const container = document.createElement('div');
-document.body.appendChild(container);
-render(<App />, container);
-*/

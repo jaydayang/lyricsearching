@@ -26,24 +26,6 @@ class LyricModel extends ObservableModel {
       }
     );
   }
-
-  getLyrics() {
-    return fetch(
-      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.search?q_artist=justin bieber&apikey=75a3689308a4c098e37def64c71c62dd`,
-      {
-        Origin:
-          "http://api.musixmatch.com/ws/1.1/track.search?q_artist=justin bieber&apikey=75a3689308a4c098e37def64c71c62dd"
-      }
-    );
-  }
-  getOneLyric(id) {
-    return fetch(
-      `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
-      {
-        Origin: `http://api.musixmatch.com/ws/1.1/track.lyrics.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`
-      }
-    );
-  }
   getOneTrack(id) {
     return fetch(
       `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.get?commontrack_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
@@ -103,6 +85,18 @@ class LyricModel extends ObservableModel {
   // return object with all the tracks from the album
   getAlbumTracks(id) {
     const query = `album.tracks.get?album_id=${id}&page=1&page_size=20&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    }).then(response => response.json());
+  }
+
+  //Get the top chart of artists
+  //@country : string name of the country to get top chart from
+  //@amount : number quantity of top artists to display
+  //return the top artist of the country
+  getTopChartArtist(country, amount) {
+    const query = `chart.artists.get?page=1&page_size=${amount}&country=${country}&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`

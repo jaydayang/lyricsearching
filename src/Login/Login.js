@@ -123,7 +123,7 @@ class Login extends React.Component {
         </FormGroup>
         <FormGroup>
           <button type="button" className="login-btn" onClick={this.login}>
-            <Link to="/">Login</Link>
+            <Link to="/search">Login</Link>
           </button>
         </FormGroup>
       </Form>
@@ -273,7 +273,7 @@ class Register extends React.Component {
             className="register-btn"
             onClick={this.register}
           >
-            Register
+            <Link to="/search">Register</Link>
           </button>
         </FormGroup>
       </Form>

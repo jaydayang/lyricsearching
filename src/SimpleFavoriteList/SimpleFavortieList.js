@@ -47,6 +47,9 @@ class SimpleFavoriteList extends Component {
       case "ERROR":
         lyricList = <b>Failed to load data, please try again</b>;
         break;
+      default:
+        lyricList = <em>Loading...</em>;
+        break;
     }
 
     return (
@@ -60,24 +63,6 @@ class SimpleFavoriteList extends Component {
       </div>
     );
   }
-
-  // render() {
-  //     return (
-  //         <div className="SimpleFavoriteList">
-  //             <h3>My Favorite</h3>
-  //             <ul className="favorUl">
-  //                 <li className="favorLi">Song1</li>
-  //                 <li className="favorLi">Song2</li>
-  //                 <li className="favorLi">Song3</li>
-  //             </ul>
-  //             <Link to="/favorite">
-
-  //                 <button className="viewallButton">View All</button>
-  //             </Link>
-
-  //         </div>
-  //     );
-  // }
 }
 
 export default SimpleFavoriteList;
