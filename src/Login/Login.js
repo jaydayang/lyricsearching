@@ -3,6 +3,12 @@ import "./Login.css";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
+import { Link } from "react-router-dom";
+
+import { Redirect } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { createHashHistory } from "history";
+import { browserHistory } from "react-router-dom";
 
 class LoginAndRegister extends React.Component {
   constructor(props) {
@@ -115,7 +121,7 @@ class Login extends React.Component {
         </FormGroup>
         <FormGroup>
           <button type="button" className="login-btn" onClick={this.login}>
-            Login
+            <Link to="/search">Login</Link>
           </button>
         </FormGroup>
       </Form>
@@ -265,7 +271,7 @@ class Register extends React.Component {
             className="register-btn"
             onClick={this.register}
           >
-            Register
+            <Link to="/search">Register</Link>
           </button>
         </FormGroup>
       </Form>
