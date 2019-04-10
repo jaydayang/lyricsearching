@@ -3,7 +3,6 @@ import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import SearchBar from "../SearchBar/SearchBar";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class NavBar extends Component {
