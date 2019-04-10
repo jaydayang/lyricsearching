@@ -5,7 +5,8 @@ import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import modelInstance from "../data/LyricModel";
 import { Container, Row, Col, Button } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
-
+import { Helmet } from "react-helmet";
+const google = window.google;
 
 
 class LyricDetail extends Component {
@@ -21,6 +22,27 @@ class LyricDetail extends Component {
 
     componentDidMount() {
         console.log(this.state.lyricId)
+
+        const script1 = document.createElement("script");
+
+        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script1.async = true;
+
+        document.body.appendChild(script1);
+
+        // const script2 = document.createElement("script");
+
+        // script2.src = "./contorl.js";
+        // script2.async = true;
+
+        // document.body.appendChild(script2);
+
+
+
+
+
+
+
 
         modelInstance
             .getOneLyric(this.state.lyricId)
@@ -38,6 +60,12 @@ class LyricDetail extends Component {
                     status: "ERROR"
                 });
             });
+
+
+
+
+
+
     }
 
     render() {
@@ -84,7 +112,7 @@ class LyricDetail extends Component {
 
                                 <Button className="margin">Translate</Button>
                             </span>
-                            <div>{lyricList}</div>
+                            <div id="google_translate_element" className="translate" >{lyricList}</div>
 
 
 
