@@ -9,61 +9,48 @@ class Sidebar extends Component {
     super(props);
 
     this.state = {
-
       status: "LOADING",
       artistId: []
     };
-
   }
 
-
-
   componentDidMount() {
-
     var userId = fire.auth().currentUser.uid;
     let artistId = this.state.artistId;
-    var promise1 = new Promise(function () {
-      fire.database().ref(userId).on("child_added", snapshot => {
-        artistId.push(snapshot.val().artist_id)
-        console.log("promise in", artistId);
-        this.setState({
-          artistId: artistId
+    var promise1 = new Promise(function() {
+      fire
+        .database()
+        .ref(userId)
+        .on("child_added", snapshot => {
+          artistId.push(snapshot.val().artist_id);
+          console.log("promise in", artistId);
+          // this.setState({
+          //   artistId: artistId
+          // });
+          //  resolve(artistId);
         });
-        //  resolve(artistId);
-      })
     });
-    promise1.then(function (value) {
-      console.log("try then:", value)
+    promise1.then(function(value) {
+      console.log("try then:", value);
     });
 
     // console.log(this.state.artistId.length)
 
-
-
-
     // console.log(proxy.length)
-
-
-
 
     modelInstance
       .getRelatedArtists(modelInstance.getAppearMost(modelInstance.ArtistId))
       .then(response => response.json())
       .then(artist => {
-        console.log('relatedArtistList', artist.message.body.artist_list);
+        console.log("relatedArtistList", artist.message.body.artist_list);
         var suggestList = this.getPopularSongs(artist.message.body.artist_list);
 
         this.setState({
-
           status: "LOADED",
           relatedArtists: artist.message.body.artist_list,
           suggestList: suggestList
-
-
         });
-
-
-      })
+      });
   }
 
   getPopularSongs(artistList) {
@@ -71,12 +58,12 @@ class Sidebar extends Component {
 
     console.log("render", artistList.length);
     for (var i = 0; i < artistList.length; i++) {
-      modelInstance.getPopularSuggest(artistList[i].artist.artist_id)
+      modelInstance
+        .getPopularSuggest(artistList[i].artist.artist_id)
         .then(response => response.json())
         .then(track => {
           suggestList.push(track.message.body.track_list[0]);
-          this.setState({ status: "LOADED", })
-
+          this.setState({ status: "LOADED" });
         })
         .catch(() => {
           this.setState({
@@ -89,22 +76,11 @@ class Sidebar extends Component {
     return suggestList;
   }
 
-
-
-
-
-
-
-
-
-
-
   render() {
     let suggestList1 = [];
-    console.log(this.state.artistId)
+    console.log(this.state.artistId);
 
-    console.log(this.state.artistId.length)
-
+    console.log(this.state.artistId.length);
 
     switch (this.state.status) {
       case "LOADING":
@@ -126,7 +102,6 @@ class Sidebar extends Component {
             </Link>
           </li>
         ));
-
 
         // suggestList = this.state.suggestList.map(track => (
         //   <li
@@ -158,9 +133,7 @@ class Sidebar extends Component {
 
   //   var suggestList = [];
 
-
   //Get the related artist list based on the artist appears most in the faviorite list
-
 
   //   modelInstance
   //     .getRelatedArtists(modelInstance.mode(modelInstance.ArtistId))
@@ -171,7 +144,6 @@ class Sidebar extends Component {
 
   //         status: "LOADED",
   //         relatedArtists: artist.message.body.artist_list,
-
 
   //       });
 
@@ -193,7 +165,6 @@ class Sidebar extends Component {
   //       for (var i = 0; i < this.state.relatedArtists.length; i++) {
   //         artistIdList.push(this.state.relatedArtists[i].artist.artist_id);
   //       }
-
 
   //       break;
 
@@ -225,30 +196,12 @@ class Sidebar extends Component {
   //   console.log("rendersong", suggestList);
   //   return suggestList;
 
-
-
-
   // }
-
-
-
-
-
-
-
-
-
-
-
-
 
   // render() {
   //   let topTrackList = [];
 
-
-
   //   // console.log(this.getRelatedArtist());
-
 
   //   switch (this.state.status) {
   //     case "LOADING":
@@ -258,7 +211,6 @@ class Sidebar extends Component {
   //     case "LOADED":
 
   //       console.log(this.state.relatedArtists)
-
 
   //       // for (var i = 0; i < proxy.length; i++) {
   //       //   console.log(proxy[i]);
@@ -297,8 +249,5 @@ class Sidebar extends Component {
   //   );
   // }
 }
-
-
-
 
 export default Sidebar;

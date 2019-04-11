@@ -11,34 +11,33 @@ class FavoriteDetail extends Component {
     super(props);
 
     // we put on state the properties we want to use and modify in the component
-    this.state = {};
+    this.state = {
+      tracks: {}
+    };
   }
 
+  // componentDidMount() {
+  //   var userId = fire.auth().currentUser.uid;
+
+  //   fire
+  //     .database()
+  //     .ref(userId)
+  //     .on("child_added", snapshot => {
+  //       this.state.tracks.push(snapshot.val());
+  //     });
+
+  //   this.setState({
+  //     tracks
+  //   });
+  // }
+
   render() {
-    var userId = fire.auth().currentUser.uid;
+    // var trackitem = this.state.tracks.map(track => <div>{track}</div>);
 
-    var proxy = [];
+    // console.log(this.state.tracks);
+    // console.log(trackitem);
 
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => proxy.push(snapshot.val().album_name));
-
-    var userId = fire.auth().currentUser.uid;
-
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => console.log(snapshot.val().album_name));
-    var proxy = [];
-
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => {
-        proxy.push(snapshot.val().album_name);
-      });
-    console.log(proxy);
+    //console.log(trackitem);
 
     // var index;
     // fire.database().ref(userId).on("child_added", snapshot =>
@@ -54,7 +53,7 @@ class FavoriteDetail extends Component {
           <Row>
             <Col md="7" xs="12">
               <Tabs>
-                <div label="Artist">{proxy}</div>
+                <div label="Artist" />
                 <div label="Track">
                   On this tab, a list of the favorite tracks will be displayed
                 </div>
