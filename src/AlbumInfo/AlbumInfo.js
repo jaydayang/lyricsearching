@@ -8,18 +8,15 @@ import {  Button } from "reactstrap";
 class AlbumInfo extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      parent: this.props.parentState,
-      favorited: true
-  };
+    this.state=this.props.parentState
+    
 }
 
   componentDidMount() {
-    console.log(this.state.parent.lyricId);
+    console.log(this.state.lyricId);
 
     modelInstance
-      .getOneTrack(this.state.parent.lyricId)
+      .getOneTrack(this.state.lyricId)
       .then(response => response.json())
       .then(data => {
         console.log(data.message);
@@ -35,6 +32,7 @@ class AlbumInfo extends Component {
       });
   }
 
+
 onFavoriteSelect(selectedLyric)  {
     modelInstance.addFavoriteLyric({selectedLyric}) 
  }
@@ -45,12 +43,12 @@ onFavoriteDeselect(selectedLyric) {
 
 favoriteLyric() {
      this.setState({ favorited: true });
-     this.onFavoriteSelect(this.state.favorited.track);
+     this.onFavoriteSelect(this.state.track);
    }
 
 unfavoriteLyric() {
      this.setState({ favorited: false });
-     this.onFavoriteDeselect(this.state.favorited.track);
+     this.onFavoriteDeselect(this.state.track);
  }
 
 renderFavoriteHeart = () => {
@@ -69,19 +67,19 @@ renderFavoriteHeart = () => {
   render() {
     let lyricList = null;
 
-    switch (this.state.parent.status) {
+    switch (this.state.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.parent.track);
+        console.log(this.state.track);
 
         lyricList = (
           <div>
-            <h2>{this.state.parent.track.track_name}</h2>
+            <h2>{this.state.track.track_name}</h2>
             <Button > { this.renderFavoriteHeart() } </Button>
-            <p>Artist Name:{this.state.parent.track.artist_name}</p>
-            <p>Album Name:{this.state.parent.track.album_name}</p>
+            <p>Artist Name:{this.state.track.artist_name}</p>
+            <p>Album Name:{this.state.track.album_name}</p>
           </div>
         );
 
