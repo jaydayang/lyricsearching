@@ -19,7 +19,6 @@ class FavoriteDetail extends Component {
 
   componentDidMount(){
     var userId = fire.auth().currentUser.uid;
-    var userId = fire.auth().currentUser.uid;
     
     let artist = this.state.artist;
     fire.database().ref(userId).on("child_added", snapshot => {

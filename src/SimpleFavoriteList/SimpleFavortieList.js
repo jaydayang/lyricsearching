@@ -2,24 +2,49 @@ import React, { Component } from "react";
 import "./SimpleFavoriteList.css";
 import modelInstance from "../data/LyricModel";
 import { Link } from "react-router-dom";
+import FavoriteDetail from "../FavoriteDetail/FavoriteDetail";
+import fire from "../Config/Fire";
 
 class SimpleFavoriteList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      status: "LOADING"
+      status: "LOADING",
+      track: []
     };
   }
 
+  getTopChart(num){
+    const getNum = num > this.state.track.length? this.state.track.length: num; 
+    if(getNum == 0){
+      return '';
+    }else{
+      console.log("sliced tracks",this.state.track.slice(0, getNum-1));
+      return this.state.track.slice(0, getNum-1);
+    }
+    
+  }
+
   componentDidMount() {
+    var userId = fire.auth().currentUser.uid;
+    let thisComponent = this;
+    let track = this.state.track;
+    fire.database().ref(userId).on("child_added", snapshot => {
+      track.push(snapshot.val())
+      this.setState({
+        track
+      });
+      //thisComponent.getTopChart(5);
+    })
+
     modelInstance
-      .getLyrics()
+      .getTopChart(5)
       .then(response => response.json())
       .then(data => {
         this.setState({
           status: "LOADED",
-          tracks: data.message.body.track_list
+          tracks: this.state.track
         });
       })
       .catch(() => {
@@ -37,7 +62,7 @@ class SimpleFavoriteList extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = this.state.tracks.map(song => (
+        lyricList = this.state.track.map(song => (
           <li className="favorLi" key={song.track.track_id}>
             {song.track.track_name}
           </li>
