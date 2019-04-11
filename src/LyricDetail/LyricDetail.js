@@ -101,9 +101,9 @@ class LyricDetail extends Component {
 
                                 {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
                                 {/* <Button className="margin">Add to Favorite</Button> */}
-                                <span>
+                                {/* <span>
                                     {this.renderFavoriteHeart()}
-                                </span>
+                                </span> */}
 
                             </span>
                             <div id="google_translate_element" className="translate" >{lyricList}</div>

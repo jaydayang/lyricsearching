@@ -11,11 +11,11 @@ class LyricModel extends ObservableModel {
   //constructor() {
   // super();
   //}
-  ArtistId = ["13774235", "56", "13774235"];
+  ArtistId = ["13774235", "56", "13774236"];
 
 
 
-  mode(artistarray) {
+  getAppearMost(artistarray) {
     if (artistarray.length == 0)
       return null;
     var modeMap = {};
@@ -193,19 +193,19 @@ class LyricModel extends ObservableModel {
     }).then(response => response.json());
   }
 
-  addFavoriteLyric({selectedLyric}) {
+  addFavoriteLyric({ selectedLyric }) {
     const userUid = fire.auth().currentUser.uid;
     const lyricId = selectedLyric.track_id;
-  
+
     return fire.database().ref(userUid).update({
       [lyricId]: selectedLyric
     });
   }
-  
-  removeFavoriteLyric({selectedLyric}) {
+
+  removeFavoriteLyric({ selectedLyric }) {
     const userUid = fire.auth().currentUser.uid;
     const lyricId = selectedLyric.track_id;
-  
+
     return fire.database().ref(userUid).child(lyricId).remove();
   }
 
