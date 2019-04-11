@@ -3,9 +3,8 @@ import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import SearchBar from "../SearchBar/SearchBar";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "./NavBar.css";
 class NavBar extends Component {
   //Stateless functional component
   logout() {
@@ -84,7 +83,9 @@ class NavBar extends Component {
           </div>
         </form>
         <div>
-          <FontAwesomeIcon icon="heart" />
+          <button type="submit" className="btn btn-outline-primary">
+            <FontAwesomeIcon icon="heart" />
+          </button>
         </div>
 
         <NavItem>{loginRegisterCont}</NavItem>
