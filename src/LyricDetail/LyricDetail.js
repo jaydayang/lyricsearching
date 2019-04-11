@@ -14,7 +14,7 @@ class LyricDetail extends Component {
         this.state = {
             status: "LOADING",
             lyricId: this.props.id.match.params.id,
-            favorited: this.props.isFavorite
+            favorited: false
         };
     }
 

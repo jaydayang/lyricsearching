@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SuggestionSidebar.css";
 import modelInstance from "../data/LyricModel";
 import { Link } from "react-router-dom";
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -27,10 +28,6 @@ class Sidebar extends Component {
           status: "ERROR"
         });
       });
-
-
-
-
 
   }
 

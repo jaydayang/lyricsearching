@@ -8,9 +8,9 @@ import {  Button } from "reactstrap";
 class AlbumInfo extends Component {
   constructor(props) {
     super(props);
-
-    this.state = this.props.parentState;
-  }
+    this.state=this.props.parentState
+    
+}
 
   componentDidMount() {
     console.log(this.state.lyricId);
@@ -33,25 +33,25 @@ class AlbumInfo extends Component {
   }
 
 
-  onFavoriteSelect(selectedLyric)  {
+onFavoriteSelect(selectedLyric)  {
     modelInstance.addFavoriteLyric({selectedLyric}) 
  }
 
- onFavoriteDeselect(selectedLyric) {
+onFavoriteDeselect(selectedLyric) {
      modelInstance.removeFavoriteLyric({selectedLyric}) 
  }
 
- favoriteLyric() {
+favoriteLyric() {
      this.setState({ favorited: true });
      this.onFavoriteSelect(this.state.track);
    }
 
- unfavoriteLyric() {
+unfavoriteLyric() {
      this.setState({ favorited: false });
      this.onFavoriteDeselect(this.state.track);
  }
 
- renderFavoriteHeart = () => {
+renderFavoriteHeart = () => {
      //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
      if (fire.auth().currentUser == null)
          return '';
