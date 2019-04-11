@@ -22,18 +22,15 @@ class FavoriteDetail extends Component {
 
     var userId = fire.auth().currentUser.uid;
 
-    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().album_name));
-    var proxy = [];
-    fire.database().ref(userId).on("child_added", snapshot => { proxy.push(snapshot.val().album_name) });
-    console.log(proxy);
+    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().artist_name));
+    var artist = [];
+    fire.database().ref(userId).on("child_added", snapshot => { artist.push(snapshot.val().artist_name) });
+    console.log(artist);
 
-    // var index;
-    // fire.database().ref(userId).on("child_added", snapshot =>
-    //   index = snapshot.val().album_name
-    // ).then(
-    //   console.log(index)
-    // );
-
+    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().track_name));
+    var track = [];
+    fire.database().ref(userId).on("child_added", snapshot => { track.push(snapshot.val().track_name) });
+    console.log(track);
 
 
     return (
@@ -45,10 +42,12 @@ class FavoriteDetail extends Component {
               <Tabs>
                 <div label="Artist">
                   {/* On this tab, a list of the favorite artists will be displayed */}
+                  { track }
                 </div>
                 <div label="Track">
-                  On this tab, a list of the favorite tracks will be displayed
-                            </div>
+                  {/* On this tab, a list of the favorite tracks will be displayed */}
+                  { artist }
+                </div>
               </Tabs>
             </Col>
             <Col md="5" xs="12">
