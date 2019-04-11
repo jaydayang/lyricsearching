@@ -10,28 +10,64 @@ class FavoriteDetail extends Component {
   constructor(props) {
     super(props);
 
-    // we put on state the properties we want to use and modify in the component
     this.state = {
-
+      status: "LOADING",
+      artist: [],
+      track: []
     };
   }
 
+  componentDidMount(){
+    var userId = fire.auth().currentUser.uid;
+    var userId = fire.auth().currentUser.uid;
+    
+    let artist = this.state.artist;
+    fire.database().ref(userId).on("child_added", snapshot => {
+      artist.push(snapshot.val())
+      this.setState({
+        artist
+      });
+    })
 
+    let track = this.state.track;
+    fire.database().ref(userId).on("child_added", snapshot => {
+      track.push(snapshot.val())
+      this.setState({
+        track
+      });
+    })
+  }
 
   render() {
+    let favoriteArtist = [];
+    console.log("try artist",this.state.artist)
+    favoriteArtist = this.state.artist.map(track => (
+      <li
+        key={track.commontrack_id}
+        id={track.commontrack_id}
+        className="col-md-12 top-track-result"
+      >
+        <Link to={"/lyric/" + track.track_id}>
+          {/* <span>{track.track_name}</span> */}
+          <span>{track.artist_name}</span>
+        </Link>
+      </li>
+    ));
 
-    var userId = fire.auth().currentUser.uid;
-
-    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().artist_name));
-    var artist = [];
-    fire.database().ref(userId).on("child_added", snapshot => { artist.push(snapshot.val().artist_name) });
-    console.log(artist);
-
-    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().track_name));
-    var track = [];
-    fire.database().ref(userId).on("child_added", snapshot => { track.push(snapshot.val().track_name) });
-    console.log(track);
-
+    let favoriteTrack = [];
+    console.log("try track",this.state.track)
+    favoriteTrack = this.state.track.map(track => (
+      <li
+        key={track.commontrack_id}
+        id={track.commontrack_id}
+        className="col-md-12 top-track-result"
+      >
+        <Link to={"/lyric/" + track.track_id}>
+          {/* <span>{track.track_name}</span> */}
+          <span>{track.track_name}</span>
+        </Link>
+      </li>
+    ));
 
     return (
       <div className="FavortieDetail">
@@ -41,12 +77,14 @@ class FavoriteDetail extends Component {
             <Col md="7" xs="12">
               <Tabs>
                 <div label="Artist">
-                  {/* On this tab, a list of the favorite artists will be displayed */}
-                  { track }
+                  <div>
+                  { favoriteArtist }
+                  </div>
                 </div>
                 <div label="Track">
-                  {/* On this tab, a list of the favorite tracks will be displayed */}
-                  { artist }
+                  <div>
+                  { favoriteTrack }
+                  </div>
                 </div>
               </Tabs>
             </Col>
