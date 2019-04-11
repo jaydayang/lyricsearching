@@ -22,14 +22,21 @@ class Sidebar extends Component {
 
     var userId = fire.auth().currentUser.uid;
     let artistId = this.state.artistId;
-    fire.database().ref(userId).on("child_added", snapshot => {
-      artistId.push(snapshot.val().artist_id)
-      this.setState({
-        artistId
-      });
-    })
+    var promise1 = new Promise(function () {
+      fire.database().ref(userId).on("child_added", snapshot => {
+        artistId.push(snapshot.val().artist_id)
+        console.log("promise in", artistId);
+        this.setState({
+          artistId: artistId
+        });
+        //  resolve(artistId);
+      })
+    });
+    promise1.then(function (value) {
+      console.log("try then:", value)
+    });
 
-    console.log(this.state.artistId.length)
+    // console.log(this.state.artistId.length)
 
 
 
