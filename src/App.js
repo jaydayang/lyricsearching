@@ -8,11 +8,11 @@ import ArtistDetailView from "./views/ArtistDetailView/ArtistDetailView";
 import AlbumDetailView from "./views/AlbumDetailView/AlbumDetailView";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
-
 import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -35,7 +35,7 @@ class App extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged(user => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         this.setState({ user });
         //get user' uid ////////////////
@@ -49,9 +49,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.user
-          ? console.log(this.state.user.email + " already login")
-          : console.log("not yet login")}
+        {/* //{this.state.user
+          //// ? console.log(this.state.user.email + " already login")
+          // : console.log("not yet login")} */}
 
         <header className="App-header">
           <NavBar />
