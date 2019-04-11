@@ -54,7 +54,7 @@ class SearchResults extends Component {
               id={track.track.commontrack_id}
               className="col-md-12 track-result"
             >
-              <Link to={"/lyric/" + track.track.commontrack_id}>
+              <Link to={"/lyric/" + track.track.track_id}>
                 <h3>{track.track.track_name}</h3>
                 <span>{track.track.artist_name}</span>
                 <br />
