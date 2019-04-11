@@ -9,14 +9,17 @@ class AlbumInfo extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.parentState;
-  }
+    this.state = {
+      parent: this.props.parentState,
+      favorited: true
+  };
+}
 
   componentDidMount() {
-    console.log(this.state.lyricId);
+    console.log(this.state.parent.lyricId);
 
     modelInstance
-      .getOneTrack(this.state.lyricId)
+      .getOneTrack(this.state.parent.lyricId)
       .then(response => response.json())
       .then(data => {
         console.log(data.message);
@@ -32,26 +35,25 @@ class AlbumInfo extends Component {
       });
   }
 
-
-  onFavoriteSelect(selectedLyric)  {
+onFavoriteSelect(selectedLyric)  {
     modelInstance.addFavoriteLyric({selectedLyric}) 
  }
 
- onFavoriteDeselect(selectedLyric) {
+onFavoriteDeselect(selectedLyric) {
      modelInstance.removeFavoriteLyric({selectedLyric}) 
  }
 
- favoriteLyric() {
+favoriteLyric() {
      this.setState({ favorited: true });
-     this.onFavoriteSelect(this.state.track);
+     this.onFavoriteSelect(this.state.favorited.track);
    }
 
- unfavoriteLyric() {
+unfavoriteLyric() {
      this.setState({ favorited: false });
-     this.onFavoriteDeselect(this.state.track);
+     this.onFavoriteDeselect(this.state.favorited.track);
  }
 
- renderFavoriteHeart = () => {
+renderFavoriteHeart = () => {
      //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
      if (fire.auth().currentUser == null)
          return '';
@@ -67,19 +69,19 @@ class AlbumInfo extends Component {
   render() {
     let lyricList = null;
 
-    switch (this.state.status) {
+    switch (this.state.parent.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.track);
+        console.log(this.state.parent.track);
 
         lyricList = (
           <div>
-            <h2>{this.state.track.track_name}</h2>
+            <h2>{this.state.parent.track.track_name}</h2>
             <Button > { this.renderFavoriteHeart() } </Button>
-            <p>Artist Name:{this.state.track.artist_name}</p>
-            <p>Album Name:{this.state.track.album_name}</p>
+            <p>Artist Name:{this.state.parent.track.artist_name}</p>
+            <p>Album Name:{this.state.parent.track.album_name}</p>
           </div>
         );
 
