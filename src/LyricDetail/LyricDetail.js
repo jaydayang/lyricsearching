@@ -140,7 +140,7 @@ class LyricDetail extends Component {
                                 <span>
                                     {this.renderFavoriteHeart()}
                                 </span>
-                                <Button className="margin">Translate</Button>
+
                             </span>
                             <div id="google_translate_element" className="translate" >{lyricList}</div>
 

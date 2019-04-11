@@ -52,6 +52,7 @@ class SimpleFavoriteList extends Component {
         break;
     }
 
+
     return (
       <div className="SimpleFavoriteList">
         <h3>My Favorite</h3>
