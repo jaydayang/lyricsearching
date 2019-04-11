@@ -10,18 +10,31 @@ class Sidebar extends Component {
 
     this.state = {
 
-      status: "LOADING"
+      status: "LOADING",
+      artistId: []
     };
-  }
 
-  onChangeValue = event => {
-    this.setState({ value: event.target.value });
-  };
+  }
 
 
 
   componentDidMount() {
 
+    var userId = fire.auth().currentUser.uid;
+    let artistId = this.state.artistId;
+    fire.database().ref(userId).on("child_added", snapshot => {
+      artistId.push(snapshot.val().artist_id)
+      this.setState({
+        artistId
+      });
+    })
+
+    console.log(this.state.artistId.length)
+
+
+
+
+    // console.log(proxy.length)
 
 
 
@@ -81,8 +94,9 @@ class Sidebar extends Component {
 
   render() {
     let suggestList1 = [];
+    console.log(this.state.artistId)
 
-
+    console.log(this.state.artistId.length)
 
 
     switch (this.state.status) {
