@@ -56,10 +56,6 @@ class Sidebar extends Component {
               suggestList: suggestList
             });
           });
-
-
-
-
       })
   }
 

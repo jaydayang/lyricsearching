@@ -30,6 +30,7 @@ class SimpleFavoriteList extends Component {
     var userId = fire.auth().currentUser.uid;
     let thisComponent = this;
     let track = this.state.track;
+    
     fire.database().ref(userId).on("child_added", snapshot => {
       track.push(snapshot.val())
       this.setState({
@@ -38,33 +39,41 @@ class SimpleFavoriteList extends Component {
       //thisComponent.getTopChart(5);
     })
 
-    modelInstance
-      .getTopChart(5)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          status: "LOADED",
-          tracks: this.state.track
+    let query = fire.database().ref(userId);
+    query.once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          track.push(childData.track_name);
         });
+        thisComponent.setState({
+          track: track,
+          status:"LOADED"
+        });
+
       })
-      .catch(() => {
-        this.setState({
-          status: "ERROR"
-        });
-      });
   }
 
   render() {
     let lyricList = null;
-
+    const trackList = this.getTopChart(5);
+    console.log("tracklist chart", trackList);
     switch (this.state.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = this.state.track.map(song => (
-          <li className="favorLi" key={song.track.track_id}>
-            {song.track.track_name}
+        lyricList = trackList.map(track => (
+          <li
+            key={track.commontrack_id}
+            id={track.commontrack_id}
+            className="col-md-12 top-track-result"
+          >
+            <Link to={"/lyric/" + track.track_id}>
+              {/* <span>{track.track_name}</span> */}
+              <span>{track.track_name}</span>
+            </Link>
           </li>
         ));
 
@@ -77,6 +86,20 @@ class SimpleFavoriteList extends Component {
         break;
     }
 
+    // let favoriteTrack = [];
+    // console.log("try track",this.state.track)
+    // favoriteTrack = this.state.track.map(track => (
+    //   <li
+    //     key={track.commontrack_id}
+    //     id={track.commontrack_id}
+    //     className="col-md-12 top-track-result"
+    //   >
+    //     <Link to={"/lyric/" + track.track_id}>
+    //       {/* <span>{track.track_name}</span> */}
+    //       <span>{track.track_name}</span>
+    //     </Link>
+    //   </li>
+    // ));
 
     return (
       <div className="SimpleFavoriteList">
