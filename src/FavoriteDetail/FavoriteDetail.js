@@ -21,7 +21,20 @@ class FavoriteDetail extends Component {
   render() {
 
     var userId = fire.auth().currentUser.uid;
-    fire.database().ref(userId).on("child_added", snapshot=>console.log(snapshot.val().album_name));
+
+    fire.database().ref(userId).on("child_added", snapshot => console.log(snapshot.val().album_name));
+    var proxy = [];
+    fire.database().ref(userId).on("child_added", snapshot => { proxy.push(snapshot.val().album_name) });
+    console.log(proxy);
+
+    // var index;
+    // fire.database().ref(userId).on("child_added", snapshot =>
+    //   index = snapshot.val().album_name
+    // ).then(
+    //   console.log(index)
+    // );
+
+
 
     return (
       <div className="FavortieDetail">
@@ -32,7 +45,7 @@ class FavoriteDetail extends Component {
               <Tabs>
                 <div label="Artist">
                   {/* On this tab, a list of the favorite artists will be displayed */}
-                            </div>
+                </div>
                 <div label="Track">
                   On this tab, a list of the favorite tracks will be displayed
                             </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SuggestByFavorite.css";
 import modelInstance from "../data/LyricModel";
 import { Link } from "react-router-dom";
+import fire from "../Config/Fire";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -12,9 +13,21 @@ class Sidebar extends Component {
       status: "LOADING"
     };
   }
+
+  onChangeValue = event => {
+    this.setState({ value: event.target.value });
+  };
+
+
+
   componentDidMount() {
+
+
+
+
+
     modelInstance
-      .getRelatedArtists(modelInstance.mode(modelInstance.ArtistId))
+      .getRelatedArtists(modelInstance.getAppearMost(modelInstance.ArtistId))
       .then(response => response.json())
       .then(artist => {
         console.log('relatedArtistList', artist.message.body.artist_list);
