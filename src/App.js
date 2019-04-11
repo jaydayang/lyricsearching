@@ -32,7 +32,7 @@ class App extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged(user => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         this.setState({ user });
       } else {
@@ -44,9 +44,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.user
-          ? console.log(this.state.user.email + " already login")
-          : console.log("not yet login")}
+        {/* //{this.state.user
+          //// ? console.log(this.state.user.email + " already login")
+          // : console.log("not yet login")} */}
 
         <header className="App-header">
           <NavBar />

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "./NavBar.css";
 class NavBar extends Component {
   //Stateless functional component
   render() {
@@ -49,7 +49,9 @@ class NavBar extends Component {
           </div>
         </form>
         <div>
-          <FontAwesomeIcon icon="heart" />
+          <button type="submit" className="btn btn-outline-primary">
+            <FontAwesomeIcon icon="heart" />
+          </button>
         </div>
       </nav>
     );
