@@ -11,17 +11,20 @@ class FavoriteDetail extends Component {
     super(props);
 
     // we put on state the properties we want to use and modify in the component
-    this.state = {
-
-    };
+    this.state = {};
   }
 
-
-
   render() {
-
     var userId = fire.auth().currentUser.uid;
-    fire.database().ref(userId).on("child_added", snapshot=>console.log(snapshot.val().album_name));
+
+    var proxy = [];
+
+    fire
+      .database()
+      .ref(userId)
+      .on("child_added", snapshot => proxy.push(snapshot.val().album_name));
+
+    console.log(proxy);
 
     return (
       <div className="FavortieDetail">
@@ -30,12 +33,10 @@ class FavoriteDetail extends Component {
           <Row>
             <Col md="7" xs="12">
               <Tabs>
-                <div label="Artist">
-                  {/* On this tab, a list of the favorite artists will be displayed */}
-                            </div>
+                <div label="Artist">{proxy}</div>
                 <div label="Track">
                   On this tab, a list of the favorite tracks will be displayed
-                            </div>
+                </div>
               </Tabs>
             </Col>
             <Col md="5" xs="12">
