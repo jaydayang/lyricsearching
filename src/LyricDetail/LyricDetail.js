@@ -14,7 +14,8 @@ class LyricDetail extends Component {
         this.state = {
             status: "LOADING",
             lyricId: this.props.id.match.params.id,
-            favorited: false
+            favorited: true,
+            trackId: []
         };
     }
 
@@ -66,7 +67,8 @@ class LyricDetail extends Component {
             case "LOADED":
                 console.log(this.state.lyric);
 
-                let originalLyrics = this.state.lyric.lyrics_body.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
+                let originalLyrics = this.state.lyric.lyrics_body;
+                //.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
 
                 lyricList =
                     originalLyrics.split("\n").map((i, index) => {
