@@ -17,42 +17,6 @@ class Sidebar extends Component {
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
     let artistId = this.state.artistId;
-<<<<<<< HEAD
-    var promise1 = new Promise(function() {
-      fire
-        .database()
-        .ref(userId)
-        .on("child_added", snapshot => {
-          artistId.push(snapshot.val().artist_id);
-          console.log("promise in", artistId);
-          // this.setState({
-          //   artistId: artistId
-          // });
-          //  resolve(artistId);
-        });
-    });
-    promise1.then(function(value) {
-      console.log("try then:", value);
-    });
-
-    // console.log(this.state.artistId.length)
-
-    // console.log(proxy.length)
-
-    modelInstance
-      .getRelatedArtists(modelInstance.getAppearMost(modelInstance.ArtistId))
-      .then(response => response.json())
-      .then(artist => {
-        console.log("relatedArtistList", artist.message.body.artist_list);
-        var suggestList = this.getPopularSongs(artist.message.body.artist_list);
-
-        this.setState({
-          status: "LOADED",
-          relatedArtists: artist.message.body.artist_list,
-          suggestList: suggestList
-        });
-      });
-=======
     let thisComponent = this;
     // fire.database().ref(userId).on("child_added", snapshot => {
     //   artistId.push(snapshot.val().artist_id)
