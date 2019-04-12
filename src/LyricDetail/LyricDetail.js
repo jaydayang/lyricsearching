@@ -13,9 +13,11 @@ class LyricDetail extends Component {
 
         this.state = {
             status: "LOADING",
+            status1: "LOADING",
             lyricId: this.props.id.match.params.id,
             favorited: true,
-            trackId: []
+            trackId: [],
+
         };
     }
 
@@ -44,7 +46,8 @@ class LyricDetail extends Component {
                 console.log(data.message)
                 this.setState({
                     status: "LOADED",
-                    lyric: data.message.body.lyrics
+                    lyric: data.message.body.lyrics,
+                    idProxy: this.state.lyricId,
 
                 })
             })
@@ -53,6 +56,44 @@ class LyricDetail extends Component {
                     status: "ERROR"
                 });
             });
+
+    }
+
+
+
+    componentDidUpdate(props) {
+        console.log("update", this.props.id.match.params.id)
+        if (this.state.idProxy != this.props.id.match.params.id) {
+            console.log("update", this.state.lyricId)
+
+            this.setState({
+                lyricId: this.props.id.match.params.id,
+                idProxy: this.state.lyricId,
+                status: "LOADING"
+            });
+            modelInstance
+                .getOneLyric(this.state.lyricId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message)
+                    this.setState({
+                        status: "LOADED",
+                        lyric: data.message.body.lyrics,
+                        idProxy: this.state.lyricId,
+                    })
+                })
+                .catch(() => {
+                    this.setState({
+                        status: "ERROR"
+                    });
+                });
+
+
+
+
+        }
+
+        console.log("update", this.state.lyricId)
 
     }
 
@@ -67,8 +108,7 @@ class LyricDetail extends Component {
             case "LOADED":
                 console.log(this.state.lyric);
 
-                let originalLyrics = this.state.lyric.lyrics_body;
-                //.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
+                let originalLyrics = this.state.lyric.lyrics_body.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
 
                 lyricList =
                     originalLyrics.split("\n").map((i, index) => {

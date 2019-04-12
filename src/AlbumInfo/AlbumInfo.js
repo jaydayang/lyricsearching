@@ -8,9 +8,44 @@ import { Button } from "reactstrap";
 class AlbumInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.parentState
+    this.state = this.props.parentState;
+
 
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props != nextProps) {
+      this.setState(nextProps.parentState);
+      // your code here
+      modelInstance
+        .getOneTrack(this.state.lyricId)
+        .then(response => response.json())
+        .then(data => {
+          console.log("albuminfo", data.message);
+          this.setState({
+            status1: "LOADED",
+            track: data.message.body.track,
+            idProxyAlbum: this.state.lyricId
+
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status1: "ERROR"
+          });
+        });
+
+
+
+    }
+
+    //   console.log("update", this.state.lyricId)
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ lyricId: nextProps.lyricId });
+  // }
+
+
 
   componentDidMount() {
     console.log(this.state.lyricId);
@@ -18,6 +53,13 @@ class AlbumInfo extends Component {
     let trackId = this.state.trackId;
     let thisComponent = this;
     var saveOrNot;
+    this.setState({
+
+      idProxyAlbum: this.state.lyricId
+
+    });
+    console.log("idProxyAlbum", this.state.idProxyAlbum);
+
 
     let query = fire.database().ref(userId);
     query.once("value")
@@ -49,12 +91,8 @@ class AlbumInfo extends Component {
           })
         }
         console.log("console before", thisComponent.state.favorited)
-
-
-
-
-
       })
+
 
     modelInstance
       .getOneTrack(this.state.lyricId)
@@ -62,16 +100,62 @@ class AlbumInfo extends Component {
       .then(data => {
         console.log(data.message);
         this.setState({
-          status: "LOADED",
-          track: data.message.body.track
+          status1: "LOADED",
+          track: data.message.body.track,
+
+          // track_id: data.message.body.track.trak_id
+
         });
+        console.log(this.state.idProxyAlbum);
       })
       .catch(() => {
         this.setState({
-          status: "ERROR"
+          status1: "ERROR"
         });
       });
   }
+
+  // componentDidUpdate() {
+
+  //   if (this.state.idProxyAlbum != this.state.lyricId) {
+  //     console.log("update", this.state.idProxyAlbum)
+  //     console.log("update", this.state.lyricId)
+
+
+
+  //     this.setState({
+
+  //       status1: "LOADING",
+
+  //     });
+  //     modelInstance
+  //       .getOneTrack(this.state.lyricId)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log("albuminfo", data.message);
+  //         this.setState({
+  //           status1: "LOADED",
+  //           track: data.message.body.track,
+  //           idProxyAlbum: this.state.lyricId
+
+  //         });
+  //       })
+  //       .catch(() => {
+  //         this.setState({
+  //           status1: "ERROR"
+  //         });
+  //       });
+
+
+
+  //  }
+
+  //   console.log("update", this.state.lyricId)
+
+  // }
+
+
+
 
 
   onFavoriteSelect(selectedLyric) {
@@ -111,7 +195,7 @@ class AlbumInfo extends Component {
   render() {
     let lyricList = null;
 
-    switch (this.state.status) {
+    switch (this.state.status1) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
