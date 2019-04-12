@@ -11,26 +11,27 @@ class SimpleFavoriteList extends Component {
 
     this.state = {
       status: "LOADING",
-      track: []
+      trackFavorite: []
     };
+
   }
 
-  getTopChart(num){
-    const getNum = num > this.state.track.length? this.state.track.length: num; 
-    if(getNum == 0){
+  getTopChart(num) {
+    const getNum = num > this.state.trackFavorite.length ? this.state.trackFavorite.length : num;
+    if (getNum == 0) {
       return '';
-    }else{
-      console.log("sliced tracks",this.state.track.slice(0, getNum-1));
-      return this.state.track.slice(0, getNum-1);
+    } else {
+      console.log("sliced tracks", this.state.trackFavorite.slice(0, getNum - 1));
+      return this.state.trackFavorite.slice(0, getNum - 1);
     }
-    
+
   }
 
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
     let thisComponent = this;
-    let track = this.state.track;
-    
+    let track = this.state.trackFavorite;
+
     fire.database().ref(userId).on("child_added", snapshot => {
       track.push(snapshot.val())
       this.setState({
@@ -48,12 +49,13 @@ class SimpleFavoriteList extends Component {
           track.push(childData.track_name);
         });
         thisComponent.setState({
-          track: track,
-          status:"LOADED"
+          trackFavorite: track,
+          status: "LOADED"
         });
 
       })
   }
+
 
   render() {
     let lyricList = null;
@@ -85,6 +87,8 @@ class SimpleFavoriteList extends Component {
         lyricList = <em>Loading...</em>;
         break;
     }
+
+
 
     // let favoriteTrack = [];
     // console.log("try track",this.state.track)

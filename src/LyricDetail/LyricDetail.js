@@ -18,6 +18,8 @@ class LyricDetail extends Component {
             favorited: true,
             trackId: [],
 
+
+
         };
     }
 
@@ -158,6 +160,7 @@ class LyricDetail extends Component {
 
                         </Col>
                         <Col lg="4" md="4" xs="12">
+
                             <SimpleFavorite />
                             <SuggestionSidebar />
                         </Col>
