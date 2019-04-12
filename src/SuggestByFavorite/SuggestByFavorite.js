@@ -17,6 +17,7 @@ class Sidebar extends Component {
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
     let artistId = this.state.artistId;
+<<<<<<< HEAD
     var promise1 = new Promise(function() {
       fire
         .database()
@@ -51,6 +52,43 @@ class Sidebar extends Component {
           suggestList: suggestList
         });
       });
+=======
+    let thisComponent = this;
+    // fire.database().ref(userId).on("child_added", snapshot => {
+    //   artistId.push(snapshot.val().artist_id)
+    //   this.setState({
+    //     artistId: artistId
+    //   });
+    // })
+
+    let query = fire.database().ref(userId);
+    query.once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          artistId.push(childData.artist_id);
+        });
+        thisComponent.setState({
+          artistId: artistId
+        });
+
+        modelInstance
+          .getRelatedArtists(modelInstance.getAppearMost(thisComponent.state.artistId))
+          .then(response => response.json())
+          .then(artist => {
+            console.log('relatedArtistList', artist.message.body.artist_list);
+            var suggestList = thisComponent.getPopularSongs(artist.message.body.artist_list);
+
+            thisComponent.setState({
+
+              status: "LOADED",
+              relatedArtists: artist.message.body.artist_list,
+              suggestList: suggestList
+            });
+          });
+      })
+>>>>>>> 6440db63a20d7c41bf19e420ed34b0b22823eccf
   }
 
   getPopularSongs(artistList) {

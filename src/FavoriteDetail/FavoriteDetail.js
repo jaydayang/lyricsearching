@@ -19,7 +19,11 @@ class FavoriteDetail extends Component {
 
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6440db63a20d7c41bf19e420ed34b0b22823eccf
     let artist = this.state.artist;
     fire
       .database()

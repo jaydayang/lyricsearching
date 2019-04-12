@@ -14,7 +14,8 @@ class LyricDetail extends Component {
         this.state = {
             status: "LOADING",
             lyricId: this.props.id.match.params.id,
-            favorited: this.props.isFavorite
+            favorited: true,
+            trackId: []
         };
     }
 
@@ -67,6 +68,7 @@ class LyricDetail extends Component {
                 console.log(this.state.lyric);
 
                 let originalLyrics = this.state.lyric.lyrics_body;
+                //.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
 
                 lyricList =
                     originalLyrics.split("\n").map((i, index) => {
@@ -106,7 +108,13 @@ class LyricDetail extends Component {
                                 </span> */}
 
                             </span>
-                            <div id="google_translate_element" className="translate" >{lyricList}</div>
+
+                            <div id="google_translate_element"  ></div>
+
+
+
+                            <div className="translate" >{lyricList}</div>
+
 
                         </Col>
                         <Col lg="4" md="4" xs="12">

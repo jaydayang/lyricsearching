@@ -58,6 +58,17 @@ class LyricModel extends ObservableModel {
       }
     );
   }
+  savedOrNot(trackId, savedList) {
+
+    if (savedList.indexOf(trackId) != -1) {
+      return true;
+
+    }
+    else { return false; }
+  }
+
+
+
 
   // getArtistID(artistName) {
   //   const query = `artist.search?q_artist=${artistName}&page_size=5&apikey=`;
