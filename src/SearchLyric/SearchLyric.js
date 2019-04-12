@@ -5,10 +5,24 @@ import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SearchLyric.css";
+import queryString from "query-string";
 
 class SearchLyric extends Component {
-  handleClick() {
-    this.props.action();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      status: "LOADING",
+      searchWord: ""
+    };
+  }
+
+  componentDidMount() {
+    const query = queryString.parse(this.props.id.location.search);
+    this.setState({
+      status: "LOADED",
+      searchWord: query
+    });
   }
 
   myFunction() {
@@ -16,12 +30,24 @@ class SearchLyric extends Component {
   }
 
   render() {
+    let artistList = null;
+    switch (this.state.status) {
+      case "LOADING":
+        artistList = <em>Loading...</em>;
+        break;
+      case "LOADED":
+        artistList = <SearchResults searchWord={this.state.searchWord} />;
+        break;
+      default:
+        artistList = <b>Failed to load data, please try again</b>;
+        break;
+    }
     return (
       <div className="SearchLyric">
         <Container>
           <Row>
             <Col md="8" xs="12">
-              <SearchResults />
+              {artistList}
             </Col>
             <Col md="4" xs="12">
               <SimpleFavorite />

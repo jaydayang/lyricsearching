@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+
+// VIEWS AND COMPONENTS
 import Welcome from "./Welcome/Welcome";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
@@ -8,18 +10,23 @@ import ArtistDetailView from "./views/ArtistDetailView/ArtistDetailView";
 import AlbumDetailView from "./views/AlbumDetailView/AlbumDetailView";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
-import "./App.css";
 import NavBar from "./NavBar/navBar";
+
+import "./App.css";
+
+// DATA BASE
 import fire from "./Config/Fire";
 import Login from "./Login/Login";
 
+// ICONS
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
+// import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 
-library.add(faHeart, fab, fas, far);
+// Addd all icons to the library for further use
+library.add(faHeart, fas, far);
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +38,7 @@ class App extends Component {
 
   componentDidMount() {
     this.authListener();
+    console.log("im in in app js in source");
   }
 
   authListener() {
@@ -49,10 +57,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* //{this.state.user
-          //// ? console.log(this.state.user.email + " already login")
-          // : console.log("not yet login")} */}
-
         <header className="App-header">
           <NavBar />
 
@@ -65,12 +69,13 @@ class App extends Component {
 
           <Route
             path="/search/"
-            render={() => <SearchLyric model={modelInstance} />}
+            render={props => <SearchLyric id={props} model={modelInstance} />}
           />
           <Route
             path="/searchArtist/"
-            render={() => <SearchArtist model={modelInstance} />}
+            render={props => <SearchArtist id={props} model={modelInstance} />}
           />
+
           <Route path="/artist/:id" component={ArtistDetailView} />
           <Route
             path="/album/:id"

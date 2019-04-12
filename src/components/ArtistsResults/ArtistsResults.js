@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import modelInstance from "../../data/LyricModel";
 import { Link } from "react-router-dom";
+
 import "./ArtistsResults.css";
 
 class ArtistsResults extends Component {
@@ -8,14 +9,15 @@ class ArtistsResults extends Component {
     super(props);
 
     this.state = {
-      status: "LOADING",
-      searchWord: "David"
+      status: "LOADING"
     };
   }
 
   componentDidMount() {
+    const name = this.props.searchWord.q;
+
     modelInstance
-      .searchArtist(this.state.searchWord)
+      .searchArtist(name)
 
       .then(artists => {
         const artistsResults = artists.message.body.artist_list;

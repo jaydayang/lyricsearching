@@ -14,8 +14,9 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
+    const name = this.props.searchWord.q;
     modelInstance
-      .searchTrack(this.props.searchWord)
+      .searchTrack(name)
 
       .then(tracks => {
         const lyricsResults = tracks.message.body.track_list;
