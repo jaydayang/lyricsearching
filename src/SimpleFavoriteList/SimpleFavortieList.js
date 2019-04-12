@@ -11,25 +11,30 @@ class SimpleFavoriteList extends Component {
 
     this.state = {
       status: "LOADING",
-      track: []
+      trackFavorite: []
     };
   }
 
   getTopChart(num) {
     const getNum =
-      num > this.state.track.length ? this.state.track.length : num;
+      num > this.state.trackFavorite.length
+        ? this.state.trackFavorite.length
+        : num;
     if (getNum == 0) {
       return "";
     } else {
-      console.log("sliced tracks", this.state.track.slice(0, getNum - 1));
-      return this.state.track.slice(0, getNum - 1);
+      console.log(
+        "sliced tracks",
+        this.state.trackFavorite.slice(0, getNum - 1)
+      );
+      return this.state.trackFavorite.slice(0, getNum - 1);
     }
   }
 
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
     let thisComponent = this;
-    let track = this.state.track;
+    let track = this.state.trackFavorite;
 
     fire
       .database()
@@ -41,6 +46,20 @@ class SimpleFavoriteList extends Component {
         });
         //thisComponent.getTopChart(5);
       });
+
+    let query = fire.database().ref(userId);
+    query.once("value").then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        // childData will be the actual contents of the child
+        var childData = childSnapshot.val();
+        track.push(childData.track_name);
+      });
+      thisComponent.setState({
+        trackFavorite: track,
+        status: "LOADED"
+      });
+      //thisComponent.getTopChart(5);
+    });
 
     let query = fire.database().ref(userId);
     query.once("value").then(function(snapshot) {

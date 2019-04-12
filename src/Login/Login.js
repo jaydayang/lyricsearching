@@ -164,7 +164,7 @@ class Register extends React.Component {
     // });
     fire
       .database()
-      .ref("/users/" + username)
+      .ref("/users/" + username + "/userInfo")
       .set({
         username: this.state.username,
         password: this.state.password,
