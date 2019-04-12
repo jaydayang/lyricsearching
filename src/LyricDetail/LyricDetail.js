@@ -14,7 +14,7 @@ class LyricDetail extends Component {
         this.state = {
             status: "LOADING",
             lyricId: this.props.id.match.params.id,
-            favorited: this.props.isFavorite
+            favorited: false
         };
     }
 
@@ -54,7 +54,7 @@ class LyricDetail extends Component {
             });
 
     }
-    
+
     render() {
         let lyricList = null;
 
@@ -97,6 +97,15 @@ class LyricDetail extends Component {
                             <AlbumInfo parentState={this.state} />
 
                             <span className="h2">Lyrics</span>
+                            <span className="right">
+
+                                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+                                {/* <Button className="margin">Add to Favorite</Button> */}
+                                {/* <span>
+                                    {this.renderFavoriteHeart()}
+                                </span> */}
+
+                            </span>
                             <div id="google_translate_element" className="translate" >{lyricList}</div>
 
                         </Col>

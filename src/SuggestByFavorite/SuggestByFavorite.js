@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SuggestByFavorite.css";
 import modelInstance from "../data/LyricModel";
 import { Link } from "react-router-dom";
+import fire from "../Config/Fire";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -9,27 +10,52 @@ class Sidebar extends Component {
 
     this.state = {
 
-      status: "LOADING"
+      status: "LOADING",
+      artistId: []
     };
+
   }
+
+
+
   componentDidMount() {
-    modelInstance
-      .getRelatedArtists(modelInstance.mode(modelInstance.ArtistId))
-      .then(response => response.json())
-      .then(artist => {
-        console.log('relatedArtistList', artist.message.body.artist_list);
-        var suggestList = this.getPopularSongs(artist.message.body.artist_list);
 
-        this.setState({
+    var userId = fire.auth().currentUser.uid;
+    let artistId = this.state.artistId;
+    let thisComponent = this;
+    // fire.database().ref(userId).on("child_added", snapshot => {
+    //   artistId.push(snapshot.val().artist_id)
+    //   this.setState({
+    //     artistId: artistId
+    //   });
+    // })
 
-          status: "LOADED",
-          relatedArtists: artist.message.body.artist_list,
-          suggestList: suggestList
-
-
+    let query = fire.database().ref(userId);
+    query.once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          artistId.push(childData.artist_id);
+        });
+        thisComponent.setState({
+          artistId: artistId
         });
 
+        modelInstance
+          .getRelatedArtists(modelInstance.getAppearMost(thisComponent.state.artistId))
+          .then(response => response.json())
+          .then(artist => {
+            console.log('relatedArtistList', artist.message.body.artist_list);
+            var suggestList = thisComponent.getPopularSongs(artist.message.body.artist_list);
 
+            thisComponent.setState({
+
+              status: "LOADED",
+              relatedArtists: artist.message.body.artist_list,
+              suggestList: suggestList
+            });
+          });
       })
   }
 
@@ -68,8 +94,9 @@ class Sidebar extends Component {
 
   render() {
     let suggestList1 = [];
+    console.log(this.state.artistId)
 
-
+    console.log(this.state.artistId.length)
 
 
     switch (this.state.status) {
