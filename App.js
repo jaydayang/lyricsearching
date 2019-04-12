@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+
 import Welcome from "./Welcome/Welcome";
 import modelInstance from "./data/LyricModel";
 import SearchLyric from "./SearchLyric/SearchLyric";
@@ -8,6 +9,7 @@ import ArtistDetailView from "./views/ArtistDetailView/ArtistDetailView";
 import AlbumDetailView from "./views/AlbumDetailView/AlbumDetailView";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
+import Search from "./views/SearchView/SearchView";
 
 import "./App.css";
 import NavBar from "./NavBar/navBar";
@@ -45,31 +47,29 @@ class App extends Component {
           : console.log("not yet login")}
 
         <header className="App-header">
+          {/* NAV BAR MENU */}
           <NavBar />
 
           {/* We rended diffrent component based on the path */}
           <Route exact path="/" component={Welcome} />
-          <Route path="/login/" render={() => <Login />} />
+          {/*  */}
+          <Route exact path="/coment" component={Search} />
+
+          {/* SEE SPECIFIC ITEMS WITH ID */}
           <Route
-            path="/search/"
-            render={() => <SearchLyric model={modelInstance} />}
-          />
-          <Route
-            path="/searchArtist/"
-            render={() => <SearchArtist model={modelInstance} />}
+            path="/lyric/:id"
+            render={props => <LyricDetail id={props} model={modelInstance} />}
           />
           <Route path="/artist/:id" component={ArtistDetailView} />
           <Route
             path="/album/:id"
             render={() => <AlbumDetailView model={modelInstance} />}
           />
+          {/*  */}
+          <Route path="/login/" render={() => <Login />} />
           <Route
             path="/favorite"
             render={() => <FavoriteDetail model={modelInstance} />}
-          />
-          <Route
-            path="/lyric/:id"
-            render={props => <LyricDetail id={props} model={modelInstance} />}
           />
         </header>
       </div>

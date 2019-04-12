@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
-import SearchBar from "../SearchBar/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 class NavBar extends Component {
@@ -25,20 +24,10 @@ class NavBar extends Component {
         isLogout: false
       };
       var user = fire.auth().currentUser.email;
-      console.log("asasa");
+
       loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
     }
 
-    // return (
-    //   <Navbar color="light" light expand="md">
-    //     <NavbarBrand href="/">Find Your Lyrics</NavbarBrand>
-    //     <Nav className="ml-auto" navbar>
-    //       <NavItem className="center">
-    //         <SearchBar />
-    //       </NavItem>
-
-    //     </Nav>
-    //   </Navbar>
     return (
       <nav className="navbar navbar-light bg-light">
         <Link className="col-sm-4" to={"/search/"}>
@@ -72,7 +61,6 @@ class NavBar extends Component {
                   Lyric
                 </option>
                 <option value="1">Artist</option>
-                <option value="2">Album</option>
               </select>
             </div>
             <div className="col-auto my-1">

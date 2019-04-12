@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SearchBar.css";
-import { Container, Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 
 class SearchBar extends Component {
