@@ -3,23 +3,19 @@ import modelInstance from "../data/LyricModel";
 import "./AlbumInfo.css";
 import fire from "../Config/Fire";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  Button } from "reactstrap";
+import { Button } from "reactstrap";
 
 class AlbumInfo extends Component {
   constructor(props) {
     super(props);
-    this.state=this.props.parentState
-    
-}
+    this.state = this.props.parentState;
+  }
 
   componentDidMount() {
-    console.log(this.state.lyricId);
-
     modelInstance
       .getOneTrack(this.state.lyricId)
       .then(response => response.json())
       .then(data => {
-        console.log(data.message);
         this.setState({
           status: "LOADED",
           track: data.message.body.track
@@ -32,37 +28,45 @@ class AlbumInfo extends Component {
       });
   }
 
+  onFavoriteSelect(selectedLyric) {
+    modelInstance.addFavoriteLyric({ selectedLyric });
+  }
 
-onFavoriteSelect(selectedLyric)  {
-    modelInstance.addFavoriteLyric({selectedLyric}) 
- }
+  onFavoriteDeselect(selectedLyric) {
+    modelInstance.removeFavoriteLyric({ selectedLyric });
+  }
 
-onFavoriteDeselect(selectedLyric) {
-     modelInstance.removeFavoriteLyric({selectedLyric}) 
- }
+  favoriteLyric() {
+    this.setState({ favorited: true });
+    this.onFavoriteSelect(this.state.track);
+  }
 
-favoriteLyric() {
-     this.setState({ favorited: true });
-     this.onFavoriteSelect(this.state.track);
-   }
+  unfavoriteLyric() {
+    this.setState({ favorited: false });
+    this.onFavoriteDeselect(this.state.track);
+  }
 
-unfavoriteLyric() {
-     this.setState({ favorited: false });
-     this.onFavoriteDeselect(this.state.track);
- }
-
-renderFavoriteHeart = () => {
-     //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
-     if (fire.auth().currentUser == null)
-         return '';
-     //if the song is not saved as fav the heart is not colored
-     if (this.state.favorited) {
-       return <FontAwesomeIcon icon={['fas', 'heart']} onClick={() => this.unfavoriteLyric()} />;
-     // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
-     }
-     //if the sond is the song is saved as fav the heart is colored
-     return <FontAwesomeIcon icon={['far', 'heart']} onClick={() => this.favoriteLyric()} />;
-   };
+  renderFavoriteHeart = () => {
+    //if the user is not authenticated, the fav button is not shown since we don't want them to be able to save songs
+    if (fire.auth().currentUser == null) return "";
+    //if the song is not saved as fav the heart is not colored
+    if (this.state.favorited) {
+      return (
+        <FontAwesomeIcon
+          icon={["fas", "heart"]}
+          onClick={() => this.unfavoriteLyric()}
+        />
+      );
+      // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
+    }
+    //if the sond is the song is saved as fav the heart is colored
+    return (
+      <FontAwesomeIcon
+        icon={["far", "heart"]}
+        onClick={() => this.favoriteLyric()}
+      />
+    );
+  };
 
   render() {
     let lyricList = null;
@@ -72,12 +76,10 @@ renderFavoriteHeart = () => {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.track);
-
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
-            <Button > { this.renderFavoriteHeart() } </Button>
+            <Button> {this.renderFavoriteHeart()} </Button>
             <p>Artist Name:{this.state.track.artist_name}</p>
             <p>Album Name:{this.state.track.album_name}</p>
           </div>

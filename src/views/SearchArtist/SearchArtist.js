@@ -25,6 +25,15 @@ class SearchArtist extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.id.location.search !== this.props.id.location.search) {
+      const searchQuery = queryString.parse(nextProps.id.location.search);
+      this.setState({
+        searchWord: searchQuery
+      });
+    }
+  }
+
   myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
@@ -50,7 +59,7 @@ class SearchArtist extends Component {
               {artistList}
             </Col>
             <Col md="4" xs="12">
-              <SimpleFavorite />
+              {/* <SimpleFavorite /> */}
               <TopChartArtists />
             </Col>
           </Row>

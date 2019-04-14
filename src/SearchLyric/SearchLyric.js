@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import SearchResults from "../SearchResults/SearchResults";
-import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
+// import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SearchLyric.css";
@@ -10,10 +10,9 @@ import queryString from "query-string";
 class SearchLyric extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       status: "LOADING",
-      searchWord: ""
+      searchWord: { q: "" }
     };
   }
 
@@ -23,6 +22,15 @@ class SearchLyric extends Component {
       status: "LOADED",
       searchWord: query
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.id.location.search !== this.props.id.location.search) {
+      const searchQuery = queryString.parse(nextProps.id.location.search);
+      this.setState({
+        searchWord: searchQuery
+      });
+    }
   }
 
   myFunction() {
@@ -50,7 +58,7 @@ class SearchLyric extends Component {
               {artistList}
             </Col>
             <Col md="4" xs="12">
-              <SimpleFavorite />
+              {/* <SimpleFavorite /> */}
               <SuggestionSidebar />
             </Col>
           </Row>

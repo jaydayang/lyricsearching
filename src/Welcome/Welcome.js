@@ -37,7 +37,6 @@ class Welcome extends Component {
         isLogout: false
       };
       var user = fire.auth().currentUser.email;
-      console.log("asasa");
       loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
     }
 
@@ -45,16 +44,6 @@ class Welcome extends Component {
       <Container>
         <Row>
           <Col md="12" xs="12">
-            {/* <Navbar color="light" light expand="md">
-              <NavbarBrand href="/">Find Your Lyrics</NavbarBrand>
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <SearchBar />
-                </NavItem>
-
-                <NavItem>{loginRegisterCont}</NavItem>
-              </Nav>
-            </Navbar> */}
             <div className="bgimage">
               <img src={banner} className="banner" alt="" />
               <div className="centeredtext">
