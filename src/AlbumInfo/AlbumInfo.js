@@ -37,6 +37,51 @@ class AlbumInfo extends Component {
 
 
     }
+    var userId = fire.auth().currentUser.uid;
+    let trackId = this.state.trackId;
+    let thisComponent = this;
+    var saveOrNot;
+    this.setState({
+
+      idProxyAlbum: this.state.lyricId
+
+    });
+    console.log("idProxyAlbum", this.state.idProxyAlbum);
+
+
+    let query = fire.database().ref(userId);
+    query.once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          trackId.push(childData.track_id);
+        });
+        thisComponent.setState({
+          trackId: trackId
+        });
+        console.log(thisComponent.state.lyricId);
+        console.log(thisComponent.state.trackId.length);
+        var id = Number(thisComponent.state.lyricId);
+        var idList = thisComponent.state.trackId
+
+        saveOrNot =
+          modelInstance.savedOrNot(id, idList);
+        console.log("saveOrNot", saveOrNot);
+
+        if (saveOrNot == true) {
+          thisComponent.setState({
+            favorited: true
+          })
+        } else {
+          thisComponent.setState({
+            favorited: false
+          })
+        }
+        console.log("console before", thisComponent.state.favorited)
+      })
+
+
 
     //   console.log("update", this.state.lyricId)
   }

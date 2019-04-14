@@ -19,10 +19,10 @@ class SimpleFavoriteList extends Component {
   getTopChart(num) {
     const getNum = num > this.state.trackFavorite.length ? this.state.trackFavorite.length : num;
     if (getNum == 0) {
-      return '';
+      return [];
     } else {
-      console.log("sliced tracks", this.state.trackFavorite.slice(0, getNum - 1));
-      return this.state.trackFavorite.slice(0, getNum - 1);
+      console.log("sliced tracks", this.state.trackFavorite.slice(0, getNum));
+      return this.state.trackFavorite.slice(0, getNum);
     }
 
   }
@@ -30,31 +30,65 @@ class SimpleFavoriteList extends Component {
   componentDidMount() {
     var userId = fire.auth().currentUser.uid;
     let thisComponent = this;
-    let track = this.state.trackFavorite;
 
-    fire.database().ref(userId).on("child_added", snapshot => {
-      track.push(snapshot.val())
-      this.setState({
-        track
-      });
-      //thisComponent.getTopChart(5);
-    })
+
+    // fire.database().ref(userId).on("child_added", snapshot => {
+    //   track.push(snapshot.val())
+    //   this.setState({
+    //     track
+    //   });
+    //   //thisComponent.getTopChart(5);
+    // })
 
     let query = fire.database().ref(userId);
     query.once("value")
       .then(function (snapshot) {
+        let track = [];
         snapshot.forEach(function (childSnapshot) {
+
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
-          track.push(childData.track_name);
+          track.push(childData);
+          console.log("name", childData)
         });
+
         thisComponent.setState({
           trackFavorite: track,
           status: "LOADED"
         });
 
+
       })
   }
+  componentDidUpdate() {
+    var userId = fire.auth().currentUser.uid;
+    let thisComponent = this;
+
+
+
+    let query = fire.database().ref(userId);
+    query.once("value")
+      .then(function (snapshot) {
+        let track = [];
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          track.push(childData);
+        });
+        console.log("print track", track)
+        console.log("state track", thisComponent.state.trackFavorite)
+        console.log("true or false", track.length != thisComponent.state.trackFavorite.length)
+        if (track.length != thisComponent.state.trackFavorite.length) {
+          thisComponent.setState({
+            trackFavorite: track,
+            status: "LOADED"
+          });
+        }
+
+      })
+
+  }
+
 
 
   render() {
@@ -68,7 +102,7 @@ class SimpleFavoriteList extends Component {
       case "LOADED":
         lyricList = trackList.map(track => (
           <li
-            key={track.commontrack_id}
+            key={track.track_id}
             id={track.commontrack_id}
             className="col-md-12 top-track-result"
           >
