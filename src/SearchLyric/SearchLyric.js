@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SuggestionSidebar from "../SuggestionSidebar/SuggestionSidebar";
 import SearchResults from "../SearchResults/SearchResults";
-// import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
+ import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SearchLyric.css";
@@ -58,7 +58,7 @@ class SearchLyric extends Component {
               {artistList}
             </Col>
             <Col md="4" xs="12">
-              {/* <SimpleFavorite /> */}
+             <SimpleFavorite />
               <SuggestionSidebar />
             </Col>
           </Row>
