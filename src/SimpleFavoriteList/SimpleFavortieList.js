@@ -14,7 +14,9 @@ class SimpleFavoriteList extends Component {
       trackFavorite: [],
       user: fire.auth().currentUser
     };
+
   }
+
 
   getTopChart(num) {
     const getNum =
@@ -61,6 +63,7 @@ class SimpleFavoriteList extends Component {
 
 
   componentDidMount() {
+
     var self = this;
 
     modelInstance
@@ -70,45 +73,50 @@ class SimpleFavoriteList extends Component {
         });
       })
 
-    if (fire.auth().currentUser != null) {
-      var userId = fire.auth().currentUser.uid;
-      let thisComponent = this;
 
-      // fire.database().ref(userId).on("child_added", snapshot => {
-      //   track.push(snapshot.val())
-      //   this.setState({
-      //     track
-      //   });
-      //   //thisComponent.getTopChart(5);
-      // })
+    fire.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // if (fire.auth().currentUser != null) {
+        var userId = fire.auth().currentUser.uid;
+        let thisComponent = self;
 
-      let query = fire.database().ref(userId);
-      query.once("value").then(function (snapshot) {
-        let track = [];
-        snapshot.forEach(function (childSnapshot) {
-          // childData will be the actual contents of the child
-          var childData = childSnapshot.val();
-          track.push(childData);
-          console.log("name", childData);
+        // fire.database().ref(userId).on("child_added", snapshot => {
+        //   track.push(snapshot.val())
+        //   this.setState({
+        //     track
+        //   });
+        //   //thisComponent.getTopChart(5);
+        // })
+
+        let query = fire.database().ref(userId);
+        query.once("value").then(function (snapshot) {
+          let track = [];
+          snapshot.forEach(function (childSnapshot) {
+            // childData will be the actual contents of the child
+            var childData = childSnapshot.val();
+            track.push(childData);
+            console.log("name", childData);
+          });
+
+          thisComponent.setState({
+            trackFavorite: track,
+            status: "LOADED"
+          });
         });
-
-        thisComponent.setState({
-          trackFavorite: track,
-          status: "LOADED"
+      } else {
+        self.setState({
+          status: "NOLOGIN"
         });
-      });
-    } else {
-      this.setState({
-        status: "NOLOGIN"
-      });
-    }
+      }
+    });
   }
   componentWillMount() {
     modelInstance.EventEmitter.unSubscribe('changeItem');
   }
 
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+
     if (fire.auth().currentUser != null) {
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
@@ -135,6 +143,7 @@ class SimpleFavoriteList extends Component {
         }
       });
     }
+
   }
 
   render() {
