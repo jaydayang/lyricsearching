@@ -32,6 +32,7 @@ class SearchArtist extends Component {
         searchWord: searchQuery
       });
     }
+    1;
   }
 
   myFunction() {
