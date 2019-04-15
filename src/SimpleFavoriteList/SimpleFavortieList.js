@@ -30,16 +30,11 @@ class SimpleFavoriteList extends Component {
 
   componentDidMount() {
     if (fire.auth().currentUser != null) {
+      // fire.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      console.log("fire.auth()" + fire.auth().currentUser);
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
-
-      // fire.database().ref(userId).on("child_added", snapshot => {
-      //   track.push(snapshot.val())
-      //   this.setState({
-      //     track
-      //   });
-      //   //thisComponent.getTopChart(5);
-      // })
 
       let query = fire.database().ref(userId);
       query.once("value").then(function(snapshot) {
@@ -57,13 +52,23 @@ class SimpleFavoriteList extends Component {
         });
       });
     } else {
-      this.setState({
+      let thisComponent = this;
+      thisComponent.setState({
         status: "NOLOGIN"
       });
     }
   }
-  componentDidUpdate() {
-    if (fire.auth().currentUser != null) {
+
+  componentDidUpdate(prevProps, prevState) {
+    // fire.auth().onAuthStateChanged(user => {
+    //   console.log("onauth" + user);
+
+    // });
+    // console.log("prestate.user" + prevState.user);
+    // console.log("current" + this.state.user);
+    // console.log("prestate suts" + prevState.status);
+    // console.log("now status" + this.state.status);
+    if (fire.auth().currentUser) {
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
 
@@ -74,19 +79,13 @@ class SimpleFavoriteList extends Component {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
+          console.log("name", childData);
         });
-        console.log("print track", track);
-        console.log("state track", thisComponent.state.trackFavorite);
-        console.log(
-          "true or false",
-          track.length != thisComponent.state.trackFavorite.length
-        );
-        if (track.length != thisComponent.state.trackFavorite.length) {
-          thisComponent.setState({
-            trackFavorite: track,
-            status: "LOADED"
-          });
-        }
+
+        thisComponent.setState({
+          trackFavorite: track,
+          status: "LOADED"
+        });
       });
     }
   }
