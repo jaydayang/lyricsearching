@@ -17,29 +17,36 @@ class FavoriteDetail extends Component {
     };
   }
 
-  componentDidMount(){
-    var userId = fire.auth().currentUser.uid;
-    
-    let artist = this.state.artist;
-    fire.database().ref(userId).on("child_added", snapshot => {
-      artist.push(snapshot.val())
-      this.setState({
-        artist
-      });
-    })
+  componentDidMount() {
+    if (fire.auth().currentUser != null) {
+      var userId = fire.auth().currentUser.uid;
+      let artist = this.state.artist;
+      fire
+        .database()
+        .ref(userId)
+        .on("child_added", snapshot => {
+          artist.push(snapshot.val());
+          this.setState({
+            artist
+          });
+        });
 
-    let track = this.state.track;
-    fire.database().ref(userId).on("child_added", snapshot => {
-      track.push(snapshot.val())
-      this.setState({
-        track
-      });
-    })
+      let track = this.state.track;
+      fire
+        .database()
+        .ref(userId)
+        .on("child_added", snapshot => {
+          track.push(snapshot.val());
+          this.setState({
+            track
+          });
+        });
+    }
   }
 
   render() {
     let favoriteArtist = [];
-    console.log("try artist",this.state.artist)
+    console.log("try artist", this.state.artist);
     favoriteArtist = this.state.artist.map(track => (
       <li
         key={track.commontrack_id}
@@ -54,7 +61,7 @@ class FavoriteDetail extends Component {
     ));
 
     let favoriteTrack = [];
-    console.log("try track",this.state.track)
+    console.log("try track", this.state.track);
     favoriteTrack = this.state.track.map(track => (
       <li
         key={track.commontrack_id}
@@ -76,14 +83,10 @@ class FavoriteDetail extends Component {
             <Col md="7" xs="12">
               <Tabs>
                 <div label="Artist">
-                  <div>
-                  { favoriteArtist }
-                  </div>
+                  <div>{favoriteArtist}</div>
                 </div>
                 <div label="Track">
-                  <div>
-                  { favoriteTrack }
-                  </div>
+                  <div>{favoriteTrack}</div>
                 </div>
               </Tabs>
             </Col>

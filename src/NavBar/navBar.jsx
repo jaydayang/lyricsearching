@@ -59,16 +59,8 @@ class NavBar extends Component {
   render() {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
-      this.setStates = {
-        isLogin: false,
-        isLogout: true
-      };
       loginRegisterCont = <Link to="/login">Login|Register</Link>;
     } else {
-      this.setStates = {
-        isLogin: true,
-        isLogout: false
-      };
       var user = fire.auth().currentUser.email;
 
       loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;

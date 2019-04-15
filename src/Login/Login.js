@@ -155,7 +155,23 @@ class Register extends React.Component {
       .catch(error => {
         console.log(error);
       });
+
+    //var userId = fire.auth().currentUser.uid;
+    var username = this.state.username;
+
+    // fire.database().ref(userUid).update({
+    //   [lyricId]: selectedLyric
+    // });
+    fire
+      .database()
+      .ref("/users/" + username + "/userInfo")
+      .set({
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      });
   }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
     console.log(this.state.email);
@@ -251,6 +267,8 @@ class Register extends React.Component {
             name="username"
             id="username"
             placeholder="Input your username"
+            value={this.state.username}
+            onChange={this.handleChange}
           />
           <small>{usernameError ? usernameError : ""}</small>
         </FormGroup>

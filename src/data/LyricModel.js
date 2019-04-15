@@ -6,26 +6,40 @@ const BASE_URL = "http://api.musixmatch.com/ws/1.1/";
 const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
 const GOOGLE_API_KEY = "AIzaSyASsF4YkpgdBuTQNFw9e7643XjXJfo-rQc";
 
-
 class LyricModel extends ObservableModel {
   //constructor() {
   // super();
   //}
   ArtistId = ["13774235", "56", "13774236"];
 
-
+  //Event Listening
+  EventEmitter = {
+    _events: {},
+    dispatch: function (event, data) {
+      if (!this._events[event]) return; // no one is listening to this event
+      for (var i = 0; i < this._events[event].length; i++)
+        this._events[event][i](data);
+    },
+    subscribe: function (event, callback) {
+      if (!this._events[event]) this._events[event] = []; // new event
+      this._events[event].push(callback);
+    },
+    unSubscribe: function (event) {
+      if (this._events && this._events[event]) {
+        delete this._events[event];
+      }
+    }
+  }
 
   getAppearMost(artistarray) {
-    if (artistarray.length == 0)
-      return null;
+    if (artistarray.length == 0) return null;
     var modeMap = {};
-    var maxEl = artistarray[0], maxCount = 1;
+    var maxEl = artistarray[0],
+      maxCount = 1;
     for (var i = 0; i < artistarray.length; i++) {
       var el = artistarray[i];
-      if (modeMap[el] == null)
-        modeMap[el] = 1;
-      else
-        modeMap[el]++;
+      if (modeMap[el] == null) modeMap[el] = 1;
+      else modeMap[el]++;
       if (modeMap[el] > maxCount) {
         maxEl = el;
         maxCount = modeMap[el];
@@ -46,9 +60,10 @@ class LyricModel extends ObservableModel {
   getOneLyric(id) {
     return fetch(
       `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
-      { Origin: `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd` }
-
-    )
+      {
+        Origin: `http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`
+      }
+    );
   }
   getOneTrack(id) {
     return fetch(
@@ -59,16 +74,12 @@ class LyricModel extends ObservableModel {
     );
   }
   savedOrNot(trackId, savedList) {
-
     if (savedList.indexOf(trackId) != -1) {
       return true;
-
+    } else {
+      return false;
     }
-    else { return false; }
   }
-
-
-
 
   // getArtistID(artistName) {
   //   const query = `artist.search?q_artist=${artistName}&page_size=5&apikey=`;
@@ -84,23 +95,23 @@ class LyricModel extends ObservableModel {
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
-    })
-
+    });
   }
   getPopularSuggest(artistId) {
     const query = `track.search?f_artist_id=${artistId}&page_size=1&s_track_rating=desc&page=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
-    })
-
+    });
   }
 
-
-
-
-
-
+  getRandomSuggest(country, amount) {
+    const query = `chart.tracks.get?chart_name=mxmweekly&page=1&page_size=${amount}&country=${country}&f_has_lyrics=1&apikey=`;
+    const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
+    return fetch(url, {
+      Origin: `${BASE_URL}${query}${API_KEY}`
+    }).then(response => response.json());
+  }
 
   //SEARCH FOR TRACK WITH LYRIC
   //@param lyricQuery: words within they lyrics to search
@@ -126,9 +137,6 @@ class LyricModel extends ObservableModel {
   }
 
   // translate() {
-
-
-
 
   //   // Your Google Cloud Platform project ID
   //   const projectId = '87c3c2ac44372e66acd2b14a05ceb60e4324cdc3	';
@@ -208,18 +216,24 @@ class LyricModel extends ObservableModel {
     const userUid = fire.auth().currentUser.uid;
     const lyricId = selectedLyric.track_id;
 
-    return fire.database().ref(userUid).update({
-      [lyricId]: selectedLyric
-    });
+    return fire
+      .database()
+      .ref(userUid)
+      .update({
+        [lyricId]: selectedLyric
+      });
   }
 
   removeFavoriteLyric({ selectedLyric }) {
     const userUid = fire.auth().currentUser.uid;
     const lyricId = selectedLyric.track_id;
 
-    return fire.database().ref(userUid).child(lyricId).remove();
+    return fire
+      .database()
+      .ref(userUid)
+      .child(lyricId)
+      .remove();
   }
-
 }
 
 // Export an instance of DinnerModel

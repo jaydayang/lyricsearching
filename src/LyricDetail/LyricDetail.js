@@ -7,80 +7,59 @@ import { Container, Row, Col } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 
 class LyricDetail extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      status: "LOADING",
-      status1: "LOADING",
-      lyricId: this.props.id.match.params.id,
-      favorited: true,
-      trackId: []
-    };
-  }
+    constructor(props) {
+        super(props);
 
-  componentDidMount() {
-    console.log(this.state.lyricId);
+        this.state = {
+            status: "LOADING",
+            status1: "LOADING",
+            lyricId: this.props.id.match.params.id,
+            favorited: true,
+            trackId: [],
+            trackFavorite: []
 
-    const script1 = document.createElement("script");
 
-    script1.src =
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script1.async = true;
 
-    document.body.appendChild(script1);
+        };
+    }
 
-    // const script2 = document.createElement("script");
+    componentDidMount() {
+        console.log(this.state.lyricId)
 
-    // script2.src = "./contorl.js";
-    // script2.async = true;
+        const script1 = document.createElement("script");
 
-    // document.body.appendChild(script2);
+        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script1.async = true;
 
-    modelInstance
-      .getOneLyric(this.state.lyricId)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message);
-        this.setState({
-          status: "LOADED",
-          lyric: data.message.body.lyrics,
-          idProxy: this.state.lyricId
-        });
-      })
-      .catch(() => {
-        this.setState({
-          status: "ERROR"
-        });
-      });
-  }
+        document.body.appendChild(script1);
 
-  componentDidUpdate(props) {
-    console.log("update", this.props.id.match.params.id);
-    if (this.state.idProxy != this.props.id.match.params.id) {
-      console.log("update", this.state.lyricId);
+        // const script2 = document.createElement("script");
 
-      this.setState({
-        lyricId: this.props.id.match.params.id,
-        idProxy: this.state.lyricId,
-        status: "LOADING"
-      });
-      modelInstance
-        .getOneLyric(this.state.lyricId)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.message);
-          this.setState({
-            status: "LOADED",
-            lyric: data.message.body.lyrics,
-            idProxy: this.state.lyricId
-          });
-        })
-        .catch(() => {
-          this.setState({
-            status: "ERROR"
-          });
-        });
+        // script2.src = "./contorl.js";
+        // script2.async = true;
+
+        // document.body.appendChild(script2);
+
+
+        modelInstance
+            .getOneLyric(this.state.lyricId)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message)
+                this.setState({
+                    status: "LOADED",
+                    lyric: data.message.body.lyrics,
+                    idProxy: this.state.lyricId,
+
+                })
+            })
+            .catch(() => {
+                this.setState({
+                    status: "ERROR"
+                });
+            });
+
     }
 
     console.log("update", this.state.lyricId);
@@ -132,21 +111,29 @@ class LyricDetail extends Component {
                 {/* <span>
                                     {this.renderFavoriteHeart()}
                                 </span> */}
-              </span>
 
-              <div id="google_translate_element" />
+                            </span>
 
-              <div className="translate">{lyricList}</div>
-            </Col>
-            <Col lg="4" md="4" xs="12">
-              <SimpleFavorite />
-              <SuggestionSidebar />
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
+                            <div id="google_translate_element"  ></div>
+
+
+
+                            <div className="translate"  >{lyricList}</div>
+
+
+                        </Col>
+                        <Col lg="4" md="4" xs="12">
+
+                            <SimpleFavorite />
+                            <SuggestionSidebar />
+                        </Col>
+
+
+                    </Row>
+                </Container>
+            </div>
+        );
+    }
 }
 
 export default LyricDetail;
