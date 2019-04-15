@@ -76,8 +76,6 @@ class AlbumInfo extends Component {
         console.log("console before", thisComponent.state.favorited);
       });
     }
-
-    //   console.log("update", this.state.lyricId)
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -103,6 +101,8 @@ class AlbumInfo extends Component {
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
         });
+
+
         thisComponent.setState({
           trackId: trackId
         });
@@ -126,6 +126,7 @@ class AlbumInfo extends Component {
         console.log("console before", thisComponent.state.favorited);
       });
 
+
       modelInstance
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
@@ -144,8 +145,14 @@ class AlbumInfo extends Component {
             status1: "ERROR"
           });
         });
+
+
+
+
+      // track_id: data.message.body.track.trak_id
     }
   }
+
 
   // componentDidUpdate() {
 
@@ -193,11 +200,13 @@ class AlbumInfo extends Component {
   favoriteLyric() {
     this.setState({ favorited: true });
     this.onFavoriteSelect(this.state.track);
+    console.log("did?", this.state.favorited);
   }
 
   unfavoriteLyric() {
     this.setState({ favorited: false });
     this.onFavoriteDeselect(this.state.track);
+    console.log("undid?", this.state.favorited);
   }
 
   renderFavoriteHeart = () => {
@@ -232,7 +241,7 @@ class AlbumInfo extends Component {
     } else {
       return true;
     }
-  }
+  };
 
   render() {
     let lyricList = null;
@@ -242,8 +251,6 @@ class AlbumInfo extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.track);
-
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
@@ -266,5 +273,6 @@ class AlbumInfo extends Component {
     return <div className="AlbumInfo">{lyricList}</div>;
   }
 }
+
 
 export default AlbumInfo;

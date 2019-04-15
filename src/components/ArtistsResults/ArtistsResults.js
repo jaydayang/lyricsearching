@@ -32,6 +32,31 @@ class ArtistsResults extends Component {
         });
       });
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchWord.q !== this.props.searchWord.q) {
+      const name = nextProps.searchWord.q;
+      this.setState({
+        searchWord: name
+      });
+      modelInstance
+        .searchArtist(name)
+
+        .then(artists => {
+          const artistsResults = artists.message.body.artist_list;
+          this.setState({
+            status: "LOADED",
+            searchResult: artistsResults
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status: "ERROR"
+          });
+        });
+    }
+  }
+
   render() {
     let artistList = null;
     const { searchResult } = this.state;

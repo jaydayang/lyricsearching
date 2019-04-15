@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 
 // VIEWS AND COMPONENTS
 import Welcome from "./Welcome/Welcome";
@@ -32,65 +32,83 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      qArtist: "artist javier",
+      qLyric: "look"
     };
   }
 
   componentDidMount() {
     this.authListener();
-    console.log("im in in app js in source");
   }
 
   authListener() {
     fire.auth().onAuthStateChanged(user => {
-      // console.log(user);
       if (user) {
         this.setState({ user });
         //get user' uid ////////////////
-        console.log("get user's uid" + fire.auth().currentUser.uid);
+        // console.log("get user's uid" + fire.auth().currentUser.uid);
       } else {
         this.setState({ user: null });
       }
     });
   }
 
+  handleLyricSearch = newLyric => {
+    this.setState({ qLyric: newLyric });
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <NavBar />
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <Route path="/" component={NavBar} />
 
-          {/* We rended diffrent component based on the path */}
-          <Route exact path="/" component={Welcome} />
+            {/* We rended diffrent component based on the path */}
+            <Route exact path="/" component={Welcome} />
 
-          {/* add login route  */}
-          <Route path="/login/" render={() => <Login />} />
-          {/* add login route  */}
+            {/* add login route  */}
+            <Route path="/login/" render={() => <Login />} />
+            {/* add login route  */}
 
-          <Route
-            path="/search/"
-            render={props => <SearchLyric id={props} model={modelInstance} />}
-          />
-          <Route
-            path="/searchArtist/"
-            render={props => <SearchArtist id={props} model={modelInstance} />}
-          />
+            <Route
+              path="/search/"
+              render={props => (
+                <SearchLyric
+                  qLyric={this.state.qLyric}
+                  id={props}
+                  model={modelInstance}
+                />
+              )}
+            />
+            <Route
+              path="/searchArtist/"
+              render={props => (
+                <SearchArtist
+                  qArtist={this.state.qArtist}
+                  id={props}
+                  model={modelInstance}
+                />
+              )}
+            />
 
-          <Route path="/artist/:id" component={ArtistDetailView} />
-          <Route
-            path="/album/:id"
-            render={() => <AlbumDetailView model={modelInstance} />}
-          />
-          <Route
-            path="/favorite"
-            render={() => <FavoriteDetail model={modelInstance} />}
-          />
-          <Route
-            path="/lyric/:id"
-            render={props => <LyricDetail id={props} model={modelInstance} />}
-          />
-        </header>
-      </div>
+            <Route path="/artist/:id" component={ArtistDetailView} />
+            <Route
+              path="/album/:id"
+              render={() => <AlbumDetailView model={modelInstance} />}
+            />
+            <Route
+              path="/favorite"
+              render={() => <FavoriteDetail model={modelInstance} />}
+            />
+            <Route
+              path="/lyric/:id"
+              render={props => <LyricDetail id={props} model={modelInstance} />}
+            />
+          </header>
+        </div>
+      </BrowserRouter>
     );
   }
 }

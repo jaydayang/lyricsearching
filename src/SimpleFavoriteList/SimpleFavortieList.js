@@ -29,6 +29,37 @@ class SimpleFavoriteList extends Component {
     }
   }
 
+
+  // componentWillReceiveProps(nextProps) {
+  //   // if (this.props != nextProps) {
+  //   if (fire.auth().currentUser != null) {
+  //     var userId = fire.auth().currentUser.uid;
+  //     let thisComponent = this;
+  //     let query = fire.database().ref(userId);
+  //     query.once("value").then(function (snapshot) {
+  //       let track = [];
+  //       snapshot.forEach(function (childSnapshot) {
+  //         // childData will be the actual contents of the child
+  //         var childData = childSnapshot.val();
+  //         track.push(childData);
+  //         console.log("name", childData);
+  //       });
+
+  //       thisComponent.setState({
+  //         trackFavorite: track,
+  //         status: "LOADED"
+  //       });
+  //     });
+  //   } else {
+  //     this.setState({
+  //       status: "NOLOGIN"
+  //     });
+  //   }
+  //   // }   //   console.log("update", this.state.lyricId)
+  // }
+
+
+
   componentDidMount() {
     var self = this;
 
@@ -150,6 +181,7 @@ class SimpleFavoriteList extends Component {
         lyricList = <em>Loading...</em>;
         break;
     }
+
 
     // let favoriteTrack = [];
     // console.log("try track",this.state.track)
