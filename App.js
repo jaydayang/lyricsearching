@@ -57,8 +57,8 @@ class App extends Component {
 
           {/* SEE SPECIFIC ITEMS WITH ID */}
           <Route
-            path="/lyric/:id"
-            render={props => <LyricDetail id={props} model={modelInstance} />}
+            path="/lyric/:id/:like"
+            render={props => <LyricDetail id={props} like={props} model={modelInstance} />}
           />
           <Route path="/artist/:id" component={ArtistDetailView} />
           <Route

@@ -17,6 +17,7 @@ class LyricDetail extends Component {
             lyricId: this.props.id.match.params.id,
             favorited: true,
             trackId: [],
+            trackFavorite: []
 
 
 
@@ -161,7 +162,7 @@ class LyricDetail extends Component {
                         </Col>
                         <Col lg="4" md="4" xs="12">
 
-                            <SimpleFavorite parentState={this.state} />
+                            <SimpleFavorite />
                             <SuggestionSidebar />
                         </Col>
 

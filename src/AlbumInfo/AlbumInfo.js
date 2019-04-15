@@ -4,6 +4,7 @@ import "./AlbumInfo.css";
 import fire from "../Config/Fire";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 class AlbumInfo extends Component {
   constructor(props) {
@@ -12,6 +13,13 @@ class AlbumInfo extends Component {
 
 
   }
+  onClickItem(item) {
+    modelInstance.EventEmitter.dispatch('changeItem', item);
+    console.log("listen", item)
+  }
+
+
+
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
       this.setState(nextProps.parentState);
@@ -214,11 +222,13 @@ class AlbumInfo extends Component {
   favoriteLyric() {
     this.setState({ favorited: true });
     this.onFavoriteSelect(this.state.track);
+    console.log("did?", this.state.favorited)
   }
 
   unfavoriteLyric() {
     this.setState({ favorited: false });
     this.onFavoriteDeselect(this.state.track);
+    console.log("undid?", this.state.favorited)
   }
 
 
@@ -237,6 +247,14 @@ class AlbumInfo extends Component {
     }
   };
 
+  changeFavoriteProp = (like) => {
+    if (like == true) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     let lyricList = null;
 
@@ -250,7 +268,9 @@ class AlbumInfo extends Component {
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
-            <Button > {this.renderFavoriteHeart()} </Button>
+
+            <Button onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
+
             <p>Artist Name:{this.state.track.artist_name}</p>
             <p>Album Name:{this.state.track.album_name}</p>
           </div>

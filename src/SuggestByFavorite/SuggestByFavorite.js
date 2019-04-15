@@ -65,8 +65,8 @@ class Sidebar extends Component {
       let thisComponent = this;
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           artistId.push(childData.artist_id);
@@ -76,23 +76,23 @@ class Sidebar extends Component {
           artistId: artistId
         });
 
-        modelInstance
-          .getRelatedArtists(
-            modelInstance.getAppearMost(thisComponent.state.artistId)
-          )
-          .then(response => response.json())
-          .then(artist => {
-            console.log("relatedArtistList", artist.message.body.artist_list);
-            var suggestList = thisComponent.getPopularSongs(
-              artist.message.body.artist_list
-            );
+        // modelInstance
+        //   .getRelatedArtists(
+        //     modelInstance.getAppearMost(thisComponent.state.artistId)
+        //   )
+        //   .then(response => response.json())
+        //   .then(artist => {
+        //     console.log("relatedArtistList", artist.message.body.artist_list);
+        //     var suggestList = thisComponent.getPopularSongs(
+        //       artist.message.body.artist_list
+        //     );
 
-            thisComponent.setState({
-              status: "LOADED",
-              relatedArtists: artist.message.body.artist_list,
-              suggestList: suggestList
-            });
-          });
+        //     thisComponent.setState({
+        //       status: "LOADED",
+        //       relatedArtists: artist.message.body.artist_list,
+        //       suggestList: suggestList
+        //     });
+        //   });
       });
     }
   }
