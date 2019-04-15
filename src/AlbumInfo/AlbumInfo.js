@@ -4,11 +4,16 @@ import "./AlbumInfo.css";
 import fire from "../Config/Fire";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "reactstrap";
+import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 
 class AlbumInfo extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.parentState;
+  }
+  onClickItem(item) {
+    modelInstance.EventEmitter.dispatch("changeItem", item);
+    console.log("listen", item);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
@@ -71,8 +76,6 @@ class AlbumInfo extends Component {
         console.log("console before", thisComponent.state.favorited);
       });
     }
-
-    //   console.log("update", this.state.lyricId)
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -98,6 +101,7 @@ class AlbumInfo extends Component {
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
         });
+
         thisComponent.setState({
           trackId: trackId
         });
@@ -139,6 +143,8 @@ class AlbumInfo extends Component {
             status1: "ERROR"
           });
         });
+
+      // track_id: data.message.body.track.trak_id
     }
   }
 
@@ -188,11 +194,13 @@ class AlbumInfo extends Component {
   favoriteLyric() {
     this.setState({ favorited: true });
     this.onFavoriteSelect(this.state.track);
+    console.log("did?", this.state.favorited);
   }
 
   unfavoriteLyric() {
     this.setState({ favorited: false });
     this.onFavoriteDeselect(this.state.track);
+    console.log("undid?", this.state.favorited);
   }
 
   renderFavoriteHeart = () => {
@@ -221,6 +229,13 @@ class AlbumInfo extends Component {
       );
     }
   };
+  changeFavoriteProp(like) {
+    if (like == true) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   render() {
     let lyricList = null;
@@ -230,12 +245,18 @@ class AlbumInfo extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.track);
-
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
-            <Button> {this.renderFavoriteHeart()} </Button>
+            <Button
+              onClick={() =>
+                this.onClickItem(this.changeFavoriteProp(this.state.favorited))
+              }
+            >
+              {" "}
+              {this.renderFavoriteHeart()}{" "}
+            </Button>
+
             <p>Artist Name:{this.state.track.artist_name}</p>
             <p>Album Name:{this.state.track.album_name}</p>
           </div>

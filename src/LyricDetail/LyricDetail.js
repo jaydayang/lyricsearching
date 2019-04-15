@@ -59,10 +59,8 @@ class LyricDetail extends Component {
                 });
             });
 
+
     }
-
-
-
     componentDidUpdate(props) {
         console.log("update", this.props.id.match.params.id)
         if (this.state.idProxy != this.props.id.match.params.id) {
@@ -102,7 +100,6 @@ class LyricDetail extends Component {
     render() {
         let lyricList = null;
 
-
         switch (this.state.status) {
             case "LOADING":
                 lyricList = <em>Loading...</em>;
@@ -110,13 +107,14 @@ class LyricDetail extends Component {
             case "LOADED":
                 console.log(this.state.lyric);
 
-                let originalLyrics = this.state.lyric.lyrics_body.substring(0, this.state.lyric.lyrics_body.indexOf("**"));
+                let originalLyrics = this.state.lyric.lyrics_body.substring(
+                    0,
+                    this.state.lyric.lyrics_body.indexOf("**")
+                );
 
-                lyricList =
-                    originalLyrics.split("\n").map((i, index) => {
-                        return <div key={index}>{i}</div>;
-                    })
-
+                lyricList = originalLyrics.split("\n").map((i, index) => {
+                    return <div key={index}>{i}</div>;
+                });
 
                 break;
             case "ERROR":
@@ -129,8 +127,6 @@ class LyricDetail extends Component {
 
         return (
             <div className="LyricDetail">
-
-
                 <Container>
                     <Row>
                         <Col lg="12" md="12" xs="12">
@@ -142,7 +138,6 @@ class LyricDetail extends Component {
 
                             <span className="h2">Lyrics</span>
                             <span className="right">
-
                                 {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
                                 {/* <Button className="margin">Add to Favorite</Button> */}
                                 {/* <span>

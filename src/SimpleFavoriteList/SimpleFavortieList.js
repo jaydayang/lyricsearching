@@ -11,7 +11,8 @@ class SimpleFavoriteList extends Component {
 
     this.state = {
       status: "LOADING",
-      trackFavorite: []
+      trackFavorite: [],
+      user: fire.auth().currentUser
     };
   }
 
@@ -28,47 +29,85 @@ class SimpleFavoriteList extends Component {
     }
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   // if (this.props != nextProps) {
+  //   if (fire.auth().currentUser != null) {
+  //     var userId = fire.auth().currentUser.uid;
+  //     let thisComponent = this;
+  //     let query = fire.database().ref(userId);
+  //     query.once("value").then(function (snapshot) {
+  //       let track = [];
+  //       snapshot.forEach(function (childSnapshot) {
+  //         // childData will be the actual contents of the child
+  //         var childData = childSnapshot.val();
+  //         track.push(childData);
+  //         console.log("name", childData);
+  //       });
+
+  //       thisComponent.setState({
+  //         trackFavorite: track,
+  //         status: "LOADED"
+  //       });
+  //     });
+  //   } else {
+  //     this.setState({
+  //       status: "NOLOGIN"
+  //     });
+  //   }
+  //   // }   //   console.log("update", this.state.lyricId)
+  // }
+
   componentDidMount() {
-    if (fire.auth().currentUser != null) {
-      // fire.auth().onAuthStateChanged(user => {
-      //   if (user) {
-      console.log("fire.auth()" + fire.auth().currentUser);
-      var userId = fire.auth().currentUser.uid;
-      let thisComponent = this;
+    var self = this;
 
-      let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
-        let track = [];
-        snapshot.forEach(function(childSnapshot) {
-          // childData will be the actual contents of the child
-          var childData = childSnapshot.val();
-          track.push(childData);
-          console.log("name", childData);
-        });
+    modelInstance.EventEmitter.subscribe("changeItem", function(newItem) {
+      self.setState({
+        curItem: newItem
+      });
+    });
 
-        thisComponent.setState({
-          trackFavorite: track,
-          status: "LOADED"
+    fire.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // if (fire.auth().currentUser != null) {
+        var userId = fire.auth().currentUser.uid;
+        let thisComponent = self;
+
+        // fire.database().ref(userId).on("child_added", snapshot => {
+        //   track.push(snapshot.val())
+        //   this.setState({
+        //     track
+        //   });
+        //   //thisComponent.getTopChart(5);
+        // })
+
+        let query = fire.database().ref(userId);
+        query.once("value").then(function(snapshot) {
+          let track = [];
+          snapshot.forEach(function(childSnapshot) {
+            // childData will be the actual contents of the child
+            var childData = childSnapshot.val();
+            track.push(childData);
+            console.log("name", childData);
+          });
+
+          thisComponent.setState({
+            trackFavorite: track,
+            status: "LOADED"
+          });
         });
-      });
-    } else {
-      let thisComponent = this;
-      thisComponent.setState({
-        status: "NOLOGIN"
-      });
-    }
+      } else {
+        self.setState({
+          status: "NOLOGIN"
+        });
+      }
+    });
+  }
+  componentWillMount() {
+    modelInstance.EventEmitter.unSubscribe("changeItem");
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // fire.auth().onAuthStateChanged(user => {
-    //   console.log("onauth" + user);
-
-    // });
-    // console.log("prestate.user" + prevState.user);
-    // console.log("current" + this.state.user);
-    // console.log("prestate suts" + prevState.status);
-    // console.log("now status" + this.state.status);
-    if (fire.auth().currentUser) {
+  componentDidUpdate(prevProps) {
+    if (fire.auth().currentUser != null) {
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
 

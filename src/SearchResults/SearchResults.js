@@ -8,13 +8,15 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {
-      status: "LOADING",
-      searchWord: "happy"
+      status: "LOADING"
     };
   }
 
   componentDidMount() {
     const name = this.props.searchWord.q;
+    this.setState({
+      searchWord: name
+    });
     modelInstance
       .searchTrack(name)
 
@@ -32,11 +34,28 @@ class SearchResults extends Component {
       });
   }
 
-  //HANDLE CLICK
-  //@param trackID, ID of a track
-  //calls the rounter, hands the ID
-  handleClick(trackID) {
-    console.log("click on track", trackID.track.track.track_id);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchWord.q !== this.props.searchWord.q) {
+      const name = nextProps.searchWord.q;
+      this.setState({
+        searchWord: name
+      });
+      modelInstance
+        .searchTrack(name)
+
+        .then(tracks => {
+          const lyricsResults = tracks.message.body.track_list;
+          this.setState({
+            status: "LOADED",
+            searchResult: lyricsResults
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status: "ERROR"
+          });
+        });
+    }
   }
 
   render() {
