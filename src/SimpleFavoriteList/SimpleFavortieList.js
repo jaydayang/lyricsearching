@@ -21,7 +21,7 @@ class SimpleFavoriteList extends Component {
         ? this.state.trackFavorite.length
         : num;
     if (getNum == 0) {
-      return "";
+      return [];
     } else {
       console.log(
         "sliced tracks",
@@ -59,19 +59,6 @@ class SimpleFavoriteList extends Component {
         status: "LOADED"
       });
       //thisComponent.getTopChart(5);
-    });
-
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        track.push(childData.track_name);
-      });
-      thisComponent.setState({
-        track: track,
-        status: "LOADED"
-      });
     });
   }
 
