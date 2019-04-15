@@ -9,10 +9,10 @@ class SimpleFavoriteList extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       status: "LOADING",
-      trackFavorite: []
+      trackFavorite: [],
+      user: fire.auth().currentUser
     };
   }
 
@@ -29,44 +29,16 @@ class SimpleFavoriteList extends Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   // if (this.props != nextProps) {
-  //   if (fire.auth().currentUser != null) {
-  //     var userId = fire.auth().currentUser.uid;
-  //     let thisComponent = this;
-  //     let query = fire.database().ref(userId);
-  //     query.once("value").then(function (snapshot) {
-  //       let track = [];
-  //       snapshot.forEach(function (childSnapshot) {
-  //         // childData will be the actual contents of the child
-  //         var childData = childSnapshot.val();
-  //         track.push(childData);
-  //         console.log("name", childData);
-  //       });
-
-  //       thisComponent.setState({
-  //         trackFavorite: track,
-  //         status: "LOADED"
-  //       });
-  //     });
-  //   } else {
-  //     this.setState({
-  //       status: "NOLOGIN"
-  //     });
-  //   }
-  //   // }   //   console.log("update", this.state.lyricId)
-  // }
-
-
-
   componentDidMount() {
     var self = this;
+
     modelInstance
       .EventEmitter.subscribe('changeItem', function (newItem) {
         self.setState({
           curItem: newItem
         });
       })
+
     if (fire.auth().currentUser != null) {
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
@@ -100,10 +72,10 @@ class SimpleFavoriteList extends Component {
       });
     }
   }
-
-  componentWillUnmount() {
+  componentWillMount() {
     modelInstance.EventEmitter.unSubscribe('changeItem');
   }
+
 
   componentDidUpdate() {
     if (fire.auth().currentUser != null) {
