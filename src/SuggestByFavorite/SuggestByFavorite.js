@@ -14,58 +14,127 @@ class Sidebar extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   if (fire.auth().currentUser != null) {
+  //     var userId = fire.auth().currentUser.uid;
+  //     let artistId = this.state.artistId;
+  //     let thisComponent = this;
+  //     // fire.database().ref(userId).on("child_added", snapshot => {
+  //     //   artistId.push(snapshot.val().artist_id)
+  //     //   this.setState({
+  //     //     artistId: artistId
+  //     //   });
+  //     // })
+
+  //     let query = fire.database().ref(userId);
+  //     query.once("value").then(function(snapshot) {
+  //       snapshot.forEach(function(childSnapshot) {
+  //         // childData will be the actual contents of the child
+  //         var childData = childSnapshot.val();
+  //         artistId.push(childData.artist_id);
+  //       });
+  //       thisComponent.setState({
+  //         artistId: artistId
+  //       });
+
+  //       modelInstance
+  //         .getRelatedArtists(
+  //           modelInstance.getAppearMost(thisComponent.state.artistId)
+  //         )
+  //         .then(response => response.json())
+  //         .then(artist => {
+  //           console.log("relatedArtistList", artist.message.body.artist_list);
+  //           var suggestList = thisComponent.getPopularSongs(
+  //             artist.message.body.artist_list
+  //           );
+
+  //           thisComponent.setState({
+  //             status: "LOADED",
+  //             relatedArtists: artist.message.body.artist_list,
+  //             suggestList: suggestList
+  //           });
+  //         });
+  //     });
+  //   }
+  // }
+
   componentDidMount() {
-    var userId = fire.auth().currentUser.uid;
-    let artistId = this.state.artistId;
-    let thisComponent = this;
-    // fire.database().ref(userId).on("child_added", snapshot => {
-    //   artistId.push(snapshot.val().artist_id)
-    //   this.setState({
-    //     artistId: artistId
-    //   });
-    // })
+    if (fire.auth().currentUser != null) {
+      var userId = fire.auth().currentUser.uid;
+      let artistId = this.state.artistId;
+      let thisComponent = this;
 
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        artistId.push(childData.artist_id);
-      });
-      thisComponent.setState({
-        artistId: artistId
-      });
-
-      modelInstance
-        .getRelatedArtists(
-          modelInstance.getAppearMost(thisComponent.state.artistId)
-        )
-        .then(response => response.json())
-        .then(artist => {
-          console.log("relatedArtistList", artist.message.body.artist_list);
-          var suggestList = thisComponent.getPopularSongs(
-            artist.message.body.artist_list
-          );
-
-          thisComponent.setState({
-            status: "LOADED",
-            relatedArtists: artist.message.body.artist_list,
-            suggestList: suggestList
-          });
+      let query = fire.database().ref(userId);
+      query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          artistId.push(childData.artist_id);
         });
-    });
+
+        thisComponent.setState({
+          artistId: artistId
+        });
+
+        modelInstance
+          .getRelatedArtists(
+            modelInstance.getAppearMost(thisComponent.state.artistId)
+          )
+          .then(response => response.json())
+          .then(artist => {
+            console.log("relatedArtistList", artist.message.body.artist_list);
+            var suggestList = thisComponent.getPopularSongs(
+              artist.message.body.artist_list
+            );
+
+            thisComponent.setState({
+              status: "LOADED",
+              relatedArtists: artist.message.body.artist_list,
+              suggestList: suggestList
+            });
+          });
+      });
+    }
   }
 
   getPopularSongs(artistList) {
     var suggestList = new Array();
+    if (artistList != null) {
+      for (var i = 0; i < artistList.length; i++) {
+        modelInstance
+          .getPopularSuggest(artistList[i].artist.artist_id)
+          .then(response => response.json())
+          .then(track => {
+            suggestList.push(track.message.body.track_list[0]);
+            this.setState({ status: "LOADED" });
+          })
+          .catch(() => {
+            this.setState({
+              status: "ERROR"
+            });
+          });
+      }
+    } else {
+      console.log("daozhelil");
 
-    console.log("render", artistList.length);
-    for (var i = 0; i < artistList.length; i++) {
+      // modelInstance
+      // .getTopChart("SE", 5)
+      // .then(tracks => {
+      //   const tracksResult = tracks.message.body.track_list;
+      //   this.setState({
+      //     status: "LOADED",
+      //     topTracks: tracksResult
+      //   });
+      // })
+
       modelInstance
-        .getPopularSuggest(artistList[i].artist.artist_id)
-        .then(response => response.json())
+        .getRandomSuggest("SE", 5)
         .then(track => {
-          suggestList.push(track.message.body.track_list[0]);
+          console.log("track" + track);
+          for (let i = 0; i < 5; i++) {
+            suggestList.push(track.message.body.track_list[i]);
+          }
+
           this.setState({ status: "LOADED" });
         })
         .catch(() => {

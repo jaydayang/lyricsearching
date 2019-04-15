@@ -29,65 +29,82 @@ class SimpleFavoriteList extends Component {
   }
 
   componentDidMount() {
-    var userId = fire.auth().currentUser.uid;
-    let thisComponent = this;
+    if (fire.auth().currentUser != null) {
+      var userId = fire.auth().currentUser.uid;
+      let thisComponent = this;
 
-    // fire.database().ref(userId).on("child_added", snapshot => {
-    //   track.push(snapshot.val())
-    //   this.setState({
-    //     track
-    //   });
-    //   //thisComponent.getTopChart(5);
-    // })
+      // fire.database().ref(userId).on("child_added", snapshot => {
+      //   track.push(snapshot.val())
+      //   this.setState({
+      //     track
+      //   });
+      //   //thisComponent.getTopChart(5);
+      // })
 
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      let track = [];
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        track.push(childData);
-        console.log("name", childData);
-      });
+      let query = fire.database().ref(userId);
+      query.once("value").then(function(snapshot) {
+        let track = [];
+        snapshot.forEach(function(childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          track.push(childData);
+          console.log("name", childData);
+        });
 
-      thisComponent.setState({
-        trackFavorite: track,
-        status: "LOADED"
-      });
-    });
-  }
-  componentDidUpdate() {
-    var userId = fire.auth().currentUser.uid;
-    let thisComponent = this;
-
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      let track = [];
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        track.push(childData);
-      });
-      console.log("print track", track);
-      console.log("state track", thisComponent.state.trackFavorite);
-      console.log(
-        "true or false",
-        track.length != thisComponent.state.trackFavorite.length
-      );
-      if (track.length != thisComponent.state.trackFavorite.length) {
         thisComponent.setState({
           trackFavorite: track,
           status: "LOADED"
         });
-      }
-    });
+      });
+    } else {
+      this.setState({
+        status: "NOLOGIN"
+      });
+    }
+  }
+  componentDidUpdate() {
+    if (fire.auth().currentUser != null) {
+      var userId = fire.auth().currentUser.uid;
+      let thisComponent = this;
+
+      let query = fire.database().ref(userId);
+      query.once("value").then(function(snapshot) {
+        let track = [];
+        snapshot.forEach(function(childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          track.push(childData);
+        });
+        console.log("print track", track);
+        console.log("state track", thisComponent.state.trackFavorite);
+        console.log(
+          "true or false",
+          track.length != thisComponent.state.trackFavorite.length
+        );
+        if (track.length != thisComponent.state.trackFavorite.length) {
+          thisComponent.setState({
+            trackFavorite: track,
+            status: "LOADED"
+          });
+        }
+      });
+    }
   }
 
   render() {
     let lyricList = null;
+    var viewOrLogin = null;
     const trackList = this.getTopChart(5);
     console.log("tracklist chart", trackList);
     switch (this.state.status) {
+      case "NOLOGIN":
+        lyricList = <em>Login to see favortie List Detail</em>;
+        viewOrLogin = (
+          <Link to="/login">
+            <button className="viewallButton">Login</button>
+          </Link>
+        );
+        break;
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
@@ -104,6 +121,11 @@ class SimpleFavoriteList extends Component {
             </Link>
           </li>
         ));
+        viewOrLogin = (
+          <Link to="/favorite">
+            <button className="viewallButton">View All</button>
+          </Link>
+        );
 
         break;
       case "ERROR":
@@ -134,9 +156,10 @@ class SimpleFavoriteList extends Component {
         <h3>My Favorite</h3>
 
         <ul className="favorUl">{lyricList}</ul>
-        <Link to="/favorite">
+        <ul>{viewOrLogin}</ul>
+        {/* <Link to="/favorite">
           <button className="viewallButton">View All</button>
-        </Link>
+        </Link> */}
       </div>
     );
   }

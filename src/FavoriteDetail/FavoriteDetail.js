@@ -18,28 +18,30 @@ class FavoriteDetail extends Component {
   }
 
   componentDidMount() {
-    var userId = fire.auth().currentUser.uid;
-    let artist = this.state.artist;
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => {
-        artist.push(snapshot.val());
-        this.setState({
-          artist
+    if (fire.auth().currentUser != null) {
+      var userId = fire.auth().currentUser.uid;
+      let artist = this.state.artist;
+      fire
+        .database()
+        .ref(userId)
+        .on("child_added", snapshot => {
+          artist.push(snapshot.val());
+          this.setState({
+            artist
+          });
         });
-      });
 
-    let track = this.state.track;
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => {
-        track.push(snapshot.val());
-        this.setState({
-          track
+      let track = this.state.track;
+      fire
+        .database()
+        .ref(userId)
+        .on("child_added", snapshot => {
+          track.push(snapshot.val());
+          this.setState({
+            track
+          });
         });
-      });
+    }
   }
 
   render() {
