@@ -57,6 +57,14 @@ class ArtistsResults extends Component {
     }
   }
 
+  getSubStringofName(name) {
+    if (name.lenght > 30) {
+      return name.substring(0, 30);
+    } else
+      return name;
+
+  }
+
   render() {
     let artistList = null;
     const { searchResult } = this.state;
@@ -70,11 +78,13 @@ class ArtistsResults extends Component {
           <div
             key={artist.artist.artist_id}
             id={artist.artist.artist_id}
-            className="col-md-6 artist-result"
+            className="col-md-6 col-lg-4 artist-result"
           >
             <Link to={"/artist/" + artist.artist.artist_id}>
-              <h3>{artist.artist.artist_name}</h3>
-              <br />
+              <div className="artistBlock">
+                <h3 className="textH3">{this.getSubStringofName(artist.artist.artist_name)}</h3>
+                <br />
+              </div>
             </Link>
           </div>
         ));
@@ -86,8 +96,10 @@ class ArtistsResults extends Component {
 
     return (
       <div className="Searching-Results">
+
         <div className="row">{artistList}</div>
       </div>
+
     );
   }
 }

@@ -29,6 +29,16 @@ class ArtistDetail extends Component {
         });
       });
   }
+
+  getSubStringofName(name) {
+
+    if (name.length > 35) {
+      return name.substring(0, 35) + "...";
+    } else
+      return name;
+
+  }
+
   render() {
     let albumList = null;
     const { searchResult } = this.state;
@@ -42,11 +52,13 @@ class ArtistDetail extends Component {
           <div
             key={album.album.album_id}
             id={album.album.album_id}
-            className="col-md-6 artist-result"
+            className="col-md-6 col-lg-4  artist-result"
           >
             <Link to={"/album/" + album.album.album_id}>
-              <h3>{album.album.album_name}</h3>
-              <br />
+              <div className="albumBlock">
+                <h3 className="albumName">{this.getSubStringofName(album.album.album_name)}</h3>
+                <br />
+              </div>
             </Link>
           </div>
         ));
