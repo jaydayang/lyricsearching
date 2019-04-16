@@ -12,7 +12,6 @@ class AlbumInfo extends Component {
   }
   onClickItem(item) {
     modelInstance.EventEmitter.dispatch("changeItem", item);
-    console.log("listen", item);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
@@ -21,7 +20,6 @@ class AlbumInfo extends Component {
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
         .then(data => {
-          console.log("albuminfo", data.message);
           this.setState({
             status1: "LOADED",
             track: data.message.body.track,
@@ -42,7 +40,6 @@ class AlbumInfo extends Component {
       this.setState({
         idProxyAlbum: this.state.lyricId
       });
-      console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
       query.once("value").then(function (snapshot) {
@@ -54,13 +51,10 @@ class AlbumInfo extends Component {
         thisComponent.setState({
           trackId: trackId
         });
-        console.log(thisComponent.state.lyricId);
-        console.log(thisComponent.state.trackId.length);
         var id = Number(thisComponent.state.lyricId);
         var idList = thisComponent.state.trackId;
 
         saveOrNot = modelInstance.savedOrNot(id, idList);
-        console.log("saveOrNot", saveOrNot);
 
         if (saveOrNot == true) {
           thisComponent.setState({
@@ -71,13 +65,11 @@ class AlbumInfo extends Component {
             favorited: false
           });
         }
-        console.log("console before", thisComponent.state.favorited);
       });
     }
   }
 
   componentDidMount() {
-    console.log(this.state.lyricId);
     if (fire.auth().currentUser) {
       var userId = fire.auth().currentUser.uid;
       let trackId = this.state.trackId;
@@ -86,7 +78,6 @@ class AlbumInfo extends Component {
       this.setState({
         idProxyAlbum: this.state.lyricId
       });
-      console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
       query.once("value").then(function (snapshot) {
@@ -100,13 +91,10 @@ class AlbumInfo extends Component {
         thisComponent.setState({
           trackId: trackId
         });
-        console.log(thisComponent.state.lyricId);
-        console.log(thisComponent.state.trackId.length);
         var id = Number(thisComponent.state.lyricId);
         var idList = thisComponent.state.trackId;
 
         saveOrNot = modelInstance.savedOrNot(id, idList);
-        console.log("saveOrNot", saveOrNot);
 
         if (saveOrNot == true) {
           thisComponent.setState({
@@ -117,7 +105,6 @@ class AlbumInfo extends Component {
             favorited: false
           });
         }
-        console.log("console before", thisComponent.state.favorited);
       });
 
 
@@ -125,12 +112,10 @@ class AlbumInfo extends Component {
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
         .then(data => {
-          console.log(data.message);
           this.setState({
             status1: "LOADED",
             track: data.message.body.track
           });
-          console.log(this.state.idProxyAlbum);
         })
         .catch(() => {
           this.setState({

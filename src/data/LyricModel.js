@@ -145,12 +145,11 @@ class LyricModel extends ObservableModel {
   getArtistAlbums(artistId) {
     const query = `artist.albums.get?artist_id=${artistId}&s_release_date=desc&g_album_name=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
-    console.log("getartsitalbums");
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
     }).then(response => response.json());
   }
-  
+
   //Get all tracks from a specific album
   //@id :int  of the album in NUM
   // return object with all the tracks from the album

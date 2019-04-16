@@ -38,7 +38,6 @@ class Sidebar extends Component {
           )
           .then(response => response.json())
           .then(artist => {
-            console.log("relatedArtistList", artist.message.body.artist_list);
             var suggestList = thisComponent.getPopularSongs(
               artist.message.body.artist_list
             );
@@ -71,12 +70,9 @@ class Sidebar extends Component {
           });
       }
     } else {
-      console.log("daozhelil");
-
       modelInstance
         .getRandomSuggest("SE", 5)
         .then(track => {
-          console.log("track" + track);
           for (let i = 0; i < 5; i++) {
             suggestList.push(track.message.body.track_list[i]);
           }
@@ -89,24 +85,17 @@ class Sidebar extends Component {
           });
         });
     }
-    console.log("rendersong", suggestList);
-    console.log("rendersong2", suggestList.length);
     return suggestList;
   }
 
   render() {
     let suggestList1 = [];
-    console.log(this.state.artistId);
-
-    console.log(this.state.artistId.length);
 
     switch (this.state.status) {
       case "LOADING":
         suggestList1 = <em>loading</em>;
         break;
       case "LOADED":
-        console.log("loaded", this.state.relatedArtists);
-        console.log("suggestlist", this.state.suggestList);
 
         suggestList1 = this.state.suggestList.map(track => (
           <li

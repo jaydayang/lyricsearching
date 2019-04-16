@@ -46,7 +46,6 @@ class FavoriteDetail extends Component {
 
   render() {
     let favoriteArtist = [];
-    console.log("try artist", this.state.artist);
     favoriteArtist = this.state.artist.map(track => (
       <li
         key={track.commontrack_id}
@@ -60,7 +59,6 @@ class FavoriteDetail extends Component {
     ));
 
     let favoriteTrack = [];
-    console.log("try track", this.state.track);
     favoriteTrack = this.state.track.map(track => (
       <li
         key={track.commontrack_id}

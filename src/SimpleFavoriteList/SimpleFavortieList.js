@@ -23,7 +23,6 @@ class SimpleFavoriteList extends Component {
     if (getNum == 0) {
       return [];
     } else {
-      console.log("sliced tracks", this.state.trackFavorite.slice(0, getNum));
       return this.state.trackFavorite.slice(0, getNum);
     }
   }
@@ -49,7 +48,6 @@ class SimpleFavoriteList extends Component {
             // childData will be the actual contents of the child
             var childData = childSnapshot.val();
             track.push(childData);
-            console.log("name", childData);
           });
 
           thisComponent.setState({
@@ -82,8 +80,6 @@ class SimpleFavoriteList extends Component {
           var childData = childSnapshot.val();
           track.push(childData);
         });
-        console.log("print track", track);
-        console.log("state track", thisComponent.state.trackFavorite);
         console.log(
           "true or false",
           track.length != thisComponent.state.trackFavorite.length
@@ -102,7 +98,6 @@ class SimpleFavoriteList extends Component {
     let lyricList = null;
     var viewOrLogin = null;
     const trackList = this.getTopChart(5);
-    console.log("tracklist chart", trackList);
     switch (this.state.status) {
       case "NOLOGIN":
         lyricList = <em>Login to see favortie List Detail</em>;

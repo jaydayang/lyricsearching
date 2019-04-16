@@ -20,7 +20,6 @@ class LyricDetail extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.lyricId);
 
     const script1 = document.createElement("script");
 
@@ -34,7 +33,6 @@ class LyricDetail extends Component {
       .getOneLyric(this.state.lyricId)
       .then(response => response.json())
       .then(data => {
-        console.log(data.message);
         this.setState({
           status: "LOADED",
           lyric: data.message.body.lyrics,
@@ -47,12 +45,8 @@ class LyricDetail extends Component {
         });
       });
   }
-  
   componentDidUpdate(props) {
-    console.log("update", this.props.id.match.params.id);
     if (this.state.idProxy != this.props.id.match.params.id) {
-      console.log("update", this.state.lyricId);
-
       this.setState({
         lyricId: this.props.id.match.params.id,
         idProxy: this.state.lyricId,
@@ -62,7 +56,6 @@ class LyricDetail extends Component {
         .getOneLyric(this.state.lyricId)
         .then(response => response.json())
         .then(data => {
-          console.log(data.message);
           this.setState({
             status: "LOADED",
             lyric: data.message.body.lyrics,
@@ -75,8 +68,6 @@ class LyricDetail extends Component {
           });
         });
     }
-
-    console.log("update", this.state.lyricId);
   }
 
   render() {
@@ -87,7 +78,6 @@ class LyricDetail extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        console.log(this.state.lyric);
 
         let originalLyrics = this.state.lyric.lyrics_body.substring(
           0,

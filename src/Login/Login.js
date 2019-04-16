@@ -70,13 +70,11 @@ class Login extends React.Component {
   }
 
   login(e) {
-    console.log("dadf" + this.state.email);
     e.preventDefault();
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {
-        console.log("get user's uid", u.currentUser);
       })
       .catch(error => {
         console.log(error);
