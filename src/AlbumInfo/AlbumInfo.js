@@ -4,7 +4,7 @@ import "./AlbumInfo.css";
 import fire from "../Config/Fire";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 
 class AlbumInfo extends Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class AlbumInfo extends Component {
     modelInstance.EventEmitter.dispatch("changeItem", item);
     console.log("listen", item);
   }
-
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
       this.setState(nextProps.parentState);
@@ -37,46 +36,46 @@ class AlbumInfo extends Component {
           });
         });
     }
-    var userId = fire.auth().currentUser.uid;
-    let trackId = this.state.trackId;
-    let thisComponent = this;
-    var saveOrNot;
-    this.setState({
-      idProxyAlbum: this.state.lyricId
-    });
-    console.log("idProxyAlbum", this.state.idProxyAlbum);
-
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        trackId.push(childData.track_id);
+    if (fire.auth().currentUser) {
+      var userId = fire.auth().currentUser.uid;
+      let trackId = this.state.trackId;
+      let thisComponent = this;
+      var saveOrNot;
+      this.setState({
+        idProxyAlbum: this.state.lyricId
       });
-      thisComponent.setState({
-        trackId: trackId
+      console.log("idProxyAlbum", this.state.idProxyAlbum);
+
+      let query = fire.database().ref(userId);
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          trackId.push(childData.track_id);
+        });
+        thisComponent.setState({
+          trackId: trackId
+        });
+        console.log(thisComponent.state.lyricId);
+        console.log(thisComponent.state.trackId.length);
+        var id = Number(thisComponent.state.lyricId);
+        var idList = thisComponent.state.trackId;
+
+        saveOrNot = modelInstance.savedOrNot(id, idList);
+        console.log("saveOrNot", saveOrNot);
+
+        if (saveOrNot == true) {
+          thisComponent.setState({
+            favorited: true
+          });
+        } else {
+          thisComponent.setState({
+            favorited: false
+          });
+        }
+        console.log("console before", thisComponent.state.favorited);
       });
-      console.log(thisComponent.state.lyricId);
-      console.log(thisComponent.state.trackId.length);
-      var id = Number(thisComponent.state.lyricId);
-      var idList = thisComponent.state.trackId;
-
-      saveOrNot = modelInstance.savedOrNot(id, idList);
-      console.log("saveOrNot", saveOrNot);
-
-      if (saveOrNot == true) {
-        thisComponent.setState({
-          favorited: true
-        });
-      } else {
-        thisComponent.setState({
-          favorited: false
-        });
-      }
-      console.log("console before", thisComponent.state.favorited);
-    });
-
-    //   console.log("update", this.state.lyricId)
+    }
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -85,63 +84,75 @@ class AlbumInfo extends Component {
 
   componentDidMount() {
     console.log(this.state.lyricId);
-    var userId = fire.auth().currentUser.uid;
-    let trackId = this.state.trackId;
-    let thisComponent = this;
-    var saveOrNot;
-    this.setState({
-      idProxyAlbum: this.state.lyricId
-    });
-    console.log("idProxyAlbum", this.state.idProxyAlbum);
-
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        trackId.push(childData.track_id);
+    if (fire.auth().currentUser) {
+      var userId = fire.auth().currentUser.uid;
+      let trackId = this.state.trackId;
+      let thisComponent = this;
+      var saveOrNot;
+      this.setState({
+        idProxyAlbum: this.state.lyricId
       });
-      thisComponent.setState({
-        trackId: trackId
-      });
-      console.log(thisComponent.state.lyricId);
-      console.log(thisComponent.state.trackId.length);
-      var id = Number(thisComponent.state.lyricId);
-      var idList = thisComponent.state.trackId;
+      console.log("idProxyAlbum", this.state.idProxyAlbum);
 
-      saveOrNot = modelInstance.savedOrNot(id, idList);
-      console.log("saveOrNot", saveOrNot);
+      let query = fire.database().ref(userId);
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          trackId.push(childData.track_id);
+        });
 
-      if (saveOrNot == true) {
+
         thisComponent.setState({
-          favorited: true
+          trackId: trackId
         });
-      } else {
-        thisComponent.setState({
-          favorited: false
-        });
-      }
-      console.log("console before", thisComponent.state.favorited);
-    });
+        console.log(thisComponent.state.lyricId);
+        console.log(thisComponent.state.trackId.length);
+        var id = Number(thisComponent.state.lyricId);
+        var idList = thisComponent.state.trackId;
 
-    modelInstance
-      .getOneTrack(this.state.lyricId)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          status1: "LOADED",
-          track: data.message.body.track
+        saveOrNot = modelInstance.savedOrNot(id, idList);
+        console.log("saveOrNot", saveOrNot);
 
-          // track_id: data.message.body.track.trak_id
-        });
-        console.log(this.state.idProxyAlbum);
-      })
-      .catch(() => {
-        this.setState({
-          status1: "ERROR"
-        });
+        if (saveOrNot == true) {
+          thisComponent.setState({
+            favorited: true
+          });
+        } else {
+          thisComponent.setState({
+            favorited: false
+          });
+        }
+        console.log("console before", thisComponent.state.favorited);
       });
+
+
+      modelInstance
+        .getOneTrack(this.state.lyricId)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message);
+          this.setState({
+            status1: "LOADED",
+            track: data.message.body.track
+
+            // track_id: data.message.body.track.trak_id
+          });
+          console.log(this.state.idProxyAlbum);
+        })
+        .catch(() => {
+          this.setState({
+            status1: "ERROR"
+          });
+        });
+
+
+
+
+      // track_id: data.message.body.track.trak_id
+    }
   }
+
 
   // componentDidUpdate() {
 
@@ -224,8 +235,7 @@ class AlbumInfo extends Component {
       );
     }
   };
-
-  changeFavoriteProp = like => {
+  changeFavoriteProp(like) {
     if (like == true) {
       return false;
     } else {
@@ -244,15 +254,8 @@ class AlbumInfo extends Component {
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
+            <Button onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
 
-            <Button
-              onClick={() =>
-                this.onClickItem(this.changeFavoriteProp(this.state.favorited))
-              }
-            >
-              {" "}
-              {this.renderFavoriteHeart()}{" "}
-            </Button>
 
             <p>Artist Name:{this.state.track.artist_name}</p>
             <p>Album Name:{this.state.track.album_name}</p>
@@ -270,5 +273,6 @@ class AlbumInfo extends Component {
     return <div className="AlbumInfo">{lyricList}</div>;
   }
 }
+
 
 export default AlbumInfo;

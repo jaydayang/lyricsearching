@@ -15,10 +15,10 @@ class LyricDetail extends Component {
       status1: "LOADING",
       lyricId: this.props.id.match.params.id,
       favorited: true,
-      trackId: [],
-      trackFavorite: []
+      trackId: []
     };
   }
+
   componentDidMount() {
     console.log(this.state.lyricId);
 
@@ -29,6 +29,13 @@ class LyricDetail extends Component {
     script1.async = true;
 
     document.body.appendChild(script1);
+
+    // const script2 = document.createElement("script");
+
+    // script2.src = "./contorl.js";
+    // script2.async = true;
+
+    // document.body.appendChild(script2);
 
     modelInstance
       .getOneLyric(this.state.lyricId)
@@ -47,9 +54,40 @@ class LyricDetail extends Component {
         });
       });
   }
+  componentDidUpdate(props) {
+    console.log("update", this.props.id.match.params.id);
+    if (this.state.idProxy != this.props.id.match.params.id) {
+      console.log("update", this.state.lyricId);
+
+      this.setState({
+        lyricId: this.props.id.match.params.id,
+        idProxy: this.state.lyricId,
+        status: "LOADING"
+      });
+      modelInstance
+        .getOneLyric(this.state.lyricId)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message);
+          this.setState({
+            status: "LOADED",
+            lyric: data.message.body.lyrics,
+            idProxy: this.state.lyricId
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status: "ERROR"
+          });
+        });
+    }
+
+    console.log("update", this.state.lyricId);
+  }
 
   render() {
     let lyricList = null;
+
     switch (this.state.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
@@ -87,12 +125,20 @@ class LyricDetail extends Component {
               <AlbumInfo parentState={this.state} />
 
               <span className="h2">Lyrics</span>
-              <span className="right" />
+              <span className="right">
+                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+                {/* <Button className="margin">Add to Favorite</Button> */}
+                {/* <span>
+                                    {this.renderFavoriteHeart()}
+                                </span> */}
+              </span>
+
               <div id="google_translate_element" />
+
               <div className="translate">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">
-              <SimpleFavorite />
+              <SimpleFavorite parentState={this.state} />
               <SuggestionSidebar />
             </Col>
           </Row>

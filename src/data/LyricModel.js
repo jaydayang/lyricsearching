@@ -11,8 +11,6 @@ class LyricModel extends ObservableModel {
   // super();
   //}
   ArtistId = ["13774235", "56", "13774236"];
-
-  //Event Listening
   EventEmitter = {
     _events: {},
     dispatch: function (event, data) {
