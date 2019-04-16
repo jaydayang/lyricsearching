@@ -49,7 +49,7 @@ class ArtistDetail extends Component {
         break;
       case "LOADED":
         if (searchResult.length == 0) {
-          albumList = <div className="ifTheresNothing"><h3 className="textH3">Nothing!</h3></div>
+          albumList = <div className="ifTheresNothing"><h3 className="textH3">Oops! There's no album of this artist! :(</h3></div>
         } else {
 
           albumList = searchResult.map(album => (

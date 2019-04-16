@@ -58,8 +58,8 @@ class ArtistsResults extends Component {
   }
 
   getSubStringofName(name) {
-    if (name.length > 30) {
-      return name.substring(0, 30);
+    if (name.length > 35) {
+      return name.substring(0, 35) + "...";
     } else
       return name;
 
@@ -74,21 +74,25 @@ class ArtistsResults extends Component {
         artistList = <em>Loading...</em>;
         break;
       case "LOADED":
+        if (searchResult.length == 0) {
+          artistList = <div className="ifTheresNothing"><h3 className="textH3">Oops! There's no artist of this word!</h3></div>
+        } else {
 
-        artistList = searchResult.map(artist => (
-          <div
-            key={artist.artist.artist_id}
-            id={artist.artist.artist_id}
-            className="col-md-6 col-lg-4 artist-result"
-          >
-            <Link to={"/artist/" + artist.artist.artist_id}>
-              <div className="artistBlock">
-                <h3 className="textH3">{this.getSubStringofName(artist.artist.artist_name)}</h3>
-                <br />
-              </div>
-            </Link>
-          </div>
-        ));
+          artistList = searchResult.map(artist => (
+            <div
+              key={artist.artist.artist_id}
+              id={artist.artist.artist_id}
+              className="col-md-6 col-lg-4 artist-result"
+            >
+              <Link to={"/artist/" + artist.artist.artist_id}>
+                <div className="artistBlock">
+                  <h3 className="textH3">{this.getSubStringofName(artist.artist.artist_name)}</h3>
+                  <br />
+                </div>
+              </Link>
+            </div>
+          ));
+        }
 
         break;
       default:
