@@ -80,19 +80,19 @@ class Login extends React.Component {
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(u => { console.log("get user's uid", u.currentUser); })
+      .then(u => {
+        console.log("get user's uid", u.currentUser);
+      })
       .catch(error => {
         console.log(error);
       });
 
-    fire.auth().onAuthStateChanged(function (user) {
+    fire.auth().onAuthStateChanged(function(user) {
       if (user) {
         console.log("get user's uid1" + fire.auth().currentUser.uid);
       } else {
-       
       }
     });
-
 
     //If user login, we can get user's uid //////////////////////
     if (fire.auth().currentUser != null) {
@@ -129,8 +129,10 @@ class Login extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-          <button type="button" className="login-btn" onClick={this.login}>
-            <Link to="/search">Login</Link>
+          <button type="button" className="loginReglink" onClick={this.login}>
+            <Link to="/search" className="loginReglink">
+              Login
+            </Link>
           </button>
         </FormGroup>
       </Form>
@@ -160,7 +162,7 @@ class Register extends React.Component {
         this.state.email,
         this.state.password
       )
-      .then(u => { })
+      .then(u => {})
       .catch(error => {
         console.log(error);
       });
