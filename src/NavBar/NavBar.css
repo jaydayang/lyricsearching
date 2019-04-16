@@ -3,3 +3,34 @@
   font-size: 18px;
   position: relative;
 }
+
+.bg-black {
+  background: #1c1c1c;
+}
+
+.navbar {
+  height: 70px;
+}
+
+.brandLink {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 2rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px white;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+}
+
+.brandLink:hover {
+  color: #1c1c1c;
+  text-decoration: none;
+  background: white;
+}
+.brandlink: active {
+  color: white;
+}

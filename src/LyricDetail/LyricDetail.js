@@ -7,165 +7,145 @@ import { Container, Row, Col } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 
 class LyricDetail extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.state = {
+      status: "LOADING",
+      status1: "LOADING",
+      lyricId: this.props.id.match.params.id,
+      favorited: true,
+      trackId: []
+    };
+  }
 
-        this.state = {
-            status: "LOADING",
-            status1: "LOADING",
-            lyricId: this.props.id.match.params.id,
-            favorited: true,
-            trackId: [],
+  componentDidMount() {
+    console.log(this.state.lyricId);
 
+    const script1 = document.createElement("script");
 
+    script1.src =
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script1.async = true;
 
-        };
+    document.body.appendChild(script1);
+
+    // const script2 = document.createElement("script");
+
+    // script2.src = "./contorl.js";
+    // script2.async = true;
+
+    // document.body.appendChild(script2);
+
+    modelInstance
+      .getOneLyric(this.state.lyricId)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        this.setState({
+          status: "LOADED",
+          lyric: data.message.body.lyrics,
+          idProxy: this.state.lyricId
+        });
+      })
+      .catch(() => {
+        this.setState({
+          status: "ERROR"
+        });
+      });
+  }
+  componentDidUpdate(props) {
+    console.log("update", this.props.id.match.params.id);
+    if (this.state.idProxy != this.props.id.match.params.id) {
+      console.log("update", this.state.lyricId);
+
+      this.setState({
+        lyricId: this.props.id.match.params.id,
+        idProxy: this.state.lyricId,
+        status: "LOADING"
+      });
+      modelInstance
+        .getOneLyric(this.state.lyricId)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message);
+          this.setState({
+            status: "LOADED",
+            lyric: data.message.body.lyrics,
+            idProxy: this.state.lyricId
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status: "ERROR"
+          });
+        });
     }
 
-    componentDidMount() {
-        console.log(this.state.lyricId)
+    console.log("update", this.state.lyricId);
+  }
 
-        const script1 = document.createElement("script");
+  render() {
+    let lyricList = null;
 
-        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        script1.async = true;
+    switch (this.state.status) {
+      case "LOADING":
+        lyricList = <em>Loading...</em>;
+        break;
+      case "LOADED":
+        console.log(this.state.lyric);
 
-        document.body.appendChild(script1);
+        let originalLyrics = this.state.lyric.lyrics_body.substring(
+          0,
+          this.state.lyric.lyrics_body.indexOf("**")
+        );
 
-        // const script2 = document.createElement("script");
+        lyricList = originalLyrics.split("\n").map((i, index) => {
+          return <div key={index}>{i}</div>;
+        });
 
-        // script2.src = "./contorl.js";
-        // script2.async = true;
-
-        // document.body.appendChild(script2);
-
-
-        modelInstance
-            .getOneLyric(this.state.lyricId)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message)
-                this.setState({
-                    status: "LOADED",
-                    lyric: data.message.body.lyrics,
-                    idProxy: this.state.lyricId,
-
-                })
-            })
-            .catch(() => {
-                this.setState({
-                    status: "ERROR"
-                });
-            });
-
-
-    }
-    componentDidUpdate(props) {
-        console.log("update", this.props.id.match.params.id)
-        if (this.state.idProxy != this.props.id.match.params.id) {
-            console.log("update", this.state.lyricId)
-
-            this.setState({
-                lyricId: this.props.id.match.params.id,
-                idProxy: this.state.lyricId,
-                status: "LOADING"
-            });
-            modelInstance
-                .getOneLyric(this.state.lyricId)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message)
-                    this.setState({
-                        status: "LOADED",
-                        lyric: data.message.body.lyrics,
-                        idProxy: this.state.lyricId,
-                    })
-                })
-                .catch(() => {
-                    this.setState({
-                        status: "ERROR"
-                    });
-                });
-
-
-
-
-        }
-
-        console.log("update", this.state.lyricId)
-
+        break;
+      case "ERROR":
+        lyricList = <b>Failed to load data, please try again</b>;
+        break;
+      default:
+        lyricList = <em>Loading...</em>;
+        break;
     }
 
-    render() {
-        let lyricList = null;
+    return (
+      <div className="LyricDetail">
+        <Container>
+          <Row>
+            <Col lg="12" md="12" xs="12">
+              <h1>Lyric Detail</h1>
+            </Col>
 
-        switch (this.state.status) {
-            case "LOADING":
-                lyricList = <em>Loading...</em>;
-                break;
-            case "LOADED":
-                console.log(this.state.lyric);
+            <Col lg="8" md="8" xs="12">
+              <AlbumInfo parentState={this.state} />
 
-                let originalLyrics = this.state.lyric.lyrics_body.substring(
-                    0,
-                    this.state.lyric.lyrics_body.indexOf("**")
-                );
-
-                lyricList = originalLyrics.split("\n").map((i, index) => {
-                    return <div key={index}>{i}</div>;
-                });
-
-                break;
-            case "ERROR":
-                lyricList = <b>Failed to load data, please try again</b>;
-                break;
-            default:
-                lyricList = <em>Loading...</em>;
-                break;
-        }
-
-        return (
-            <div className="LyricDetail">
-                <Container>
-                    <Row>
-                        <Col lg="12" md="12" xs="12">
-                            <h1>Lyric Detail</h1>
-                        </Col>
-
-                        <Col lg="8" md="8" xs="12">
-                            <AlbumInfo parentState={this.state} />
-
-                            <span className="h2">Lyrics</span>
-                            <span className="right">
-                                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
-                                {/* <Button className="margin">Add to Favorite</Button> */}
-                                {/* <span>
+              <span className="h2">Lyrics</span>
+              <span className="right">
+                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
+                {/* <Button className="margin">Add to Favorite</Button> */}
+                {/* <span>
                                     {this.renderFavoriteHeart()}
                                 </span> */}
+              </span>
 
-                            </span>
+              <div id="google_translate_element" />
 
-                            <div id="google_translate_element"  ></div>
-
-
-
-                            <div className="translate"  >{lyricList}</div>
-
-
-                        </Col>
-                        <Col lg="4" md="4" xs="12">
-
-                            <SimpleFavorite parentState={this.state} />
-                            <SuggestionSidebar />
-                        </Col>
-
-
-                    </Row>
-                </Container>
-            </div>
-        );
-    }
+              <div className="translate">{lyricList}</div>
+            </Col>
+            <Col lg="4" md="4" xs="12">
+              <SimpleFavorite parentState={this.state} />
+              <SuggestionSidebar />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default LyricDetail;
