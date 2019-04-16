@@ -118,13 +118,19 @@ class SimpleFavoriteList extends Component {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
-          console.log("name", childData);
         });
-
-        thisComponent.setState({
-          trackFavorite: track,
-          status: "LOADED"
-        });
+        console.log("print track", track);
+        console.log("state track", thisComponent.state.trackFavorite);
+        console.log(
+          "true or false",
+          track.length != thisComponent.state.trackFavorite.length
+        );
+        if (track.length != thisComponent.state.trackFavorite.length) {
+          thisComponent.setState({
+            trackFavorite: track,
+            status: "LOADED"
+          });
+        }
       });
     }
   }

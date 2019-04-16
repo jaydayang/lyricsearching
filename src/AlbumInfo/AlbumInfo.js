@@ -47,8 +47,8 @@ class AlbumInfo extends Component {
       console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
@@ -95,12 +95,13 @@ class AlbumInfo extends Component {
       console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
         });
+
 
         thisComponent.setState({
           trackId: trackId
@@ -125,6 +126,7 @@ class AlbumInfo extends Component {
         console.log("console before", thisComponent.state.favorited);
       });
 
+
       modelInstance
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
@@ -144,9 +146,13 @@ class AlbumInfo extends Component {
           });
         });
 
+
+
+
       // track_id: data.message.body.track.trak_id
     }
   }
+
 
   // componentDidUpdate() {
 
@@ -235,7 +241,7 @@ class AlbumInfo extends Component {
     } else {
       return true;
     }
-  }
+  };
 
   render() {
     let lyricList = null;
@@ -248,14 +254,8 @@ class AlbumInfo extends Component {
         lyricList = (
           <div>
             <h2>{this.state.track.track_name}</h2>
-            <Button
-              onClick={() =>
-                this.onClickItem(this.changeFavoriteProp(this.state.favorited))
-              }
-            >
-              {" "}
-              {this.renderFavoriteHeart()}{" "}
-            </Button>
+            <Button onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
+
 
             <p>Artist Name:{this.state.track.artist_name}</p>
             <p>Album Name:{this.state.track.album_name}</p>
@@ -273,5 +273,6 @@ class AlbumInfo extends Component {
     return <div className="AlbumInfo">{lyricList}</div>;
   }
 }
+
 
 export default AlbumInfo;
