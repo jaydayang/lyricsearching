@@ -8,7 +8,6 @@ class AlbumDetail extends Component {
     super(props);
     this.state = {
       status: "LOADING",
-      //artistId: this.props.id.match.params.id
       artistId: "26464486"
     };
   }

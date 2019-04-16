@@ -1,5 +1,4 @@
-import React from "react";
-
+import React from "react"
 import Transition from "react-transition-group/Transition";
 
 export default class FadeTransition extends React.Component {

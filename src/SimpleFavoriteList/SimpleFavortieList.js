@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./SimpleFavoriteList.css";
 import modelInstance from "../data/LyricModel";
 import { Link } from "react-router-dom";
-import FavoriteDetail from "../FavoriteDetail/FavoriteDetail";
 import fire from "../Config/Fire";
 
 class SimpleFavoriteList extends Component {
@@ -29,34 +28,6 @@ class SimpleFavoriteList extends Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   // if (this.props != nextProps) {
-  //   if (fire.auth().currentUser != null) {
-  //     var userId = fire.auth().currentUser.uid;
-  //     let thisComponent = this;
-  //     let query = fire.database().ref(userId);
-  //     query.once("value").then(function (snapshot) {
-  //       let track = [];
-  //       snapshot.forEach(function (childSnapshot) {
-  //         // childData will be the actual contents of the child
-  //         var childData = childSnapshot.val();
-  //         track.push(childData);
-  //         console.log("name", childData);
-  //       });
-
-  //       thisComponent.setState({
-  //         trackFavorite: track,
-  //         status: "LOADED"
-  //       });
-  //     });
-  //   } else {
-  //     this.setState({
-  //       status: "NOLOGIN"
-  //     });
-  //   }
-  //   // }   //   console.log("update", this.state.lyricId)
-  // }
-
   componentDidMount() {
     var self = this;
 
@@ -68,19 +39,10 @@ class SimpleFavoriteList extends Component {
 
     fire.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // if (fire.auth().currentUser != null) {
         var userId = fire.auth().currentUser.uid;
         let thisComponent = self;
-
-        // fire.database().ref(userId).on("child_added", snapshot => {
-        //   track.push(snapshot.val())
-        //   this.setState({
-        //     track
-        //   });
-        //   //thisComponent.getTopChart(5);
-        // })
-
         let query = fire.database().ref(userId);
+
         query.once("value").then(function(snapshot) {
           let track = [];
           snapshot.forEach(function(childSnapshot) {
@@ -102,6 +64,7 @@ class SimpleFavoriteList extends Component {
       }
     });
   }
+
   componentWillMount() {
     modelInstance.EventEmitter.unSubscribe("changeItem");
   }
@@ -160,7 +123,6 @@ class SimpleFavoriteList extends Component {
             className="col-md-12 top-track-result"
           >
             <Link to={"/lyric/" + track.track_id}>
-              {/* <span>{track.track_name}</span> */}
               <span>{track.track_name}</span>
             </Link>
           </li>
@@ -180,30 +142,11 @@ class SimpleFavoriteList extends Component {
         break;
     }
 
-    // let favoriteTrack = [];
-    // console.log("try track",this.state.track)
-    // favoriteTrack = this.state.track.map(track => (
-    //   <li
-    //     key={track.commontrack_id}
-    //     id={track.commontrack_id}
-    //     className="col-md-12 top-track-result"
-    //   >
-    //     <Link to={"/lyric/" + track.track_id}>
-    //       {/* <span>{track.track_name}</span> */}
-    //       <span>{track.track_name}</span>
-    //     </Link>
-    //   </li>
-    // ));
-
     return (
       <div className="SimpleFavoriteList">
         <h3>My Favorite</h3>
-
         <ul className="favorUl">{lyricList}</ul>
         <ul>{viewOrLogin}</ul>
-        {/* <Link to="/favorite">
-          <button className="viewallButton">View All</button>
-        </Link> */}
       </div>
     );
   }

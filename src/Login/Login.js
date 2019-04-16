@@ -5,11 +5,6 @@ import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
 
-import { Redirect } from "react-router";
-import { BrowserRouter } from "react-router-dom";
-import { createHashHistory } from "history";
-import { browserHistory } from "react-router-dom";
-
 class LoginAndRegister extends React.Component {
   constructor(props) {
     super(props);
@@ -94,7 +89,7 @@ class Login extends React.Component {
       }
     });
 
-    //If user login, we can get user's uid //////////////////////
+    //If user login, we can get user's uid
     if (fire.auth().currentUser != null) {
       console.log("get user's uid" + fire.auth().currentUser.uid);
     }
@@ -167,12 +162,7 @@ class Register extends React.Component {
         console.log(error);
       });
 
-    //var userId = fire.auth().currentUser.uid;
     var username = this.state.username;
-
-    // fire.database().ref(userUid).update({
-    //   [lyricId]: selectedLyric
-    // });
     fire
       .database()
       .ref("/users/" + username + "/userInfo")

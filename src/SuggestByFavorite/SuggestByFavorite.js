@@ -14,50 +14,6 @@ class Sidebar extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   if (fire.auth().currentUser != null) {
-  //     var userId = fire.auth().currentUser.uid;
-  //     let artistId = this.state.artistId;
-  //     let thisComponent = this;
-  //     // fire.database().ref(userId).on("child_added", snapshot => {
-  //     //   artistId.push(snapshot.val().artist_id)
-  //     //   this.setState({
-  //     //     artistId: artistId
-  //     //   });
-  //     // })
-
-  //     let query = fire.database().ref(userId);
-  //     query.once("value").then(function(snapshot) {
-  //       snapshot.forEach(function(childSnapshot) {
-  //         // childData will be the actual contents of the child
-  //         var childData = childSnapshot.val();
-  //         artistId.push(childData.artist_id);
-  //       });
-  //       thisComponent.setState({
-  //         artistId: artistId
-  //       });
-
-  //       modelInstance
-  //         .getRelatedArtists(
-  //           modelInstance.getAppearMost(thisComponent.state.artistId)
-  //         )
-  //         .then(response => response.json())
-  //         .then(artist => {
-  //           console.log("relatedArtistList", artist.message.body.artist_list);
-  //           var suggestList = thisComponent.getPopularSongs(
-  //             artist.message.body.artist_list
-  //           );
-
-  //           thisComponent.setState({
-  //             status: "LOADED",
-  //             relatedArtists: artist.message.body.artist_list,
-  //             suggestList: suggestList
-  //           });
-  //         });
-  //     });
-  //   }
-  // }
-
   componentDidMount() {
     if (fire.auth().currentUser != null) {
       var userId = fire.auth().currentUser.uid;
@@ -117,16 +73,6 @@ class Sidebar extends Component {
     } else {
       console.log("daozhelil");
 
-      // modelInstance
-      // .getTopChart("SE", 5)
-      // .then(tracks => {
-      //   const tracksResult = tracks.message.body.track_list;
-      //   this.setState({
-      //     status: "LOADED",
-      //     topTracks: tracksResult
-      //   });
-      // })
-
       modelInstance
         .getRandomSuggest("SE", 5)
         .then(track => {
@@ -175,18 +121,6 @@ class Sidebar extends Component {
           </li>
         ));
 
-        // suggestList = this.state.suggestList.map(track => (
-        //   <li
-        //     key={track.track.commontrack_id}
-        //     id={track.track.commontrack_id}
-        //     className="col-md-12 top-track-result"
-        //   >
-        //     <Link to={"/lyric/" + track.track.commontrack_id}>
-        //       <span>{track.track.track_name}</span>
-        //       <span> Artist: {track.track.artist_name}</span>
-        //     </Link>
-        //   </li>
-        // ));
         break;
       default:
         suggestList1 = <b>Failed to load data, please try again</b>;
@@ -200,126 +134,6 @@ class Sidebar extends Component {
       </div>
     );
   }
-
-  // componentDidMount() {
-
-  //   var suggestList = [];
-
-  //Get the related artist list based on the artist appears most in the faviorite list
-
-  //   modelInstance
-  //     .getRelatedArtists(modelInstance.mode(modelInstance.ArtistId))
-  //     .then(response => response.json())
-  //     .then(artist => {
-  //       console.log('relatedArtistList', artist.message.body.artist_list);
-  //       this.setState({
-
-  //         status: "LOADED",
-  //         relatedArtists: artist.message.body.artist_list,
-
-  //       });
-
-  //     })
-
-  //     .catch(() => {
-  //       this.setState({
-  //         status: "ERROR"
-  //       });
-  //     });
-
-  // }
-
-  // getRelatedArtist() {
-  //   let artistIdList = [];
-  //   switch (this.state.suggestStatus) {
-  //     case "LOADED":
-  //       console.log("render", this.state.relatedArtists.length);
-  //       for (var i = 0; i < this.state.relatedArtists.length; i++) {
-  //         artistIdList.push(this.state.relatedArtists[i].artist.artist_id);
-  //       }
-
-  //       break;
-
-  //     default:
-  //       console.log("no");
-  //       break;
-  //   }
-  //   return artistIdList;
-
-  // }
-
-  // getPopularSongs() {
-  //   let suggestList = [];
-
-  //   console.log("render", this.state.relatedArtists.length);
-  //   for (var i = 0; i < this.state.relatedArtists.length; i++) {
-  //     modelInstance.getPopularSuggest(this.state.relatedArtists[i].artist.artist_id)
-  //       .then(response => response.json())
-  //       .then(track => {
-  //         suggestList.push(track.message.body.track_list[0])
-
-  //       })
-  //       .catch(() => {
-  //         this.setState({
-  //           status: "ERROR"
-  //         });
-  //       });
-  //   }
-  //   console.log("rendersong", suggestList);
-  //   return suggestList;
-
-  // }
-
-  // render() {
-  //   let topTrackList = [];
-
-  //   // console.log(this.getRelatedArtist());
-
-  //   switch (this.state.status) {
-  //     case "LOADING":
-  //       topTrackList = <em>.</em>;
-  //       console.log(this.state.relatedArtists)
-  //       break;
-  //     case "LOADED":
-
-  //       console.log(this.state.relatedArtists)
-
-  //       // for (var i = 0; i < proxy.length; i++) {
-  //       //   console.log(proxy[i]);
-  //       //   topTrackList +=
-  //       //     <li className="favorLi" key={proxy[i].track.track_id}>
-  //       //       {proxy[i].track.track_name}
-  //       //     </li>
-
-  //       // }
-
-  //       // // topTrackList = proxy.map(track => (
-  //       //   <li
-  //       //     key={track.track.commontrack_id}
-  //       //     id={track.track.commontrack_id}
-  //       //     className="col-md-12 top-track-result"
-  //       //   >
-  //       //     <Link to={"/lyric/" + track.track.commontrack_id}>
-  //       //       <span>{track.track.track_name}</span>
-  //       //       <span> Artist: {track.track.artist_name}</span>
-  //       //     </Link>
-  //       //   </li>
-  //       // ));
-  //       console.log(topTrackList)
-
-  //       break;
-  //     default:
-  //       topTrackList = <b>Failed to load data, please try again</b>;
-  //       break;
-  //   }
-
-  //   return (
-  //     <div className="SuggestionSidebar">
-  //       <h3>Top {topTrackList.length} tracks</h3>
-  //       <ul>{topTrackList}</ul>
-  //     </div>
-  //   );
-  // }
 }
 
 export default Sidebar;

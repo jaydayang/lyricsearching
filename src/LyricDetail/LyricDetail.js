@@ -30,13 +30,6 @@ class LyricDetail extends Component {
 
     document.body.appendChild(script1);
 
-    // const script2 = document.createElement("script");
-
-    // script2.src = "./contorl.js";
-    // script2.async = true;
-
-    // document.body.appendChild(script2);
-
     modelInstance
       .getOneLyric(this.state.lyricId)
       .then(response => response.json())
@@ -54,6 +47,7 @@ class LyricDetail extends Component {
         });
       });
   }
+  
   componentDidUpdate(props) {
     console.log("update", this.props.id.match.params.id);
     if (this.state.idProxy != this.props.id.match.params.id) {
@@ -123,19 +117,10 @@ class LyricDetail extends Component {
 
             <Col lg="8" md="8" xs="12">
               <AlbumInfo parentState={this.state} />
-
-              <span className="h2">Lyrics</span>
-              <span className="right">
-                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
-                {/* <Button className="margin">Add to Favorite</Button> */}
-                {/* <span>
-                                    {this.renderFavoriteHeart()}
-                                </span> */}
-              </span>
-
-              <div id="google_translate_element" />
-
-              <div className="translate">{lyricList}</div>
+                <span className="h2">Lyrics</span>
+                <span className="right"></span>
+                <div id="google_translate_element" />
+                <div className="translate">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">
               <SimpleFavorite parentState={this.state} />

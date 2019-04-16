@@ -54,7 +54,6 @@ class FavoriteDetail extends Component {
         className="col-md-12 top-track-result"
       >
         <Link to={"/lyric/" + track.track_id}>
-          {/* <span>{track.track_name}</span> */}
           <span>{track.artist_name}</span>
         </Link>
       </li>
@@ -69,7 +68,6 @@ class FavoriteDetail extends Component {
         className="col-md-12 top-track-result"
       >
         <Link to={"/lyric/" + track.track_id}>
-          {/* <span>{track.track_name}</span> */}
           <span>{track.track_name}</span>
         </Link>
       </li>

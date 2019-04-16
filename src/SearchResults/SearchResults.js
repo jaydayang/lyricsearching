@@ -82,7 +82,6 @@ class SearchResults extends Component {
               </Link>
             </div>
           )
-          //<li key={track.body.track.track_id}>{track.body.track.track_id}</li>
         );
         break;
       default:

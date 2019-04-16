@@ -21,6 +21,7 @@ import Login from "./Login/Login";
 // ICONS
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 // import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
@@ -46,8 +47,6 @@ class App extends Component {
     fire.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
-        //get user' uid ////////////////
-        // console.log("get user's uid" + fire.auth().currentUser.uid);
       } else {
         this.setState({ user: null });
       }
@@ -70,7 +69,6 @@ class App extends Component {
 
             {/* We rended diffrent component based on the path */}
             <Route exact path="/" component={Welcome} />
-
             {/* add login route  */}
             <Route path="/login/" render={() => <Login />} />
             {/* add login route  */}
