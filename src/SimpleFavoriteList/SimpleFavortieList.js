@@ -9,7 +9,6 @@ class SimpleFavoriteList extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       status: "LOADING",
       trackFavorite: []
@@ -57,73 +56,13 @@ class SimpleFavoriteList extends Component {
   //   // }   //   console.log("update", this.state.lyricId)
   // }
 
-<<<<<<< HEAD
-    fire
-      .database()
-      .ref(userId)
-      .on("child_added", snapshot => {
-        track.push(snapshot.val());
-        this.setState({
-          track
-        });
-        //thisComponent.getTopChart(5);
-      });
-
-    let query = fire.database().ref(userId);
-    query.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        // childData will be the actual contents of the child
-        var childData = childSnapshot.val();
-        track.push(childData.track_name);
-      });
-      thisComponent.setState({
-        trackFavorite: track,
-        status: "LOADED"
-      });
-    });
-  }
-
-  render() {
-    // let lyricList = null;
-    // const trackList = this.getTopChart(5);
-    // console.log("tracklist chart", trackList);
-    // switch (this.state.status) {
-    //   case "LOADING":
-    //     lyricList = <em>Loading...</em>;
-    //     break;
-    //   case "LOADED":
-    //     lyricList = trackList.map(track => (
-    //       <li
-    //         key={track.commontrack_id}
-    //         id={track.commontrack_id}
-    //         className="col-md-12 top-track-result"
-    //       >
-    //         <Link to={"/lyric/" + track.track_id}>
-    //           {/* <span>{track.track_name}</span> */}
-    //           <span>{track.track_name}</span>
-    //         </Link>
-    //       </li>
-    //     ));
-
-    //     break;
-    //   case "ERROR":
-    //     lyricList = <b>Failed to load data, please try again</b>;
-    //     break;
-    //   default:
-    //     lyricList = <em>Loading...</em>;
-    //     break;
-    // }
-=======
-
-
   componentDidMount() {
     var self = this;
-    modelInstance
-      .EventEmitter.subscribe('changeItem', function (newItem) {
-        self.setState({
-          curItem: newItem
-        });
-      })
+    modelInstance.EventEmitter.subscribe("changeItem", function(newItem) {
+      self.setState({
+        curItem: newItem
+      });
+    });
     if (fire.auth().currentUser != null) {
       var userId = fire.auth().currentUser.uid;
       let thisComponent = this;
@@ -137,9 +76,9 @@ class SimpleFavoriteList extends Component {
       // })
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function (snapshot) {
+      query.once("value").then(function(snapshot) {
         let track = [];
-        snapshot.forEach(function (childSnapshot) {
+        snapshot.forEach(function(childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
@@ -159,7 +98,7 @@ class SimpleFavoriteList extends Component {
   }
 
   componentWillUnmount() {
-    modelInstance.EventEmitter.unSubscribe('changeItem');
+    modelInstance.EventEmitter.unSubscribe("changeItem");
   }
 
   componentDidUpdate() {
@@ -168,9 +107,9 @@ class SimpleFavoriteList extends Component {
       let thisComponent = this;
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function (snapshot) {
+      query.once("value").then(function(snapshot) {
         let track = [];
-        snapshot.forEach(function (childSnapshot) {
+        snapshot.forEach(function(childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
@@ -235,7 +174,6 @@ class SimpleFavoriteList extends Component {
         lyricList = <em>Loading...</em>;
         break;
     }
->>>>>>> b1799a8d1e326a2dea5b39890ba99b510acea16b
 
     // let favoriteTrack = [];
     // console.log("try track",this.state.track)
@@ -256,14 +194,9 @@ class SimpleFavoriteList extends Component {
       <div className="SimpleFavoriteList">
         <h3>My Favorite</h3>
 
-<<<<<<< HEAD
-        {/* <ul className="favorUl">{lyricList}</ul> */}
-        <Link to="/favorite">
-=======
         <ul className="favorUl">{lyricList}</ul>
         <ul>{viewOrLogin}</ul>
         {/* <Link to="/favorite">
->>>>>>> b1799a8d1e326a2dea5b39890ba99b510acea16b
           <button className="viewallButton">View All</button>
         </Link> */}
       </div>

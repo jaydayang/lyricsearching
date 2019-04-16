@@ -7,67 +7,49 @@ import { Container, Row, Col } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
 
 class LyricDetail extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.state = {
+      status: "LOADING",
+      status1: "LOADING",
+      lyricId: this.props.id.match.params.id,
+      favorited: true,
+      trackId: [],
+      trackFavorite: []
+    };
+  }
+  componentDidMount() {
+    console.log(this.state.lyricId);
 
-        this.state = {
-            status: "LOADING",
-            status1: "LOADING",
-            lyricId: this.props.id.match.params.id,
-            favorited: true,
-            trackId: [],
-            trackFavorite: []
+    const script1 = document.createElement("script");
 
+    script1.src =
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script1.async = true;
 
+    document.body.appendChild(script1);
 
-        };
-    }
-
-    componentDidMount() {
-        console.log(this.state.lyricId)
-
-        const script1 = document.createElement("script");
-
-        script1.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        script1.async = true;
-
-        document.body.appendChild(script1);
-
-        // const script2 = document.createElement("script");
-
-        // script2.src = "./contorl.js";
-        // script2.async = true;
-
-        // document.body.appendChild(script2);
-
-
-        modelInstance
-            .getOneLyric(this.state.lyricId)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message)
-                this.setState({
-                    status: "LOADED",
-                    lyric: data.message.body.lyrics,
-                    idProxy: this.state.lyricId,
-
-                })
-            })
-            .catch(() => {
-                this.setState({
-                    status: "ERROR"
-                });
-            });
-
-    }
-
-    console.log("update", this.state.lyricId);
+    modelInstance
+      .getOneLyric(this.state.lyricId)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        this.setState({
+          status: "LOADED",
+          lyric: data.message.body.lyrics,
+          idProxy: this.state.lyricId
+        });
+      })
+      .catch(() => {
+        this.setState({
+          status: "ERROR"
+        });
+      });
   }
 
   render() {
     let lyricList = null;
-
     switch (this.state.status) {
       case "LOADING":
         lyricList = <em>Loading...</em>;
@@ -105,35 +87,19 @@ class LyricDetail extends Component {
               <AlbumInfo parentState={this.state} />
 
               <span className="h2">Lyrics</span>
-              <span className="right">
-                {/*<img src={this.props.gif.images.downsized.url} onClick={() => this.props.onGifSelect(this.props.gif)} />*/}
-                {/* <Button className="margin">Add to Favorite</Button> */}
-                {/* <span>
-                                    {this.renderFavoriteHeart()}
-                                </span> */}
-
-                            </span>
-
-                            <div id="google_translate_element"  ></div>
-
-
-
-                            <div className="translate"  >{lyricList}</div>
-
-
-                        </Col>
-                        <Col lg="4" md="4" xs="12">
-
-                            <SimpleFavorite />
-                            <SuggestionSidebar />
-                        </Col>
-
-
-                    </Row>
-                </Container>
-            </div>
-        );
-    }
+              <span className="right" />
+              <div id="google_translate_element" />
+              <div className="translate">{lyricList}</div>
+            </Col>
+            <Col lg="4" md="4" xs="12">
+              <SimpleFavorite />
+              <SuggestionSidebar />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default LyricDetail;
