@@ -66,19 +66,18 @@ class NavBar extends Component {
       loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
     }
     return (
-      <nav className="navbar navbar-light fixed-top bg-black">
-        <NavbarBrand classNAme="navBrand d-flex align-items-center">
+      <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <NavbarBrand classNAme="navBrand ">
           <Link className="brandLink" to={"/"}>
             Ls
           </Link>
         </NavbarBrand>
-
         <form
           className=" form-inline mt-2 mt-md-0 "
           onSubmit={this.handleSubmit}
         >
-          <div className="form-row">
-            <div className="col-sm-4 my-1">
+          <div className="form-row  mr-auto">
+            <div className=" my-1">
               <label className="sr-only" htmlFor="inlineFormInputName">
                 Search for:
               </label>
@@ -99,7 +98,7 @@ class NavBar extends Component {
                 Preference
               </label>
               <select
-                className="custom-select mr-sm-2"
+                className="custom-select mr-sm-1"
                 id="inlineFormCustomSelect"
                 value={this.state.select}
                 onChange={this.handleSelectChange}
@@ -108,15 +107,21 @@ class NavBar extends Component {
                 <option value="artist">Artist</option>
               </select>
             </div>
-            <div className="col-auto my-1">
+            <div className="col-auto my-1 ">
               <button type="submit" className="btn btn-outline-primary">
                 Search
               </button>
             </div>
           </div>
         </form>
+        <NavItem className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          {loginRegisterCont}
+        </NavItem>
 
-        <NavItem>{loginRegisterCont}</NavItem>
+        {/* <form className="form-inline mt-2 mt-md-0">
+            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> */}
       </nav>
     );
   }
