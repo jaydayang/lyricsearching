@@ -1,21 +1,35 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Welcome.css";
-import { Container, Row, Col } from "reactstrap";
-import Login from "../Login/Login";
-import banner from "../Images/bg.jpeg";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import fire from "../Config/Fire";
-import SearchBar from "../SearchBar/SearchBar";
-import FadeTransition from "../Login/Transitions/fadeTransitions";
+import modelInstance from "../data/LyricModel";
 
 class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: false,
-      isLogout: true
+      isLogout: true,
+      status: "LOADING"
     };
+  }
+
+  componentDidMount() {
+    modelInstance
+      .getTopChart("SE", 25)
+      .then(tracks => {
+        const tracksResult = tracks.message.body.track_list;
+        this.setState({
+          status: "LOADED",
+          topTracks: tracksResult
+        });
+      })
+
+      .catch(() => {
+        this.setState({
+          status: "ERROR"
+        });
+      });
   }
 
   logout() {
@@ -23,36 +37,31 @@ class Welcome extends Component {
   }
 
   render() {
-    var loginRegisterCont = null;
-    if (fire.auth().currentUser == null) {
-      this.setState = {
-        isLogin: false,
-        isLogout: true
-      };
-
-      loginRegisterCont = <Link to="/login">Login|Register</Link>;
-    } else {
-      this.setState = {
-        isLogin: true,
-        isLogout: false
-      };
-      var user = fire.auth().currentUser.email;
-      loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
+    let topTrackList = [];
+    const { topTracks } = this.state;
+    switch (this.state.status) {
+      case "LOADING":
+        topTrackList = <em>.</em>;
+        break;
+      case "LOADED":
+        topTrackList = topTracks.map(track => (
+          <Link className="bg-link" to={"/lyric/" + track.track.track_id}>
+            <span>
+              {track.track.track_name} {track.track.artist_name} -
+            </span>
+          </Link>
+        ));
+        break;
+      default:
+        topTrackList = <b>Failed to load data, please try again</b>;
+        break;
     }
-
     return (
-      <Container>
-        <Row>
-          <Col md="12" xs="12">
-            <div className="bgimage">
-              <img src={banner} className="banner" alt="" />
-              <div className="centeredtext">
-                <Link to="/search">Start to Explore!</Link>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      <div class="jumbotron g-orange full-width">
+        <div className="container-fluid p-none">
+          <div>{topTrackList}</div>
+        </div>
+      </div>
     );
   }
 }
