@@ -50,5 +50,10 @@ a:hover {
 }
 
 .p-none {
-  padding: 0;
+  padding: 0 !important;
+}
+
+.jumbotron.g-orange .container-fluid {
+  overflow: hidden;
+  height: 100vh;
 }
