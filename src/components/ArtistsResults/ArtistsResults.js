@@ -58,7 +58,7 @@ class ArtistsResults extends Component {
   }
 
   getSubStringofName(name) {
-    if (name.lenght > 30) {
+    if (name.length > 30) {
       return name.substring(0, 30);
     } else
       return name;
@@ -74,6 +74,7 @@ class ArtistsResults extends Component {
         artistList = <em>Loading...</em>;
         break;
       case "LOADED":
+
         artistList = searchResult.map(artist => (
           <div
             key={artist.artist.artist_id}
@@ -88,6 +89,7 @@ class ArtistsResults extends Component {
             </Link>
           </div>
         ));
+
         break;
       default:
         artistList = <b>Failed to load data, please try again</b>;

@@ -16,3 +16,11 @@ border-radius:10px;
     line-height: 1.2;
     color: black;
 }
+.ifTheresNothing{
+ width:100%;
+ 
+}
+.ifTheresNothing h3{
+    margin-top:50px;
+    align-content: center;
+}

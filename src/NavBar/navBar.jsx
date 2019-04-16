@@ -81,7 +81,7 @@ class NavBar extends Component {
     }
     return (
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <NavbarBrand classNAme="navBrand ">
+        <NavbarBrand className="navBrand ">
           <Link className="brandLink" to={"/"}>
             Ls
           </Link>

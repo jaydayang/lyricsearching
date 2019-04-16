@@ -57,7 +57,7 @@ class Welcome extends Component {
         break;
     }
     return (
-      <div class="jumbotron g-orange full-width">
+      <div className="jumbotron g-orange full-width">
         <div className="container-fluid p-none">
           <div>{topTrackList}</div>
         </div>

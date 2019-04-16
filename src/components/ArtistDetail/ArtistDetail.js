@@ -48,20 +48,25 @@ class ArtistDetail extends Component {
         albumList = <em>Loading...</em>;
         break;
       case "LOADED":
-        albumList = searchResult.map(album => (
-          <div
-            key={album.album.album_id}
-            id={album.album.album_id}
-            className="col-md-6 col-lg-4  artist-result"
-          >
-            <Link to={"/album/" + album.album.album_id}>
-              <div className="albumBlock">
-                <h3 className="albumName">{this.getSubStringofName(album.album.album_name)}</h3>
-                <br />
-              </div>
-            </Link>
-          </div>
-        ));
+        if (searchResult.length == 0) {
+          albumList = <div className="ifTheresNothing"><h3 className="textH3">Nothing!</h3></div>
+        } else {
+
+          albumList = searchResult.map(album => (
+            <div
+              key={album.album.album_id}
+              id={album.album.album_id}
+              className="col-md-6 col-lg-4  artist-result"
+            >
+              <Link to={"/album/" + album.album.album_id}>
+                <div className="albumBlock">
+                  <h3 className="albumName">{this.getSubStringofName(album.album.album_name)}</h3>
+                  <br />
+                </div>
+              </Link>
+            </div>
+          ));
+        }
         break;
       default:
         albumList = <b>Failed to load data, please try again</b>;
