@@ -59,11 +59,25 @@ class NavBar extends Component {
   render() {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
-      loginRegisterCont = <Link to="/login">Login|Register</Link>;
+      loginRegisterCont = (
+        <Link to="/login" className="normalLink">
+          Login|Register
+        </Link>
+      );
     } else {
       var user = fire.auth().currentUser.email;
 
-      loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
+      loginRegisterCont = (
+        <div>
+          <p className="userName">
+            {"Hi!  "}
+            {user}
+          </p>
+          <button className="logoutBtn" onClick={this.logout}>
+            Logout
+          </button>
+        </div>
+      );
     }
     return (
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
