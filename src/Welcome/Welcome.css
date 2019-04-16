@@ -1,15 +1,54 @@
-.banner {
-  width: 100%;
-}
-.bgimage {
-  width: 100%;
-  background-image: url("../Images/bg.jpeg") no-repeat;
+.g-orange {
+  background: rgb(247, 191, 93);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(247, 191, 93, 1) 0%,
+    rgba(243, 80, 39, 1) 47%,
+    rgba(243, 80, 39, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(247, 191, 93, 1) 0%,
+    rgba(243, 80, 39, 1) 47%,
+    rgba(243, 80, 39, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(247, 191, 93, 1) 0%,
+    rgba(243, 80, 39, 1) 47%,
+    rgba(243, 80, 39, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f7bf5d",endColorstr="#f35027",GradientType=1);
 }
 
-.centeredtext {
-  font-size: 50px;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.jumbotron {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.full-width {
+  height: 100vh;
+  max-height: 100vh;
+
+  border-radius: 0;
+}
+
+a.bg-link {
+  color: #ffffff66;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 0.4;
+}
+
+a.bg-link :hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.p-none {
+  padding: 0;
 }
