@@ -66,12 +66,18 @@ class NavBar extends Component {
       loginRegisterCont = <button onClick={this.logout}>{user} Logout</button>;
     }
     return (
-      <nav className="navbar navbar-light bg-light">
-        <Link className="col-sm-4" to={"/"}>
-          LyricSearching
-        </Link>
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-row align-items-center">
+      <nav className="navbar navbar-light fixed-top bg-black">
+        <NavbarBrand classNAme="navBrand d-flex align-items-center">
+          <Link className="brandLink" to={"/"}>
+            Ls
+          </Link>
+        </NavbarBrand>
+
+        <form
+          className=" form-inline mt-2 mt-md-0 "
+          onSubmit={this.handleSubmit}
+        >
+          <div className="form-row">
             <div className="col-sm-4 my-1">
               <label className="sr-only" htmlFor="inlineFormInputName">
                 Search for:
@@ -109,11 +115,6 @@ class NavBar extends Component {
             </div>
           </div>
         </form>
-        <div>
-          <button type="submit" className="btn btn-outline-primary">
-            <FontAwesomeIcon icon="heart" />
-          </button>
-        </div>
 
         <NavItem>{loginRegisterCont}</NavItem>
       </nav>
