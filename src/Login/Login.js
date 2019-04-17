@@ -32,12 +32,20 @@ class LoginAndRegister extends React.Component {
     return (
       <div className="root">
         <div>
-          <div className="selected" onClick={this.showLogin.bind(this)}>
+        <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
+          Login
+        </button>
+        </div>
+        <div>
+        <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
+          Register
+        </button>
+          {/* <div className="selected" onClick={this.showLogin.bind(this)}>
             Login
           </div>
           <div className="selected" onClick={this.showRegister.bind(this)}>
             Register
-          </div>
+          </div> */}
         </div>
 
         <FadeTransition isOpen={this.state.isLoginOpen} duration={500}>
@@ -100,7 +108,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form className="normalLink">
         <FormGroup>
           <Label>Email</Label>
           <Input
@@ -122,7 +130,7 @@ class Login extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-          <button type="button" className="loginReglink" onClick={this.login}>
+          <button type="submit" className="btn btn-outline-primary" onClick={this.login}>
             <Link to="/search" className="loginReglink">
               Login
             </Link>
@@ -248,7 +256,7 @@ class Register extends React.Component {
     }
 
     return (
-      <Form>
+      <Form className="normalLink">
         <FormGroup>
           <Label>Email</Label>
           <Input
@@ -284,8 +292,8 @@ class Register extends React.Component {
         </FormGroup>
         <FormGroup>
           <button
-            type="button"
-            className="register-btn"
+            type="submit"
+            className="btn btn-outline-primary"
             onClick={this.register}
           >
             <Link to="/search">Register</Link>

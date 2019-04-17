@@ -30,21 +30,20 @@ class SimpleFavoriteList extends Component {
   componentDidMount() {
     var self = this;
 
-    modelInstance.EventEmitter.subscribe("changeItem", function(newItem) {
+    modelInstance.EventEmitter.subscribe("changeItem", function (newItem) {
       self.setState({
         curItem: newItem
       });
     });
 
-    fire.auth().onAuthStateChanged(function(user) {
+    fire.auth().onAuthStateChanged(function (user) {
       if (user) {
         var userId = fire.auth().currentUser.uid;
         let thisComponent = self;
         let query = fire.database().ref(userId);
-
-        query.once("value").then(function(snapshot) {
+        query.once("value").then(function (snapshot) {
           let track = [];
-          snapshot.forEach(function(childSnapshot) {
+          snapshot.forEach(function (childSnapshot) {
             // childData will be the actual contents of the child
             var childData = childSnapshot.val();
             track.push(childData);
@@ -73,9 +72,9 @@ class SimpleFavoriteList extends Component {
       let thisComponent = this;
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
+      query.once("value").then(function (snapshot) {
         let track = [];
-        snapshot.forEach(function(childSnapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
@@ -100,7 +99,7 @@ class SimpleFavoriteList extends Component {
     const trackList = this.getTopChart(5);
     switch (this.state.status) {
       case "NOLOGIN":
-        lyricList = <em>Login to see favorite List Detail</em>;
+        lyricList = <em>Login to add lyrics to your favorite list!</em>;
         viewOrLogin = (
           <Link to="/login">
             <button className="viewallButton">Login</button>
@@ -115,7 +114,7 @@ class SimpleFavoriteList extends Component {
           <li
             key={track.track_id}
             id={track.commontrack_id}
-            className="col-md-12 top-track-result"
+            className="top-track-result "
           >
             <Link to={"/lyric/" + track.track_id}>
               <span className="link">{track.track_name}</span>
