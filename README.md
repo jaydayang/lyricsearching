@@ -22,7 +22,7 @@ With this app, the user is going to be able to find the lyrics of his favourite 
 
 **8. FavoriteDetail (View):** display the detail of each favourite lyric.
 
-## Firebase and react
+## Firebase and React
 We are using three of the main Firebase functionalities:
 1. *Firebase authenticaction* for login/registration.
 2. *Firebase database* to save users' favorite lists.
