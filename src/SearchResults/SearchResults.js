@@ -34,6 +34,18 @@ class SearchResults extends Component {
       });
   }
 
+  truncate(n, useWordBoundary) {
+    if (useWordBoundary.length <= n) {
+      return useWordBoundary;
+    }
+    let subString = useWordBoundary.substr(0, n - 1);
+    return (
+      (useWordBoundary
+        ? subString.substr(0, subString.lastIndexOf(" "))
+        : subString) + "..."
+    );
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.searchWord.q !== this.props.searchWord.q) {
       const name = nextProps.searchWord.q;
@@ -67,23 +79,27 @@ class SearchResults extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-        lyricList = searchResult.map(
-          track => (
-            <div
-              key={track.track.commontrack_id}
-              id={track.track.commontrack_id}
-              className="col-md-12 track-result"
-            >
-              <Link to={"/lyric/" + track.track.track_id}>
-                <h3>{track.track.track_name}</h3>
-                <span>{track.track.artist_name}</span>
-                <br />
-                <span>{track.track.album_name}</span>
-              </Link>
-            </div>
-          )
-          //<li key={track.body.track.track_id}>{track.body.track.track_id}</li>
-        );
+        lyricList = searchResult.map(track => (
+          <div
+            key={track.track.commontrack_id}
+            id={track.track.commontrack_id}
+            className="col-md-4 track-result"
+          >
+            <Link to={"/lyric/" + track.track.track_id}>
+              <div className="purple-gradient result-lyric">
+                <div className="animate-down">
+                  <h3>{this.truncate(23, track.track.track_name)}</h3>
+                  <span className="">
+                    {this.truncate(21, track.track.album_name)}
+                  </span>
+                </div>
+                <span className="botom-pos">
+                  {this.truncate(21, track.track.artist_name)}
+                </span>
+              </div>
+            </Link>
+          </div>
+        ));
         break;
       default:
         lyricList = <b>Failed to load data, please try again</b>;
@@ -92,6 +108,7 @@ class SearchResults extends Component {
 
     return (
       <div className="Searching-Results">
+        <h2>Search results for: {this.state.searchWord}</h2>
         <div className="row">{lyricList}</div>
       </div>
     );

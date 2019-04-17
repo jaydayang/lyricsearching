@@ -7,9 +7,7 @@ const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
 const GOOGLE_API_KEY = "AIzaSyASsF4YkpgdBuTQNFw9e7643XjXJfo-rQc";
 
 class LyricModel extends ObservableModel {
-  //constructor() {
-  // super();
-  //}
+
   ArtistId = ["13774235", "56", "13774236"];
   EventEmitter = {
     _events: {},
@@ -55,6 +53,7 @@ class LyricModel extends ObservableModel {
       }
     );
   }
+
   getOneLyric(id) {
     return fetch(
       `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
@@ -63,6 +62,7 @@ class LyricModel extends ObservableModel {
       }
     );
   }
+
   getOneTrack(id) {
     return fetch(
       `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.get?track_id=${id}&apikey=75a3689308a4c098e37def64c71c62dd`,
@@ -71,6 +71,7 @@ class LyricModel extends ObservableModel {
       }
     );
   }
+
   savedOrNot(trackId, savedList) {
     if (savedList.indexOf(trackId) != -1) {
       return true;
@@ -79,15 +80,6 @@ class LyricModel extends ObservableModel {
     }
   }
 
-  // getArtistID(artistName) {
-  //   const query = `artist.search?q_artist=${artistName}&page_size=5&apikey=`;
-  //   const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
-  //   return fetch(url, {
-  //     Origin: `${BASE_URL}${query}${API_KEY}`
-  //   })
-
-  // }
-
   getRelatedArtists(artistId) {
     const query = `artist.related.get?artist_id=${artistId}&page_size=10&page=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
@@ -95,6 +87,7 @@ class LyricModel extends ObservableModel {
       Origin: `${BASE_URL}${query}${API_KEY}`
     });
   }
+
   getPopularSuggest(artistId) {
     const query = `track.search?f_artist_id=${artistId}&page_size=1&s_track_rating=desc&page=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
@@ -134,36 +127,6 @@ class LyricModel extends ObservableModel {
     }).then(response => response.json());
   }
 
-  // translate() {
-
-  //   // Your Google Cloud Platform project ID
-  //   const projectId = '87c3c2ac44372e66acd2b14a05ceb60e4324cdc3	';
-
-  //   // Instantiates a client
-
-  //   var Translate = require('@google-cloud/translate');
-
-  //   var translate = new Translate.Translate({ projectId: projectId, });
-
-  //   // The text to translate
-  //   const text = 'Hello, world!';
-  //   // The target language
-  //   const target = 'ru';
-
-  //   // Translates some text into Russian
-  //   translate
-  //     .translate(text, target)
-  //     .then(results => {
-  //       const translation = results[0];
-
-  //       console.log(`Text: ${text}`);
-  //       console.log(`Translation: ${translation}`);
-  //     })
-  //     .catch(err => {
-  //       console.error('ERROR:', err);
-  //     });
-  // }
-
   // translate() { require('google-translate-api'); }
   //SEARCH FOR AN ARTIST
   //@param name : string with the name of the artist to search
@@ -182,11 +145,11 @@ class LyricModel extends ObservableModel {
   getArtistAlbums(artistId) {
     const query = `artist.albums.get?artist_id=${artistId}&s_release_date=desc&g_album_name=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
-    console.log("getartsitalbums");
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
     }).then(response => response.json());
   }
+
   //Get all tracks from a specific album
   //@id :int  of the album in NUM
   // return object with all the tracks from the album

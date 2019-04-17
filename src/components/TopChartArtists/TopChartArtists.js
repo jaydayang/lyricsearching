@@ -46,7 +46,7 @@ class TopChartArtists extends Component {
             className="col-md-12 top-artist-result"
           >
             <Link to={"/artist/" + artist.artist.artist_id}>
-              <span>{artist.artist.artist_name}</span>
+              <span className="link">{artist.artist.artist_name}</span>
             </Link>
           </li>
         ));
@@ -58,8 +58,8 @@ class TopChartArtists extends Component {
 
     return (
       <div className="TopChartArtists">
-        <h3>Top {topArtistList.length} artists</h3>
-        <ul>{topArtistList}</ul>
+        <h3 className="albumName">Top {topArtistList.length} artists in your country</h3>
+        <ul className="lyricBlock">{topArtistList}</ul>
       </div>
     );
   }

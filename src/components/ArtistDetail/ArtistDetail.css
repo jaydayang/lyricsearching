@@ -1,13 +1,11 @@
 .albumBlock{
-    background: -prefix-linear-gradient(left top, #f8bb5b, #f35028); 
+background: -prefix-linear-gradient(left top, #f8bb5b, #f35028); 
 background: linear-gradient(to bottom right, #f8bb5b, #f35028);
 width: 100%;
 height: 200px;
 padding: 25px;
 margin: 20px;
 border-radius:10px;
-
-
 }
 .albumName{
     font-family: "Montserrat", sans-serif;

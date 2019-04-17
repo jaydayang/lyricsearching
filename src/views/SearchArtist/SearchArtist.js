@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ArtistsResults from "../../components/ArtistsResults/ArtistsResults";
-import SimpleFavorite from "../../SimpleFavoriteList/SimpleFavortieList";
 import TopChartArtists from "../../components/TopChartArtists/TopChartArtists";
 import { Container, Row, Col } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
@@ -60,7 +59,6 @@ class SearchArtist extends Component {
               {artistList}
             </Col>
             <Col md="4" xs="12">
-              {/* <SimpleFavorite /> */}
               <TopChartArtists />
             </Col>
           </Row>

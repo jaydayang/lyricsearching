@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-
 import Welcome from "./Welcome/Welcome";
 import modelInstance from "./data/LyricModel";
-import SearchLyric from "./SearchLyric/SearchLyric";
-import SearchArtist from "./views/SearchArtist/SearchArtist";
 import ArtistDetailView from "./views/ArtistDetailView/ArtistDetailView";
 import AlbumDetailView from "./views/AlbumDetailView/AlbumDetailView";
 import LyricDetail from "./LyricDetail/LyricDetail";
 import FavoriteDetail from "./FavoriteDetail/FavoriteDetail";
 import Search from "./views/SearchView/SearchView";
-
 import "./App.css";
 import NavBar from "./NavBar/navBar";
 import fire from "./Config/Fire";
