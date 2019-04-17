@@ -3,7 +3,9 @@ import "./Login.css";
 import { Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
-import { Link } from "react-router-dom";
+import Tabs from "../FavoriteDetail/Tabs/Tabs";
+import { Link, Route } from "react-router-dom";
+
 import { createHashHistory } from "history";
 
 class LoginAndRegister extends React.Component {
@@ -33,12 +35,11 @@ class LoginAndRegister extends React.Component {
     return (
       <div className="root">
         <div>
-          <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
+          <button className="lineBtn1" onClick={this.showLogin.bind(this)}>
             Login
           </button>
-        </div>
-        <div>
-          <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
+
+          <button className="lineBtn2" onClick={this.showRegister.bind(this)}>
             Register
           </button>
         </div>
@@ -74,14 +75,13 @@ class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
-    const router = this.props.params.router;
+    //const router = this.props.params.router;
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {
-        console.log("success");
-        //createHashHistory.push(router);
-        //this.props.history.push("/");
+        console.log("login success!");
+        window.history.back();
       })
       .catch(error => {
         console.log(error);
@@ -125,14 +125,8 @@ class Login extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-          <button
-            type="submit"
-            className="btn btn-outline-primary"
-            onClick={this.login}
-          >
-            {/* <Link to="/search" className="loginReglink"> */}
+          <button type="submit" className="loginRegBtn" onClick={this.login}>
             Login
-            {/* </Link> */}
           </button>
         </FormGroup>
       </Form>
@@ -162,9 +156,13 @@ class Register extends React.Component {
         this.state.email,
         this.state.password
       )
-      .then(u => {})
+      .then(u => {
+        console.log("Register success!");
+        window.history.back();
+      })
       .catch(error => {
         console.log(error);
+        window.alert(error.message);
       });
 
     var username = this.state.username;
@@ -290,12 +288,8 @@ class Register extends React.Component {
           <small>{passwordError ? passwordError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <button
-            type="submit"
-            className="btn btn-outline-primary"
-            onClick={this.register}
-          >
-            <Link to="/search">Register</Link>
+          <button type="submit" className="loginRegBtn" onClick={this.register}>
+            Register
           </button>
         </FormGroup>
       </Form>

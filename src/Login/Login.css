@@ -44,3 +44,98 @@
   text-decoration: none;
   background: white;
 }
+
+.lineBtn1 {
+  background: Transparent;
+  background-repeat: no-repeat;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+  margin: 0 auto 0 50px;
+  display: block;
+  float: left;
+}
+
+.lineBtn1:hover {
+  background: black;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+}
+
+.lineBtn2 {
+  background: Transparent;
+  background-repeat: no-repeat;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+  margin: 100px 50px 10px auto;
+  display: block;
+}
+
+.lineBtn2:hover {
+  background: black;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+  /* text-decoration: underline; */
+}
+
+.loginRegBtn {
+  background: Transparent;
+  background-repeat: no-repeat;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+  margin: 0 auto;
+  display: block;
+}
+
+.loginRegBtn:hover {
+  color: white;
+  text-decoration: none;
+  background: black;
+  text-decoration: underline;
+}

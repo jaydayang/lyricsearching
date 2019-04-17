@@ -68,7 +68,7 @@ class App extends Component {
             {/* We rended diffrent component based on the path */}
             <Route exact path="/" component={Welcome} />
             {/* add login route  */}
-            <Route path="/login(/:router)" render={() => <Login />} />
+            <Route path="/login/" render={() => <Login />} />
             {/* add login route  */}
 
             <Route
