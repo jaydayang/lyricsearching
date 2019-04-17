@@ -106,7 +106,8 @@ class ArtistsResults extends Component {
 
     return (
       <div className="Searching-Results">
-        <h2>Search artists named: {this.state.searchWord}</h2>
+      <br />
+        <h2 className="heading2">Search artists named: {this.state.searchWord}</h2>
         <div className="row">{artistList}</div>
       </div>
     );

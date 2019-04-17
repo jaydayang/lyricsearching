@@ -73,6 +73,7 @@ class FavoriteDetail extends Component {
 
     return (
       <div className="FavortieDetail">
+      <br/>
         <h1 className="albumName">My favorite list</h1>
         <Container>
           <Row>

@@ -85,7 +85,7 @@ class ArtistDetail extends Component {
 
     return (
       <div className="Searching-Results">
-        <h2>Albums from: {this.state.artistName}</h2>
+        <h2 className="heading2">Albums from: {this.state.artistName}</h2>
         <div className="row">{albumList}</div>
       </div>
     );

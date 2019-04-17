@@ -40,12 +40,6 @@ class LoginAndRegister extends React.Component {
           <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
             Register
           </button>
-          {/* <div className="selected" onClick={this.showLogin.bind(this)}>
-            Login
-          </div>
-          <div className="selected" onClick={this.showRegister.bind(this)}>
-            Register
-          </div> */}
         </div>
 
         <FadeTransition isOpen={this.state.isLoginOpen} duration={500}>
