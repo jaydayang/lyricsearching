@@ -1,12 +1,12 @@
 **Lyrics Searching App**
 
 
-#Short description of project
+# Short description of project
 With this app, the user is going to be able to find the lyrics of his favourite artists or albums. The user will be able to search lyrics by the name of the lyric itself or the name of an artist, save its favourite lyrics (only when logged in) and to translate them to many different languages. Based on the saved favorite list, the user will receive suggestions that he/she might like. Also, a list of the top 5 songs in the country will be shown.
 
 
 
-#Project file structure**
+# Project file structure
 **1.Welcome page (View):** the start page of this app. It will show an initial top 25 songs, in this case in Sweden. From that list you can click on any of them to see its lyric.
 
 **2.Login (Component, imported in Welcome View):** allow user to login or register. The login component is accesible from the Navigation bar on the top menu bar. It will allow the user to either login or register.
