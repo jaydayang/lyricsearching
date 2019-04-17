@@ -22,6 +22,14 @@ class AlbumDetail extends Component {
           status: "LOADED",
           searchResult: tracksResults
         });
+        if (tracksResults.length > 0) {
+          const artistName = tracksResults[0].track.artist_name;
+          const albumName = tracksResults[0].track.album_name;
+          this.setState({
+            artistName: artistName,
+            albumName: albumName
+          });
+        }
       })
       .catch(() => {
         this.setState({
@@ -29,6 +37,19 @@ class AlbumDetail extends Component {
         });
       });
   }
+
+  truncate(n, useWordBoundary) {
+    if (useWordBoundary.length <= n) {
+      return useWordBoundary;
+    }
+    let subString = useWordBoundary.substr(0, n - 1);
+    return (
+      (useWordBoundary
+        ? subString.substr(0, subString.lastIndexOf(" "))
+        : subString) + "..."
+    );
+  }
+
   render() {
     let trackList = null;
     const { searchResult } = this.state;
@@ -42,12 +63,15 @@ class AlbumDetail extends Component {
           <div
             key={track.track.lyrics_id}
             id={track.track.lyrics_id}
-            className="col-md-6 track-result"
+            className="col-md-4 track-result"
           >
-            <Link to={"/lyric/" + track.track.track_id}>
-              <h3>{track.track.track_name}</h3>
-              <br />
-            </Link>
+            <div className="purple-gradient result-lyric">
+              <Link to={"/lyric/" + track.track.track_id}>
+                <div className="animate-down">
+                  <h3>{this.truncate(23, track.track.track_name)}</h3>
+                </div>
+              </Link>
+            </div>
           </div>
         ));
         break;
@@ -58,6 +82,11 @@ class AlbumDetail extends Component {
 
     return (
       <div className="Searching-Results">
+        <h3>
+          Tracks from: {this.state.albumName}
+          <br />
+          {this.state.artistName}{" "}
+        </h3>
         <div className="row">{trackList}</div>
       </div>
     );

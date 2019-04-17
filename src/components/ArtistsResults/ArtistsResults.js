@@ -23,7 +23,8 @@ class ArtistsResults extends Component {
         const artistsResults = artists.message.body.artist_list;
         this.setState({
           status: "LOADED",
-          searchResult: artistsResults
+          searchResult: artistsResults,
+          searchWord: name
         });
       })
       .catch(() => {
@@ -60,9 +61,7 @@ class ArtistsResults extends Component {
   getSubStringofName(name) {
     if (name.length > 35) {
       return name.substring(0, 35) + "...";
-    } else
-      return name;
-
+    } else return name;
   }
 
   render() {
@@ -75,9 +74,12 @@ class ArtistsResults extends Component {
         break;
       case "LOADED":
         if (searchResult.length == 0) {
-          artistList = <div className="ifTheresNothing"><h3 className="textH3">Oops! There's no artist of this word!</h3></div>
+          artistList = (
+            <div className="ifTheresNothing">
+              <h3 className="textH3">Oops! There's no artist of this word!</h3>
+            </div>
+          );
         } else {
-
           artistList = searchResult.map(artist => (
             <div
               key={artist.artist.artist_id}
@@ -86,7 +88,9 @@ class ArtistsResults extends Component {
             >
               <Link to={"/artist/" + artist.artist.artist_id}>
                 <div className="artistBlock">
-                  <h3 className="textH3">{this.getSubStringofName(artist.artist.artist_name)}</h3>
+                  <h3 className="textH3">
+                    {this.getSubStringofName(artist.artist.artist_name)}
+                  </h3>
                   <br />
                 </div>
               </Link>
@@ -102,10 +106,9 @@ class ArtistsResults extends Component {
 
     return (
       <div className="Searching-Results">
-
+        <h2>Search artists named: {this.state.searchWord}</h2>
         <div className="row">{artistList}</div>
       </div>
-
     );
   }
 }
