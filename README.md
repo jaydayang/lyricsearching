@@ -1,7 +1,7 @@
 # Lyrics Searching App: https://lyrics-searching.firebaseapp.com/
 
 
-## Short description of project
+## Short description of the project
 With this app, the user is going to be able to find the lyrics of his favourite artists or albums. The user will be able to search lyrics by the name of the lyric itself or the name of an artist, save its favourite lyrics (only when logged in) and to translate them to many different languages. Based on the saved favorite list, the user will receive suggestions that he/she might like. Also, a list of the top 5 songs in the country will be shown.
 
 
