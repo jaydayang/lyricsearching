@@ -32,14 +32,14 @@ class LoginAndRegister extends React.Component {
     return (
       <div className="root">
         <div>
-        <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
-          Login
-        </button>
+          <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
+            Login
+          </button>
         </div>
         <div>
-        <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
-          Register
-        </button>
+          <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
+            Register
+          </button>
           {/* <div className="selected" onClick={this.showLogin.bind(this)}>
             Login
           </div>
@@ -82,8 +82,7 @@ class Login extends React.Component {
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(u => {
-      })
+      .then(u => {})
       .catch(error => {
         console.log(error);
       });
@@ -110,18 +109,17 @@ class Login extends React.Component {
     return (
       <Form className="normalLink">
         <FormGroup>
-          <Label className="font">Email</Label>
+          <Label>Email</Label>
           <Input
             name="email"
             id="email"
-            type="text"
             placeholder="Input your Email"
             value={this.state.email}
             onChange={this.handleChange}
           />
         </FormGroup>
         <FormGroup>
-          <Label className="font">Password</Label>
+          <Label>Password</Label>
           <Input
             name="password"
             id="password"
@@ -132,13 +130,12 @@ class Login extends React.Component {
           />
         </FormGroup>
         <FormGroup>
-<<<<<<< HEAD
-          <button type="button" className="loginReglink" onClick={this.login}>
-            <Link to="/search" className="loginform">
-=======
-          <button type="submit" className="btn btn-outline-primary" onClick={this.login}>
+          <button
+            type="submit"
+            className="btn btn-outline-primary"
+            onClick={this.login}
+          >
             <Link to="/search" className="loginReglink">
->>>>>>> 16703ce32e6302b48d9e1aa534a0d7953ac52d28
               Login
             </Link>
           </button>
@@ -265,7 +262,7 @@ class Register extends React.Component {
     return (
       <Form className="normalLink">
         <FormGroup>
-          <Label className="font">Email</Label>
+          <Label>Email</Label>
           <Input
             name="email"
             id="email"
@@ -276,7 +273,7 @@ class Register extends React.Component {
           <small>{emailError ? emailError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <Label className="font">Username</Label>
+          <Label>Username</Label>
           <Input
             name="username"
             id="username"
@@ -287,7 +284,7 @@ class Register extends React.Component {
           <small>{usernameError ? usernameError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <Label className="font">Password</Label>
+          <Label>Password</Label>
           <Input
             name="password"
             id="password"

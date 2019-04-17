@@ -76,7 +76,7 @@ class NavBar extends Component {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
       loginRegisterCont = (
-        <Link to="/login" className="logoutBton">
+        <Link to="/login" className="logoutBtn">
           Login|Register
         </Link>
       );
@@ -89,7 +89,10 @@ class NavBar extends Component {
             {"Hi!  "}
             {user}
           </p>
-          <button className="btn btn-outline-light" onClick={this.logout}>
+          {/* <button className="btn btn-outline-light" onClick={this.logout}>
+            Logout
+          </button> */}
+          <button className="logoutBtn" onClick={this.logout}>
             Logout
           </button>
         </div>
