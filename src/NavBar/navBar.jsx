@@ -35,7 +35,6 @@ class NavBar extends Component {
     this.setState({
       collapsed: !this.state.collapsed
     });
-    console.log("what is this", this.state.collapsed);
   }
   //Stateless functional component
   logout() {
@@ -90,7 +89,7 @@ class NavBar extends Component {
             {"Hi!  "}
             {user}
           </p>
-          <button className="logoutBtn" onClick={this.logout}>
+          <button className="btn btn-outline-light" onClick={this.logout}>
             Logout
           </button>
         </div>
