@@ -8,13 +8,16 @@ class AlbumDetail extends Component {
     super(props);
     this.state = {
       status: "LOADING",
-      artistId: "26464486"
+      albumId: ""
     };
   }
 
   componentDidMount() {
+    this.setState({
+      albumId: this.props.albumId
+    });
     modelInstance
-      .getAlbumTracks("26464486")
+      .getAlbumTracks(this.props.albumId)
 
       .then(albums => {
         const tracksResults = albums.message.body.track_list;

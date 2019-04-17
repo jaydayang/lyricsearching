@@ -60,11 +60,9 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-
         <div className="App">
           <header className="App-header">
-            <div className="navHeight">
-            </div>
+            <div className="navHeight" />
             <Route path="/" component={NavBar} />
 
             {/* We rended diffrent component based on the path */}
@@ -97,7 +95,9 @@ class App extends Component {
             <Route path="/artist/:id" component={ArtistDetailView} />
             <Route
               path="/album/:id"
-              render={() => <AlbumDetailView model={modelInstance} />}
+              render={props => (
+                <AlbumDetailView id={props} model={modelInstance} />
+              )}
             />
             <Route
               path="/favorite"

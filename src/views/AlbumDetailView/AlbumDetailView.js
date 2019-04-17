@@ -7,12 +7,24 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AlbumDetailView.css";
 
 class AlbumDetailView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      albumId: this.props.id.match.params.id
+    };
+  }
   handleClick() {
     this.props.action();
   }
 
   myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+  }
+  componentDidMount() {
+    this.setState({
+      albumId: this.props.id.match.params.id
+    });
   }
 
   render() {
@@ -21,7 +33,7 @@ class AlbumDetailView extends Component {
         <Container>
           <Row>
             <Col md="8" xs="12">
-              <AlbumDetail />
+              <AlbumDetail albumId={this.state.albumId} />
             </Col>
             <Col md="4" xs="12">
               <SimpleFavorite />
