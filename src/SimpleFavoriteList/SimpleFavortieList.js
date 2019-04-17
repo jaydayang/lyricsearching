@@ -99,7 +99,7 @@ class SimpleFavoriteList extends Component {
     const trackList = this.getTopChart(5);
     switch (this.state.status) {
       case "NOLOGIN":
-        lyricList = <em className="simpleFavorite">  Login to see favortie List Detail</em>;
+        lyricList = <em>Login to add lyrics to your favorite list!</em>;
         viewOrLogin = (
           <Link to="/login">
             <button className="viewallButton">Login</button>
