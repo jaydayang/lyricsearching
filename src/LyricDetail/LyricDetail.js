@@ -20,7 +20,6 @@ class LyricDetail extends Component {
   }
 
   componentDidMount() {
-
     const script1 = document.createElement("script");
 
     script1.src =
@@ -78,7 +77,6 @@ class LyricDetail extends Component {
         lyricList = <em>Loading...</em>;
         break;
       case "LOADED":
-
         let originalLyrics = this.state.lyric.lyrics_body.substring(
           0,
           this.state.lyric.lyrics_body.indexOf("**")
@@ -101,16 +99,12 @@ class LyricDetail extends Component {
       <div className="LyricDetail">
         <Container>
           <Row>
-            <Col lg="12" md="12" xs="12">
-              <h1>Lyric Detail</h1>
-            </Col>
-
             <Col lg="8" md="8" xs="12">
               <AlbumInfo parentState={this.state} />
-                <span className="h2">Lyrics</span>
-                <span className="right"></span>
-                <div id="google_translate_element" />
-                <div className="translate">{lyricList}</div>
+              <span className="h2">Lyrics</span>
+              <span className="right" />
+              <div id="google_translate_element" />
+              <div className="translate">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">
               <SimpleFavorite parentState={this.state} />

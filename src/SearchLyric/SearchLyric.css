@@ -1,1 +1,6 @@
-.show {display:block;}
+.show {
+  display: block;
+}
+.SearchLyric {
+  margin-top: 10px;
+}

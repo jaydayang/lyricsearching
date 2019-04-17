@@ -1,3 +1,32 @@
+.suggestionArtist{
+    color: rgb(133, 133, 133);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-left: 20px
+
+
+}
+.sidebarTitle{
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-top: 20px;
+    
+
+
+}
+.simpleFavorite{
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+
 .albumName{
     font-family: "Montserrat", sans-serif;
     font-weight: 700;

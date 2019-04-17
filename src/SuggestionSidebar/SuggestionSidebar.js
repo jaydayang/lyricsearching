@@ -44,7 +44,7 @@ class Sidebar extends Component {
           <li
             key={track.track.commontrack_id}
             id={track.track.commontrack_id}
-            className="col-md-12 top-track-result"
+            className="top-track-result"
           >
             <Link to={"/lyric/" + track.track.track_id}>
               <span className="link">{track.track.track_name}</span>
