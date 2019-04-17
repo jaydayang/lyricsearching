@@ -9,7 +9,7 @@
 }
 
 .navbar {
-  height: 70px;
+  min-height: 70px;
 }
 
 .brandLink {
@@ -81,6 +81,8 @@
   color: white;
   font-family: "Montserrat", sans-serif;
   float: left;
-  padding: 0.2rem 1rem;
+  /* padding: 0.2rem 1rem; */
   font-size: 1rem;
+  margin-right: 10px;
+  padding-top: 15px;
 }
