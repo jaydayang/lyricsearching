@@ -1,9 +1,10 @@
 import React from "react";
 import "./Login.css";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
+import { createHashHistory } from "history";
 
 class LoginAndRegister extends React.Component {
   constructor(props) {
@@ -79,20 +80,19 @@ class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
+    const router = this.props.params.router;
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(u => {})
+      .then(u => {
+        console.log("success");
+        //createHashHistory.push(router);
+        //this.props.history.push("/");
+      })
       .catch(error => {
         console.log(error);
+        window.alert("Error : " + error.message);
       });
-
-    fire.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log("get user's uid1" + fire.auth().currentUser.uid);
-      } else {
-      }
-    });
 
     //If user login, we can get user's uid
     if (fire.auth().currentUser != null) {
@@ -113,6 +113,7 @@ class Login extends React.Component {
           <Input
             name="email"
             id="email"
+            type="text"
             placeholder="Input your Email"
             value={this.state.email}
             onChange={this.handleChange}
@@ -135,9 +136,9 @@ class Login extends React.Component {
             className="btn btn-outline-primary"
             onClick={this.login}
           >
-            <Link to="/search" className="loginReglink">
-              Login
-            </Link>
+            {/* <Link to="/search" className="loginReglink"> */}
+            Login
+            {/* </Link> */}
           </button>
         </FormGroup>
       </Form>

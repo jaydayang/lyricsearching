@@ -60,17 +60,15 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-
         <div className="App">
           <header className="App-header">
-            <div className="navHeight">
-            </div>
+            <div className="navHeight" />
             <Route path="/" component={NavBar} />
 
             {/* We rended diffrent component based on the path */}
             <Route exact path="/" component={Welcome} />
             {/* add login route  */}
-            <Route path="/login/" render={() => <Login />} />
+            <Route path="/login(/:router)" render={() => <Login />} />
             {/* add login route  */}
 
             <Route
