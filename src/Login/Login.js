@@ -109,20 +109,22 @@ class Login extends React.Component {
     return (
       <Form>
         <FormGroup>
-          <Label>Email</Label>
+          <Label className="font">Email</Label>
           <Input
             name="email"
             id="email"
+            type="text"
             placeholder="Input your Email"
             value={this.state.email}
             onChange={this.handleChange}
           />
         </FormGroup>
         <FormGroup>
-          <Label>Password</Label>
+          <Label className="font">Password</Label>
           <Input
             name="password"
             id="password"
+            type="password"
             placeholder="Input your password"
             value={this.state.password}
             onChange={this.handleChange}
@@ -130,7 +132,7 @@ class Login extends React.Component {
         </FormGroup>
         <FormGroup>
           <button type="button" className="loginReglink" onClick={this.login}>
-            <Link to="/search" className="loginReglink">
+            <Link to="/search" className="loginform">
               Login
             </Link>
           </button>
@@ -262,7 +264,7 @@ class Register extends React.Component {
     return (
       <Form>
         <FormGroup>
-          <Label>Email</Label>
+          <Label className="font">Email</Label>
           <Input
             name="email"
             id="email"
@@ -273,7 +275,7 @@ class Register extends React.Component {
           <small>{emailError ? emailError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <Label>Username</Label>
+          <Label className="font">Username</Label>
           <Input
             name="username"
             id="username"
@@ -284,7 +286,7 @@ class Register extends React.Component {
           <small>{usernameError ? usernameError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <Label>Password</Label>
+          <Label className="font">Password</Label>
           <Input
             name="password"
             id="password"

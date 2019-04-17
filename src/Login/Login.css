@@ -3,7 +3,7 @@
   width: 300px;
 }
 
-.normalLink {
+.loginReglink {
   color: #1c1c1c;
   font-family: "Montserrat", sans-serif;
   font-weight: 100;
@@ -17,8 +17,55 @@
   -webkit-transition: all, ease-in-out;
 }
 
-.normalLink:hover {
+.loginReglink:hover {
   color: white;
   text-decoration: none;
   background: #1c1c1c;
+}
+
+.loginform {
+  color: black;
+}
+
+.loginform:hover {
+  color: white;
+}
+
+.password {
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 100%;
+}
+
+.password_input {
+  display: block;
+  text-transform: none;
+  width: 100%;
+  height: 42px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: #b6b6b6;
+  font-weight: 400;
+}
+
+.password_show {
+  cursor: pointer;
+  position: absolute;
+  bottom: 11px;
+  height: 16px;
+  right: 0;
+  background: black;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8em;
+}
+
+.font {
+  font-family: "Montserrat", sans-serif;
+  color: #1c1c1c;
+  font-size: 1rem;
 }
