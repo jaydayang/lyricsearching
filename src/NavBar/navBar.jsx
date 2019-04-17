@@ -59,7 +59,7 @@ class NavBar extends Component {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
       loginRegisterCont = (
-        <Link to="/login" className="normalLink">
+        <Link to="/login" className="logoutBton">
           Login|Register
         </Link>
       );
