@@ -60,13 +60,13 @@ class SimpleFavoriteList extends Component {
   componentDidMount() {
     var self = this;
 
-    modelInstance.EventEmitter.subscribe("changeItem", function(newItem) {
+    modelInstance.EventEmitter.subscribe("changeItem", function (newItem) {
       self.setState({
         curItem: newItem
       });
     });
 
-    fire.auth().onAuthStateChanged(function(user) {
+    fire.auth().onAuthStateChanged(function (user) {
       if (user) {
         // if (fire.auth().currentUser != null) {
         var userId = fire.auth().currentUser.uid;
@@ -81,9 +81,9 @@ class SimpleFavoriteList extends Component {
         // })
 
         let query = fire.database().ref(userId);
-        query.once("value").then(function(snapshot) {
+        query.once("value").then(function (snapshot) {
           let track = [];
-          snapshot.forEach(function(childSnapshot) {
+          snapshot.forEach(function (childSnapshot) {
             // childData will be the actual contents of the child
             var childData = childSnapshot.val();
             track.push(childData);
@@ -112,9 +112,9 @@ class SimpleFavoriteList extends Component {
       let thisComponent = this;
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
+      query.once("value").then(function (snapshot) {
         let track = [];
-        snapshot.forEach(function(childSnapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           track.push(childData);
@@ -142,7 +142,7 @@ class SimpleFavoriteList extends Component {
     console.log("tracklist chart", trackList);
     switch (this.state.status) {
       case "NOLOGIN":
-        lyricList = <em>Login to see favortie List Detail</em>;
+        lyricList = <em className="simpleFavorite">  Login to see favortie List Detail</em>;
         viewOrLogin = (
           <Link to="/login">
             <button className="viewallButton">Login</button>
@@ -157,11 +157,11 @@ class SimpleFavoriteList extends Component {
           <li
             key={track.track_id}
             id={track.commontrack_id}
-            className="col-md-12 top-track-result"
+            className="top-track-result "
           >
             <Link to={"/lyric/" + track.track_id}>
               {/* <span>{track.track_name}</span> */}
-              <span>{track.track_name}</span>
+              <span className="simpleFavorite">{track.track_name}</span>
             </Link>
           </li>
         ));
@@ -197,7 +197,7 @@ class SimpleFavoriteList extends Component {
 
     return (
       <div className="SimpleFavoriteList">
-        <h3>My Favorite</h3>
+        <h3 className="sidebarTitle">My Favorite</h3>
 
         <ul className="favorUl">{lyricList}</ul>
         <ul>{viewOrLogin}</ul>

@@ -44,11 +44,12 @@ class Sidebar extends Component {
           <li
             key={track.track.commontrack_id}
             id={track.track.commontrack_id}
-            className="col-md-12 top-track-result"
+            className="top-track-result"
           >
             <Link to={"/lyric/" + track.track.track_id}>
-              <span>{track.track.track_name}</span>
-              <span> Artist: {track.track.artist_name}</span>
+
+              <span className="simpleFavorite">{track.track.track_name}</span>
+              <span className="suggestionArtist"> Artist: {track.track.artist_name}</span>
             </Link>
           </li>
         ));
@@ -60,8 +61,10 @@ class Sidebar extends Component {
 
     return (
       <div className="SuggestionSidebar">
-        <h3>Top {topTrackList.length} tracks</h3>
-        <ul>{topTrackList}</ul>
+        <h3 className="sidebarTitle">Top {topTrackList.length} tracks</h3>
+        <ul>
+          {topTrackList}
+        </ul>
       </div>
     );
   }
