@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
-import { NavbarBrand, Collapse, NavbarToggler} from "reactstrap";
+import { NavbarBrand, Collapse, NavbarToggler } from "reactstrap";
 import "./NavBar.css";
 import queryString from "query-string";
 
@@ -134,7 +134,7 @@ class NavBar extends Component {
                 </select>
               </div>
               <div className="col-auto my-1 ">
-                <button type="submit" className="btn btn-outline-primary">
+                <button type="submit" className="btn btn-outline-light">
                   Search
                 </button>
               </div>
