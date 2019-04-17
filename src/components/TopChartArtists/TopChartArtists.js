@@ -58,7 +58,7 @@ class TopChartArtists extends Component {
 
     return (
       <div className="TopChartArtists">
-        <h3 className="albumName">Top {topArtistList.length} artists</h3>
+        <h3 className="albumName">Top {topArtistList.length} artists in your country</h3>
         <ul className="lyricBlock">{topArtistList}</ul>
       </div>
     );
