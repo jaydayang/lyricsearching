@@ -58,8 +58,6 @@
   }   */
 }
 
-
-
 .goog-te-gadget-icon {
   background-image: url(https://placehold.it/32) !important;
   background-position: 0px 0px;
@@ -125,7 +123,7 @@
   top: 0;
 }
 .fa-heart:hover {
-  color: #ccc;
+  color: #a94442;
 }
 .fa-heart-o {
   font-size: 12px;
