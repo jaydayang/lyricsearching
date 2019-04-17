@@ -188,10 +188,10 @@ class AlbumInfo extends Component {
       case "LOADED":
         lyricList = (
           <div>
-            <h2>{this.state.track.track_name}</h2>
-            <Button onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
-            <p>Artist Name:{this.state.track.artist_name}</p>
-            <p>Album Name:{this.state.track.album_name}</p>
+            <h2 className="sidebarTitle">{this.state.track.track_name}</h2>
+            <Button className="likeButton" onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
+            <p className="simpleFavorite">Artist Name:{this.state.track.artist_name}</p>
+            <p className="simpleFavorite">Album Name:{this.state.track.album_name}</p>
           </div>
         );
 

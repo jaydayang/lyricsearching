@@ -21,8 +21,8 @@ class Sidebar extends Component {
       let thisComponent = this;
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+      query.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           artistId.push(childData.artist_id);

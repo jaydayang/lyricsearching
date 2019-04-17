@@ -101,10 +101,10 @@ class LyricDetail extends Component {
           <Row>
             <Col lg="8" md="8" xs="12">
               <AlbumInfo parentState={this.state} />
-              <span className="h2">Lyrics</span>
+              <span className=" sidebarTitle">Lyrics</span>
               <span className="right" />
               <div id="google_translate_element" />
-              <div className="translate">{lyricList}</div>
+              <div className="translate simpleFavorite">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">
               <SimpleFavorite parentState={this.state} />
