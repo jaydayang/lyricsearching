@@ -7,25 +7,24 @@ const API_KEY = "bbb26be6329cbeea6e0c3cad3cfdef6e";
 const GOOGLE_API_KEY = "AIzaSyASsF4YkpgdBuTQNFw9e7643XjXJfo-rQc";
 
 class LyricModel extends ObservableModel {
-
   ArtistId = ["13774235", "56", "13774236"];
   EventEmitter = {
     _events: {},
-    dispatch: function (event, data) {
+    dispatch: function(event, data) {
       if (!this._events[event]) return; // no one is listening to this event
       for (var i = 0; i < this._events[event].length; i++)
         this._events[event][i](data);
     },
-    subscribe: function (event, callback) {
+    subscribe: function(event, callback) {
       if (!this._events[event]) this._events[event] = []; // new event
       this._events[event].push(callback);
     },
-    unSubscribe: function (event) {
+    unSubscribe: function(event) {
       if (this._events && this._events[event]) {
         delete this._events[event];
       }
     }
-  }
+  };
 
   getAppearMost(artistarray) {
     if (artistarray.length == 0) return null;
@@ -154,7 +153,7 @@ class LyricModel extends ObservableModel {
   //@id :int  of the album in NUM
   // return object with all the tracks from the album
   getAlbumTracks(id) {
-    const query = `album.tracks.get?album_id=${id}&page=1&page_size=20&apikey=`;
+    const query = `album.tracks.get?album_id=${id}&page=1&page_size=20&f_has_lyrics=1&apikey=`;
     const url = `${CORS_URL}${BASE_URL}${query}${API_KEY}`;
     return fetch(url, {
       Origin: `${BASE_URL}${query}${API_KEY}`
