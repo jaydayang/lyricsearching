@@ -100,7 +100,7 @@ class SimpleFavoriteList extends Component {
     const trackList = this.getTopChart(5);
     switch (this.state.status) {
       case "NOLOGIN":
-        lyricList = <em>Login to see favortie List Detail</em>;
+        lyricList = <em>Login to see favorite List Detail</em>;
         viewOrLogin = (
           <Link to="/login">
             <button className="viewallButton">Login</button>
@@ -118,7 +118,7 @@ class SimpleFavoriteList extends Component {
             className="col-md-12 top-track-result"
           >
             <Link to={"/lyric/" + track.track_id}>
-              <span>{track.track_name}</span>
+              <span className="link">{track.track_name}</span>
             </Link>
           </li>
         ));
@@ -139,8 +139,8 @@ class SimpleFavoriteList extends Component {
 
     return (
       <div className="SimpleFavoriteList">
-        <h3>My Favorite</h3>
-        <ul className="favorUl">{lyricList}</ul>
+        <h3 className="albumName">My Favorites</h3>
+        <ul className="lyricBlock">{lyricList}</ul>
         <ul>{viewOrLogin}</ul>
       </div>
     );

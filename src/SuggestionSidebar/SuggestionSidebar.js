@@ -47,8 +47,8 @@ class Sidebar extends Component {
             className="col-md-12 top-track-result"
           >
             <Link to={"/lyric/" + track.track.track_id}>
-              <span>{track.track.track_name}</span>
-              <span> Artist: {track.track.artist_name}</span>
+              <span className="link">{track.track.track_name}</span>
+              <span className="link"> Artist: {track.track.artist_name}</span>
             </Link>
           </li>
         ));
@@ -60,8 +60,8 @@ class Sidebar extends Component {
 
     return (
       <div className="SuggestionSidebar">
-        <h3>Top {topTrackList.length} tracks</h3>
-        <ul>{topTrackList}</ul>
+        <h3 className="albumName">Top {topTrackList.length} tracks in your country</h3>
+        <ul className="lyricBlock">{topTrackList}</ul>
       </div>
     );
   }
