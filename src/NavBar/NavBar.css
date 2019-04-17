@@ -55,7 +55,7 @@
   background: white;
 }
 
-.logoutBtn {
+.logoutBtnNavBar {
   background: Transparent;
   background-repeat: no-repeat;
   color: white;
@@ -71,8 +71,8 @@
   -webkit-transition: all, ease-in-out;
 }
 
-.logoutBtn:hover {
-  color: #1c1c1c;
+.logoutBtnNavBar:hover {
+  color: black;
   text-decoration: none;
   background: white;
 }
@@ -86,3 +86,25 @@
   margin-right: 10px;
   padding-top: 15px;
 }
+
+/* .searchBtnNavBar {
+  background: Transparent;
+  background-repeat: no-repeat;
+  color: blue;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px blue;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
+}
+
+.logoutBtnNavBar:hover {
+  color: white;
+  text-decoration: none;
+  background: blue;
+} */

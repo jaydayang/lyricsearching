@@ -1,9 +1,12 @@
 import React from "react";
 import "./Login.css";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
-import { Link } from "react-router-dom";
+import Tabs from "../FavoriteDetail/Tabs/Tabs";
+import { Link, Route } from "react-router-dom";
+
+import { createHashHistory } from "history";
 
 class LoginAndRegister extends React.Component {
   constructor(props) {
@@ -32,20 +35,13 @@ class LoginAndRegister extends React.Component {
     return (
       <div className="root">
         <div>
-        <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
-          Login
-        </button>
-        </div>
-        <div>
-        <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
-          Register
-        </button>
-          {/* <div className="selected" onClick={this.showLogin.bind(this)}>
+          <button className="lineBtn1" onClick={this.showLogin.bind(this)}>
             Login
-          </div>
-          <div className="selected" onClick={this.showRegister.bind(this)}>
+          </button>
+
+          <button className="lineBtn2" onClick={this.showRegister.bind(this)}>
             Register
-          </div> */}
+          </button>
         </div>
 
         <FadeTransition isOpen={this.state.isLoginOpen} duration={500}>
@@ -79,21 +75,18 @@ class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
+    //const router = this.props.params.router;
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {
+        console.log("login success!");
+        window.history.back();
       })
       .catch(error => {
         console.log(error);
+        window.alert("Error : " + error.message);
       });
-
-    fire.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log("get user's uid1" + fire.auth().currentUser.uid);
-      } else {
-      }
-    });
 
     //If user login, we can get user's uid
     if (fire.auth().currentUser != null) {
@@ -114,6 +107,7 @@ class Login extends React.Component {
           <Input
             name="email"
             id="email"
+            type="text"
             placeholder="Input your Email"
             value={this.state.email}
             onChange={this.handleChange}
@@ -124,16 +118,15 @@ class Login extends React.Component {
           <Input
             name="password"
             id="password"
+            type="password"
             placeholder="Input your password"
             value={this.state.password}
             onChange={this.handleChange}
           />
         </FormGroup>
         <FormGroup>
-          <button type="submit" className="btn btn-outline-primary" onClick={this.login}>
-            <Link to="/search" className="loginReglink">
-              Login
-            </Link>
+          <button type="submit" className="loginRegBtn" onClick={this.login}>
+            Login
           </button>
         </FormGroup>
       </Form>
@@ -163,9 +156,13 @@ class Register extends React.Component {
         this.state.email,
         this.state.password
       )
-      .then(u => {})
+      .then(u => {
+        console.log("Register success!");
+        window.history.back();
+      })
       .catch(error => {
         console.log(error);
+        window.alert(error.message);
       });
 
     var username = this.state.username;
@@ -291,12 +288,8 @@ class Register extends React.Component {
           <small>{passwordError ? passwordError : ""}</small>
         </FormGroup>
         <FormGroup>
-          <button
-            type="submit"
-            className="btn btn-outline-primary"
-            onClick={this.register}
-          >
-            <Link to="/search">Register</Link>
+          <button type="submit" className="loginRegBtn" onClick={this.register}>
+            Register
           </button>
         </FormGroup>
       </Form>

@@ -107,6 +107,7 @@ class LyricDetail extends Component {
               <div className="translate simpleFavorite">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">
+            <br/>
               <SimpleFavorite parentState={this.state} />
               <SuggestionSidebar />
             </Col>

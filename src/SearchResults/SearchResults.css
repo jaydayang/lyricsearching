@@ -30,6 +30,7 @@
 
 .track-result a {
   color: white;
+  font-family: "Montserrat", sans-serif;
 }
 
 .track-result a:hover {
@@ -46,6 +47,7 @@
 }
 
 .result-lyric h3 {
+  font-family: "Montserrat", sans-serif;
   font-size: 28px;
   font-weight: 700;
 }
@@ -57,6 +59,7 @@
 
 .result-lyric .botom-pos {
   position: absolute;
+  font-family: "Montserrat", sans-serif;
   bottom: 20px;
   font-weight: 600;
   padding-right: 20px;
@@ -68,4 +71,7 @@
   bottom: 0;
   left: 0;
   transform: rotate(-90deg);
+}
+.heading2 {
+  font-family: "Montserrat", sans-serif;
 }

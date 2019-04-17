@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
-import {
-  NavbarBrand,
-  NavItem,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavLink,
-  UncontrolledDropdown
-} from "reactstrap";
+import { NavbarBrand, Collapse, NavbarToggler} from "reactstrap";
 import "./NavBar.css";
 import queryString from "query-string";
 
@@ -76,7 +67,7 @@ class NavBar extends Component {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
       loginRegisterCont = (
-        <Link to="/login" className="logoutBton">
+        <Link to="/login" className="logoutBtnNavBar">
           Login|Register
         </Link>
       );
@@ -89,7 +80,10 @@ class NavBar extends Component {
             {"Hi!  "}
             {user}
           </p>
-          <button className="btn btn-outline-light" onClick={this.logout}>
+          {/* <button className="btn btn-outline-light" onClick={this.logout}>
+            Logout
+          </button> */}
+          <button className="logoutBtnNavBar" onClick={this.logout}>
             Logout
           </button>
         </div>
@@ -140,7 +134,7 @@ class NavBar extends Component {
                 </select>
               </div>
               <div className="col-auto my-1 ">
-                <button type="submit" className="btn btn-outline-light">
+                <button type="submit" className="btn btn-outline-primary">
                   Search
                 </button>
               </div>
