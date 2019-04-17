@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  NavbarBrand,
+  NavItem,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavLink,
+  UncontrolledDropdown
+} from "reactstrap";
 import "./NavBar.css";
 import queryString from "query-string";
 
@@ -13,12 +21,20 @@ class NavBar extends Component {
       value: "",
       select: "lyric",
       qVal: queryString.stringify({ q: " " }),
-      urlTo: "search"
+      urlTo: "search",
+      collapsed: true
     };
 
+    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  toggleNavbar() {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
   }
   //Stateless functional component
   logout() {
@@ -60,7 +76,7 @@ class NavBar extends Component {
     var loginRegisterCont = null;
     if (fire.auth().currentUser == null) {
       loginRegisterCont = (
-        <Link to="/login" className="normalLink">
+        <Link to="/login" className="logoutBton">
           Login|Register
         </Link>
       );
@@ -68,12 +84,12 @@ class NavBar extends Component {
       var user = fire.auth().currentUser.email;
 
       loginRegisterCont = (
-        <div>
-          <p className="userName">
+        <div className="form-inline mt-2 mt-md-0">
+          <p className="userName ">
             {"Hi!  "}
             {user}
           </p>
-          <button className="logoutBtn" onClick={this.logout}>
+          <button className="btn btn-outline-light" onClick={this.logout}>
             Logout
           </button>
         </div>
@@ -81,61 +97,57 @@ class NavBar extends Component {
     }
     return (
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <NavbarBrand classNAme="navBrand ">
+        <NavbarBrand className="navBrand ">
           <Link className="brandLink" to={"/"}>
             Ls
           </Link>
         </NavbarBrand>
-        <form
-          className=" form-inline mt-2 mt-md-0 "
-          onSubmit={this.handleSubmit}
-        >
-          <div className="form-row  mr-auto">
-            <div className=" my-1">
-              <label className="sr-only" htmlFor="inlineFormInputName">
-                Search for:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inlineFormInputName"
-                placeholder="Search for:"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
+        <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+        <Collapse isOpen={!this.state.collapsed} navbar>
+          <form
+            className=" form-inline mt-2 mt-md-0 mr-auto "
+            onSubmit={this.handleSubmit}
+          >
+            <div className="form-row  mr-auto">
+              <div className=" my-1">
+                <label className="sr-only" htmlFor="inlineFormInputName">
+                  Search for:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inlineFormInputName"
+                  placeholder="Search for:"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="col-auto my-1">
+                <label
+                  className="mr-sm-2 sr-only"
+                  htmlFor="inlineFormCustomSelect"
+                >
+                  Preference
+                </label>
+                <select
+                  className="custom-select mr-sm-1"
+                  id="inlineFormCustomSelect"
+                  value={this.state.select}
+                  onChange={this.handleSelectChange}
+                >
+                  <option value="lyric">Lyric</option>
+                  <option value="artist">Artist</option>
+                </select>
+              </div>
+              <div className="col-auto my-1 ">
+                <button type="submit" className="btn btn-outline-light">
+                  Search
+                </button>
+              </div>
             </div>
-            <div className="col-auto my-1">
-              <label
-                className="mr-sm-2 sr-only"
-                htmlFor="inlineFormCustomSelect"
-              >
-                Preference
-              </label>
-              <select
-                className="custom-select mr-sm-1"
-                id="inlineFormCustomSelect"
-                value={this.state.select}
-                onChange={this.handleSelectChange}
-              >
-                <option value="lyric">Lyric</option>
-                <option value="artist">Artist</option>
-              </select>
-            </div>
-            <div className="col-auto my-1 ">
-              <button type="submit" className="btn btn-outline-primary">
-                Search
-              </button>
-            </div>
-          </div>
-        </form>
-        <NavItem className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          </form>
           {loginRegisterCont}
-        </NavItem>
-
-        {/* <form className="form-inline mt-2 mt-md-0">
-            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> */}
+        </Collapse>
       </nav>
     );
   }

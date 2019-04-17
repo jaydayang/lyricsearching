@@ -1,13 +1,15 @@
-.SimpleFavoriteList{
-    padding-bottom: 30px
+.albumName{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+    color: black;
 }
-.favorLi{
-  list-style-type: none;
-  margin-left:0;
-  padding:0;
-  font-size: 14px;
-  line-height: 24px;
-  
+.lyricBlock{
+    font-family: "Montserrat", sans-serif;
+    list-style-type: circle;
+    font-size: 18px;
+    color: black;
 }
 .favorUl{
    
@@ -43,4 +45,33 @@
 }
 .fa-heart-o:hover {
     color: #a94442;
+}
+
+.simpleFavorite{
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.8;
+
+
+}
+.sidebarTitle{
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-top: 20px;
+
+
+}
+ul{
+    padding-inline-start: 0;
+}
+
+.link {
+    color: black;
+  }
+.link:hover {
+    color: #b3b3b3;
 }

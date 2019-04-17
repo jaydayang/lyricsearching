@@ -1,0 +1,71 @@
+.purple-gradient {
+  height: 200px;
+  max-height: 200px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 20px;
+  background: rgb(225, 0, 148);
+  position: relative;
+  background: -moz-linear-gradient(
+    166deg,
+    rgba(225, 0, 148, 1) 0%,
+    rgba(123, 0, 234, 1) 47%,
+    rgba(123, 0, 234, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    166deg,
+    rgba(225, 0, 148, 1) 0%,
+    rgba(123, 0, 234, 1) 47%,
+    rgba(123, 0, 234, 1) 100%
+  );
+  background: linear-gradient(
+    166deg,
+    rgba(225, 0, 148, 1) 0%,
+    rgba(123, 0, 234, 1) 47%,
+    rgba(123, 0, 234, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e10094",endColorstr="#7b00ea",GradientType=1);
+}
+
+.track-result a {
+  color: white;
+}
+
+.track-result a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.track-result a:hover .result-lyric .botom-pos {
+  bottom: 25px;
+}
+
+.track-result a:hover .result-lyric .animate-down {
+  padding-top: 10px;
+}
+
+.result-lyric h3 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.result-lyric .animate-down {
+  -webkit-transition: all 0.1s ease-in; /* Safari */
+  transition: all 0.1s ease-in;
+}
+
+.result-lyric .botom-pos {
+  position: absolute;
+  bottom: 20px;
+  font-weight: 600;
+  padding-right: 20px;
+  -webkit-transition: all 0.1s ease-in; /* Safari */
+  transition: all 0.1s ease-in;
+}
+.result-lyric .left-rotation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}

@@ -5,11 +5,6 @@ import FadeTransition from "./Transitions/fadeTransitions";
 import fire from "../Config/Fire";
 import { Link } from "react-router-dom";
 
-import { Redirect } from "react-router";
-import { BrowserRouter } from "react-router-dom";
-import { createHashHistory } from "history";
-import { browserHistory } from "react-router-dom";
-
 class LoginAndRegister extends React.Component {
   constructor(props) {
     super(props);
@@ -37,12 +32,20 @@ class LoginAndRegister extends React.Component {
     return (
       <div className="root">
         <div>
-          <div className="selected" onClick={this.showLogin.bind(this)}>
+        <button className="logoutBtn" onClick={this.showLogin.bind(this)}>
+          Login
+        </button>
+        </div>
+        <div>
+        <button className="logoutBtn" onClick={this.showRegister.bind(this)}>
+          Register
+        </button>
+          {/* <div className="selected" onClick={this.showLogin.bind(this)}>
             Login
           </div>
           <div className="selected" onClick={this.showRegister.bind(this)}>
             Register
-          </div>
+          </div> */}
         </div>
 
         <FadeTransition isOpen={this.state.isLoginOpen} duration={500}>
@@ -75,13 +78,11 @@ class Login extends React.Component {
   }
 
   login(e) {
-    console.log("dadf" + this.state.email);
     e.preventDefault();
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {
-        console.log("get user's uid", u.currentUser);
       })
       .catch(error => {
         console.log(error);
@@ -94,7 +95,7 @@ class Login extends React.Component {
       }
     });
 
-    //If user login, we can get user's uid //////////////////////
+    //If user login, we can get user's uid
     if (fire.auth().currentUser != null) {
       console.log("get user's uid" + fire.auth().currentUser.uid);
     }
@@ -107,7 +108,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form className="normalLink">
         <FormGroup>
           <Label className="font">Email</Label>
           <Input
@@ -131,8 +132,13 @@ class Login extends React.Component {
           />
         </FormGroup>
         <FormGroup>
+<<<<<<< HEAD
           <button type="button" className="loginReglink" onClick={this.login}>
             <Link to="/search" className="loginform">
+=======
+          <button type="submit" className="btn btn-outline-primary" onClick={this.login}>
+            <Link to="/search" className="loginReglink">
+>>>>>>> 16703ce32e6302b48d9e1aa534a0d7953ac52d28
               Login
             </Link>
           </button>
@@ -169,12 +175,7 @@ class Register extends React.Component {
         console.log(error);
       });
 
-    //var userId = fire.auth().currentUser.uid;
     var username = this.state.username;
-
-    // fire.database().ref(userUid).update({
-    //   [lyricId]: selectedLyric
-    // });
     fire
       .database()
       .ref("/users/" + username + "/userInfo")
@@ -262,7 +263,7 @@ class Register extends React.Component {
     }
 
     return (
-      <Form>
+      <Form className="normalLink">
         <FormGroup>
           <Label className="font">Email</Label>
           <Input
@@ -298,8 +299,8 @@ class Register extends React.Component {
         </FormGroup>
         <FormGroup>
           <button
-            type="button"
-            className="register-btn"
+            type="submit"
+            className="btn btn-outline-primary"
             onClick={this.register}
           >
             <Link to="/search">Register</Link>

@@ -22,6 +22,12 @@ class ArtistDetail extends Component {
           status: "LOADED",
           searchResult: albumsResults
         });
+        if (albumsResults.length > 0) {
+          const artistName = albumsResults[0].album.artist_name;
+          this.setState({
+            artistName: artistName
+          });
+        }
       })
       .catch(() => {
         this.setState({
@@ -29,6 +35,13 @@ class ArtistDetail extends Component {
         });
       });
   }
+
+  getSubStringofName(name) {
+    if (name.length > 35) {
+      return name.substring(0, 35) + "...";
+    } else return name;
+  }
+
   render() {
     let albumList = null;
     const { searchResult } = this.state;
@@ -38,18 +51,32 @@ class ArtistDetail extends Component {
         albumList = <em>Loading...</em>;
         break;
       case "LOADED":
-        albumList = searchResult.map(album => (
-          <div
-            key={album.album.album_id}
-            id={album.album.album_id}
-            className="col-md-6 artist-result"
-          >
-            <Link to={"/album/" + album.album.album_id}>
-              <h3>{album.album.album_name}</h3>
-              <br />
-            </Link>
-          </div>
-        ));
+        if (searchResult.length == 0) {
+          albumList = (
+            <div className="ifTheresNothing">
+              <h3 className="textH3">
+                Oops! There's no album of this artist! :(
+              </h3>
+            </div>
+          );
+        } else {
+          albumList = searchResult.map(album => (
+            <div
+              key={album.album.album_id}
+              id={album.album.album_id}
+              className="col-md-6 col-lg-4  artist-result"
+            >
+              <Link to={"/album/" + album.album.album_id}>
+                <div className="albumBlock">
+                  <h3 className="albumName">
+                    {this.getSubStringofName(album.album.album_name)}
+                  </h3>
+                  <br />
+                </div>
+              </Link>
+            </div>
+          ));
+        }
         break;
       default:
         albumList = <b>Failed to load data, please try again</b>;
@@ -58,6 +85,7 @@ class ArtistDetail extends Component {
 
     return (
       <div className="Searching-Results">
+        <h2>Albums from: {this.state.artistName}</h2>
         <div className="row">{albumList}</div>
       </div>
     );

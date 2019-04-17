@@ -46,30 +46,26 @@ class FavoriteDetail extends Component {
 
   render() {
     let favoriteArtist = [];
-    console.log("try artist", this.state.artist);
     favoriteArtist = this.state.artist.map(track => (
       <li
         key={track.commontrack_id}
         id={track.commontrack_id}
         className="col-md-12 top-track-result"
       >
-        <Link to={"/lyric/" + track.track_id}>
-          {/* <span>{track.track_name}</span> */}
+        <Link to={"/lyric/" + track.track_id} className="link">
           <span>{track.artist_name}</span>
         </Link>
       </li>
     ));
 
     let favoriteTrack = [];
-    console.log("try track", this.state.track);
     favoriteTrack = this.state.track.map(track => (
       <li
         key={track.commontrack_id}
         id={track.commontrack_id}
         className="col-md-12 top-track-result"
       >
-        <Link to={"/lyric/" + track.track_id}>
-          {/* <span>{track.track_name}</span> */}
+        <Link to={"/lyric/" + track.track_id} className="link">
           <span>{track.track_name}</span>
         </Link>
       </li>
@@ -77,16 +73,16 @@ class FavoriteDetail extends Component {
 
     return (
       <div className="FavortieDetail">
-        <h1>My favorite list</h1>
+        <h1 className="albumName">My favorite list</h1>
         <Container>
           <Row>
             <Col md="7" xs="12">
               <Tabs>
                 <div label="Artist">
-                  <div>{favoriteArtist}</div>
+                  <div className="lyricBlock">{favoriteArtist}</div>
                 </div>
                 <div label="Track">
-                  <div>{favoriteTrack}</div>
+                  <div className="lyricBlock">{favoriteTrack}</div>
                 </div>
               </Tabs>
             </Col>

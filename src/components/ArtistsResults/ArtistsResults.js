@@ -23,7 +23,8 @@ class ArtistsResults extends Component {
         const artistsResults = artists.message.body.artist_list;
         this.setState({
           status: "LOADED",
-          searchResult: artistsResults
+          searchResult: artistsResults,
+          searchWord: name
         });
       })
       .catch(() => {
@@ -57,6 +58,12 @@ class ArtistsResults extends Component {
     }
   }
 
+  getSubStringofName(name) {
+    if (name.length > 35) {
+      return name.substring(0, 35) + "...";
+    } else return name;
+  }
+
   render() {
     let artistList = null;
     const { searchResult } = this.state;
@@ -66,18 +73,31 @@ class ArtistsResults extends Component {
         artistList = <em>Loading...</em>;
         break;
       case "LOADED":
-        artistList = searchResult.map(artist => (
-          <div
-            key={artist.artist.artist_id}
-            id={artist.artist.artist_id}
-            className="col-md-6 artist-result"
-          >
-            <Link to={"/artist/" + artist.artist.artist_id}>
-              <h3>{artist.artist.artist_name}</h3>
-              <br />
-            </Link>
-          </div>
-        ));
+        if (searchResult.length == 0) {
+          artistList = (
+            <div className="ifTheresNothing">
+              <h3 className="textH3">Oops! There's no artist of this word!</h3>
+            </div>
+          );
+        } else {
+          artistList = searchResult.map(artist => (
+            <div
+              key={artist.artist.artist_id}
+              id={artist.artist.artist_id}
+              className="col-md-6 col-lg-4 artist-result"
+            >
+              <Link to={"/artist/" + artist.artist.artist_id}>
+                <div className="artistBlock">
+                  <h3 className="textH3">
+                    {this.getSubStringofName(artist.artist.artist_name)}
+                  </h3>
+                  <br />
+                </div>
+              </Link>
+            </div>
+          ));
+        }
+
         break;
       default:
         artistList = <b>Failed to load data, please try again</b>;
@@ -86,6 +106,7 @@ class ArtistsResults extends Component {
 
     return (
       <div className="Searching-Results">
+        <h2>Search artists named: {this.state.searchWord}</h2>
         <div className="row">{artistList}</div>
       </div>
     );

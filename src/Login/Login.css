@@ -3,8 +3,13 @@
   width: 300px;
 }
 
+<<<<<<< HEAD
 .loginReglink {
   color: #1c1c1c;
+=======
+.normalLink {
+  color: black;
+>>>>>>> 16703ce32e6302b48d9e1aa534a0d7953ac52d28
   font-family: "Montserrat", sans-serif;
   font-weight: 100;
   min-width: 0.7rem;
@@ -12,15 +17,36 @@
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  border: solid 1px #1c1c1c;
+  border: solid 1px white;
   transition: all, ease-in-out;
   -webkit-transition: all, ease-in-out;
 }
 
+<<<<<<< HEAD
 .loginReglink:hover {
   color: white;
+=======
+.normalLink:hover {
+  color: black;
+>>>>>>> 16703ce32e6302b48d9e1aa534a0d7953ac52d28
   text-decoration: none;
-  background: #1c1c1c;
+  background: white;
+}
+
+.logoutBtn {
+  background: Transparent;
+  background-repeat: no-repeat;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  min-width: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: solid 1px black;
+  transition: all, ease-in-out;
+  -webkit-transition: all, ease-in-out;
 }
 
 .loginform {

@@ -1,17 +1,56 @@
 .tab-list {
-    border-bottom: 1px solid #ccc;
-    padding-left: 0;
-  }
+  border-bottom: 1px solid #f46859;
+  font-family: "Montserrat", sans-serif;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 21px;
+  padding-left: 0;
+  font-weight: 100;
+  line-height: 1.2;
+}
   
-  .tab-list-item {
-    display: inline-block;
-    list-style: none;
-    margin-bottom: -1px;
-    padding: 0.5rem 0.75rem;
-  }
+.tab-list-item {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 21px;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 100;
+  line-height: 1.2;
+  color: #f46859;
+}
   
-  .tab-list-active {
-    background-color: white;
-    border: solid #ccc;
-    border-width: 1px 1px 0 1px;
-  }
+.tab-list-active {
+  background-color: white;
+  font-family: "Montserrat", sans-serif;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 21px;
+  border: solid #f46859;
+  border-width: 2px 2px 0 2px;
+  font-weight: 100;
+  line-height: 1.2;
+}
+
+.lyricBlock{
+  font-family: "Montserrat", sans-serif;
+  list-style-type: circle;
+  font-size: 18px;
+  color: black;
+}
+
+.albumName{
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  color: black;
+}
+
+.link {
+  color: black;
+}
+.link:hover {
+   color: #b3b3b3;
+}

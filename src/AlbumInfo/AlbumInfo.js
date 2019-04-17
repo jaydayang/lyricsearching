@@ -4,7 +4,6 @@ import "./AlbumInfo.css";
 import fire from "../Config/Fire";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "reactstrap";
-import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 
 class AlbumInfo extends Component {
   constructor(props) {
@@ -13,17 +12,14 @@ class AlbumInfo extends Component {
   }
   onClickItem(item) {
     modelInstance.EventEmitter.dispatch("changeItem", item);
-    console.log("listen", item);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
       this.setState(nextProps.parentState);
-      // your code here
       modelInstance
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
         .then(data => {
-          console.log("albuminfo", data.message);
           this.setState({
             status1: "LOADED",
             track: data.message.body.track,
@@ -44,7 +40,6 @@ class AlbumInfo extends Component {
       this.setState({
         idProxyAlbum: this.state.lyricId
       });
-      console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
       query.once("value").then(function (snapshot) {
@@ -56,13 +51,10 @@ class AlbumInfo extends Component {
         thisComponent.setState({
           trackId: trackId
         });
-        console.log(thisComponent.state.lyricId);
-        console.log(thisComponent.state.trackId.length);
         var id = Number(thisComponent.state.lyricId);
         var idList = thisComponent.state.trackId;
 
         saveOrNot = modelInstance.savedOrNot(id, idList);
-        console.log("saveOrNot", saveOrNot);
 
         if (saveOrNot == true) {
           thisComponent.setState({
@@ -73,17 +65,11 @@ class AlbumInfo extends Component {
             favorited: false
           });
         }
-        console.log("console before", thisComponent.state.favorited);
       });
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ lyricId: nextProps.lyricId });
-  // }
-
   componentDidMount() {
-    console.log(this.state.lyricId);
     if (fire.auth().currentUser) {
       var userId = fire.auth().currentUser.uid;
       let trackId = this.state.trackId;
@@ -92,7 +78,6 @@ class AlbumInfo extends Component {
       this.setState({
         idProxyAlbum: this.state.lyricId
       });
-      console.log("idProxyAlbum", this.state.idProxyAlbum);
 
       let query = fire.database().ref(userId);
       query.once("value").then(function (snapshot) {
@@ -106,13 +91,10 @@ class AlbumInfo extends Component {
         thisComponent.setState({
           trackId: trackId
         });
-        console.log(thisComponent.state.lyricId);
-        console.log(thisComponent.state.trackId.length);
         var id = Number(thisComponent.state.lyricId);
         var idList = thisComponent.state.trackId;
 
         saveOrNot = modelInstance.savedOrNot(id, idList);
-        console.log("saveOrNot", saveOrNot);
 
         if (saveOrNot == true) {
           thisComponent.setState({
@@ -123,7 +105,6 @@ class AlbumInfo extends Component {
             favorited: false
           });
         }
-        console.log("console before", thisComponent.state.favorited);
       });
 
 
@@ -131,63 +112,18 @@ class AlbumInfo extends Component {
         .getOneTrack(this.state.lyricId)
         .then(response => response.json())
         .then(data => {
-          console.log(data.message);
           this.setState({
             status1: "LOADED",
             track: data.message.body.track
-
-            // track_id: data.message.body.track.trak_id
           });
-          console.log(this.state.idProxyAlbum);
         })
         .catch(() => {
           this.setState({
             status1: "ERROR"
           });
         });
-
-
-
-
-      // track_id: data.message.body.track.trak_id
     }
   }
-
-
-  // componentDidUpdate() {
-
-  //   if (this.state.idProxyAlbum != this.state.lyricId) {
-  //     console.log("update", this.state.idProxyAlbum)
-  //     console.log("update", this.state.lyricId)
-
-  //     this.setState({
-
-  //       status1: "LOADING",
-
-  //     });
-  //     modelInstance
-  //       .getOneTrack(this.state.lyricId)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         console.log("albuminfo", data.message);
-  //         this.setState({
-  //           status1: "LOADED",
-  //           track: data.message.body.track,
-  //           idProxyAlbum: this.state.lyricId
-
-  //         });
-  //       })
-  //       .catch(() => {
-  //         this.setState({
-  //           status1: "ERROR"
-  //         });
-  //       });
-
-  //  }
-
-  //   console.log("update", this.state.lyricId)
-
-  // }
 
   onFavoriteSelect(selectedLyric) {
     modelInstance.addFavoriteLyric({ selectedLyric });
@@ -224,7 +160,6 @@ class AlbumInfo extends Component {
           onClick={() => this.unfavoriteLyric()}
         />
       );
-      // return <FontAwesomeIcon icon="heart" onClick={() => this.unfavoriteLyric()} />;
     } else {
       //if the sond is the song is saved as fav the heart is colored
       return (
@@ -253,12 +188,10 @@ class AlbumInfo extends Component {
       case "LOADED":
         lyricList = (
           <div>
-            <h2>{this.state.track.track_name}</h2>
-            <Button onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
-
-
-            <p>Artist Name:{this.state.track.artist_name}</p>
-            <p>Album Name:{this.state.track.album_name}</p>
+            <h2 className="sidebarTitle">{this.state.track.track_name}</h2>
+            <Button className="likeButton" onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
+            <p className="simpleFavorite">Artist Name:{this.state.track.artist_name}</p>
+            <p className="simpleFavorite">Album Name:{this.state.track.album_name}</p>
           </div>
         );
 
@@ -273,6 +206,5 @@ class AlbumInfo extends Component {
     return <div className="AlbumInfo">{lyricList}</div>;
   }
 }
-
 
 export default AlbumInfo;

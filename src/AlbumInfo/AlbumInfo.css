@@ -1,0 +1,14 @@
+.likeButton{
+    background-color:transparent;
+    color: #f46859;
+    border-radius:100px;
+    width: 40px;
+    height:40px;
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left:10px;
+    padding-right:10px;
+    background: transparent;
+    border: 2px solid #a34439;
+
+}
