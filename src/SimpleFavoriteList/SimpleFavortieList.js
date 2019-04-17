@@ -138,6 +138,7 @@ class SimpleFavoriteList extends Component {
 
     return (
       <div className="SimpleFavoriteList">
+      <br/>
         <h3 className="albumName">My Favorites</h3>
         <ul className="lyricBlock">{lyricList}</ul>
         <ul>{viewOrLogin}</ul>
