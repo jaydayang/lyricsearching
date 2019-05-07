@@ -123,9 +123,7 @@ class LyricDetail extends Component {
               <AlbumInfo parentState={this.state} />
               <span className=" sidebarTitle">Lyrics</span>
               <span className="right" />
-              <div id="google_translate_element">
-
-              </div>
+              <div id="google_translate_element"></div>
 
               <div className="translate simpleFavorite">{lyricList}</div>
             </Col>
