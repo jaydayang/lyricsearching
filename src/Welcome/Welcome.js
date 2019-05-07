@@ -45,7 +45,10 @@ class Welcome extends Component {
         break;
       case "LOADED":
         topTrackList = topTracks.map(track => (
-          <Link className="bg-link" to={"/lyric/" + track.track.track_id}>
+          <Link className="bg-link" to={"/lyric/" + track.track.track_id}
+            key={track.track.commontrack_id}
+            id={track.track.commontrack_id}
+          >
             <span>
               {track.track.track_name} {track.track.artist_name} -
             </span>
