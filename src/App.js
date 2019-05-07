@@ -62,7 +62,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <header className="App-header">
-            <div className="navHeight" />
+            {/* <div className="navHeight" /> */}
             <Route path="/" component={NavBar} />
 
             {/* We rended diffrent component based on the path */}

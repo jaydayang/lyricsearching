@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Lyric Searching App</title>
-    <script
-      type="text/javascript"
-      src="http://tracking.musixmatch.com/t1.0/AMa6hJCIEzn1v8RuOP"
-    ></script>
-  </head>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Lyric Searching App</title>
+  <script type="text/javascript" src="http://tracking.musixmatch.com/t1.0/AMa6hJCIEzn1v8RuOP"></script>
+</head>
 
-    <title>Lyric Searching App</title>
-    <script
-      type="text/javascript"
-      src="http://tracking.musixmatch.com/t1.0/AMa6hJCIEzn1v8RuOP"
-    ></script>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            includedLanguages: "jv,de,fr,en,es,ko,sv,ru,zh-CN,ja",
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-          },
-          "google_translate_element"
-        );
-      }
-    </script>
-    <style>
-      @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800");
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <body>
-    <div id="root" class="notranslate"></div>
-  </body>
+  <title>Lyric Searching App</title>
+  <script type="text/javascript" src="http://tracking.musixmatch.com/t1.0/AMa6hJCIEzn1v8RuOP"></script>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          // includedLanguages: "jv,de,fr,en,es,ko,sv,ru,zh-CN,ja",
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false,
+
+        },
+        "google_translate_element",
+
+
+      );
+    }
+
+  </script>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800");
+
+    div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span {
+      display: none;
+    }
+
+    div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value:after {
+      content: "Translate Lyrics";
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root" class="notranslate"></div>
+</body>
+
 </html>
