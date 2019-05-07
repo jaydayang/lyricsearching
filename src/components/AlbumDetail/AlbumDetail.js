@@ -62,21 +62,31 @@ class AlbumDetail extends Component {
         trackList = <em>Loading...</em>;
         break;
       case "LOADED":
-        trackList = searchResult.map(track => (
-          <div
-            key={track.track.lyrics_id}
-            id={track.track.lyrics_id}
-            className="col-md-4 track-result"
-          >
-            <div className="purple-gradient result-lyric">
-              <Link to={"/lyric/" + track.track.track_id}>
-                <div className="animate-down">
-                  <h3>{this.truncate(23, track.track.track_name)}</h3>
-                </div>
-              </Link>
+        if (searchResult.length == 0) {
+          trackList = (
+            <div className="ifTheresNothing">
+              <h3 className="textH3">
+                Oops! There's no tracks of this albums! :(
+            </h3>
             </div>
-          </div>
-        ));
+          );
+        } else {
+          trackList = searchResult.map(track => (
+            <div
+              key={track.track.lyrics_id}
+              id={track.track.lyrics_id}
+              className="col-md-4 track-result"
+            >
+              <div className="purple-gradient result-lyric">
+                <Link to={"/lyric/" + track.track.track_id}>
+                  <div className="animate-down">
+                    <h3>{this.truncate(23, track.track.track_name)}</h3>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          ));
+        }
         break;
       default:
         trackList = <b>Failed to load data, please try again</b>;
