@@ -42,8 +42,8 @@ class AlbumInfo extends Component {
       });
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+      query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
@@ -80,13 +80,12 @@ class AlbumInfo extends Component {
       });
 
       let query = fire.database().ref(userId);
-      query.once("value").then(function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+      query.once("value").then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
           // childData will be the actual contents of the child
           var childData = childSnapshot.val();
           trackId.push(childData.track_id);
         });
-
 
         thisComponent.setState({
           trackId: trackId
@@ -106,7 +105,6 @@ class AlbumInfo extends Component {
           });
         }
       });
-
 
       modelInstance
         .getOneTrack(this.state.lyricId)
@@ -176,7 +174,7 @@ class AlbumInfo extends Component {
     } else {
       return true;
     }
-  };
+  }
 
   render() {
     let lyricList = null;
@@ -185,15 +183,45 @@ class AlbumInfo extends Component {
       case "LOADING":
         lyricList = <em>Loading...</em>;
         break;
+
       case "LOADED":
-        lyricList = (
-          <div>
-            <h2 className="sidebarTitle">{this.state.track.track_name}</h2>
-            <Button className="likeButton" onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button>
-            <p className="simpleFavorite">Artist Name:{this.state.track.artist_name}</p>
-            <p className="simpleFavorite">Album Name:{this.state.track.album_name}</p>
-          </div>
-        );
+        if (fire.auth().currentUser == null) {
+          lyricList = (
+            <div>
+              <h2 className="sidebarTitle">{this.state.track.track_name}</h2>
+              {/* <Button className="likeButton" onClick={() => this.onClickItem(this.changeFavoriteProp(this.state.favorited))}> {this.renderFavoriteHeart()} </Button> */}
+              <p className="simpleFavorite">
+                Artist Name:{this.state.track.artist_name}
+              </p>
+              <p className="simpleFavorite">
+                Album Name:{this.state.track.album_name}
+              </p>
+            </div>
+          );
+        } else {
+          lyricList = (
+            <div>
+              <h2 className="sidebarTitle">{this.state.track.track_name}</h2>
+              <Button
+                className="likeButton"
+                onClick={() =>
+                  this.onClickItem(
+                    this.changeFavoriteProp(this.state.favorited)
+                  )
+                }
+              >
+                {" "}
+                {this.renderFavoriteHeart()}{" "}
+              </Button>
+              <p className="simpleFavorite">
+                Artist Name:{this.state.track.artist_name}
+              </p>
+              <p className="simpleFavorite">
+                Album Name:{this.state.track.album_name}
+              </p>
+            </div>
+          );
+        }
 
         break;
       case "ERROR":
