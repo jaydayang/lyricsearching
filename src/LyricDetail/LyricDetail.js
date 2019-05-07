@@ -5,6 +5,7 @@ import SimpleFavorite from "../SimpleFavoriteList/SimpleFavortieList";
 import modelInstance from "../data/LyricModel";
 import { Container, Row, Col } from "reactstrap";
 import AlbumInfo from "../AlbumInfo/AlbumInfo";
+import { Button } from "reactstrap";
 
 class LyricDetail extends Component {
   constructor(props) {
@@ -69,6 +70,24 @@ class LyricDetail extends Component {
     }
 
   }
+  backToOriginalLanguage() {
+
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsById("originalLanguage");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+
+  }
 
   render() {
     let lyricList = null;
@@ -104,7 +123,10 @@ class LyricDetail extends Component {
               <AlbumInfo parentState={this.state} />
               <span className=" sidebarTitle">Lyrics</span>
               <span className="right" />
-              <div id="google_translate_element" />
+              <div id="google_translate_element">
+
+              </div>
+
               <div className="translate simpleFavorite">{lyricList}</div>
             </Col>
             <Col lg="4" md="4" xs="12">

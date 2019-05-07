@@ -135,3 +135,6 @@
 .fa-heart-o:hover {
   color: #a94442;
 }
+/* #google_translate_element .goog-te-gadget .goog-te-gadget-simple span .goog-te-menu-value span */
+#google_translate_element .goog-te-menu-value
+{ content: 'too translate'}
