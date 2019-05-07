@@ -76,7 +76,7 @@ class ArtistsResults extends Component {
         if (searchResult.length == 0) {
           artistList = (
             <div className="ifTheresNothing">
-              <h3 className="textH3">Oops! There's no artist of this word!</h3>
+              <h3 className="textH3">Oops! There's no artist of this word! :(</h3>
             </div>
           );
         } else {
@@ -106,7 +106,7 @@ class ArtistsResults extends Component {
 
     return (
       <div className="Searching-Results">
-      <br />
+        <br />
         <h2 className="heading2">Search artists named: {this.state.searchWord}</h2>
         <div className="row">{artistList}</div>
       </div>

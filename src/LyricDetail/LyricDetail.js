@@ -67,6 +67,7 @@ class LyricDetail extends Component {
           });
         });
     }
+
   }
 
   render() {
